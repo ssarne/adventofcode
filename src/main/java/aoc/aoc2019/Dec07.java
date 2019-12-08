@@ -79,7 +79,7 @@ public class Dec07 {
       for (int i = 0; i < amps.length; i++) {
         // System.out.printf("%3d: %d %d", n, i, amplified);
         amps[i].input.add(amplified);
-        amps[i].execute();
+        IntCode.execute(amps[i]);
         amplified = amps[i].output.poll();
         // System.out.printf("-> %d      (%s)\n", amplified, amps[i].status);
       }
@@ -122,147 +122,7 @@ public class Dec07 {
       this.output = new ConcurrentLinkedQueue();
     }
 
-    Program execute() {
-
-      //printProgram();
-
-      while (true) {
-
-        int op = mem[pc];
-        int p1 = 0, p2 = 0, p3 = 0, v1 = 0, v2 = 0, v3 = 0;
-        int m1 = 0, m2 = 0, m3 = 0;
-
-        if (op >= 100) {
-          int modes = op / 100;
-          m1 = (modes / 1) % 10;
-          m2 = (modes / 10) % 10;
-          m3 = (modes / 100) % 10;
-          op = op % 100;
-        }
-
-        //printOp();
-
-        switch (op) {
-          // Opcode 1 adds together numbers read from two positions and stores the result in a third position.
-          case 1: // ADD
-            p1 = mem[pc + 1];
-            p2 = mem[pc + 2];
-            p3 = mem[pc + 3];
-            v1 = (m1 == 0 ? mem[p1] : p1);
-            v2 = (m2 == 0 ? mem[p2] : p2);
-            if (m3 == 1) throw new RuntimeException(("CMH"));
-            mem[p3] = v1 + v2;
-            pc += 4;
-            break;
-
-          // Opcode 2 multiplies the two inputs and stores the result in a third position.
-          case 2: // MUL
-            p1 = mem[pc + 1];
-            p2 = mem[pc + 2];
-            p3 = mem[pc + 3];
-            v1 = (m1 == 0 ? mem[p1] : p1);
-            v2 = (m2 == 0 ? mem[p2] : p2);
-            if (m3 == 1) throw new RuntimeException(("CMH"));
-            mem[p3] = v1 * v2;
-            pc += 4;
-            break;
-
-          // Opcode 3 takes a single integer as input and saves it to the position given by its only parameter
-          case 3: // INPUT
-            if (input.isEmpty()) {
-              status = Status.BLOCKED;
-              return this;
-            }
-            p1 = mem[pc + 1];
-            v1 = input.poll();
-            mem[p1] = v1;
-            pc += 2;
-            break;
-
-          // Opcode 4 outputs the value of its only parameter.
-          case 4: // OUTPUT
-            p1 = mem[pc + 1];
-            v1 = (m1 == 0 ? mem[p1] : p1);
-            output.add(v1);
-            pc += 2;
-            break;
-
-          // Opcode 5 is jump-if-true: if the first parameter is non-zero, it sets the instruction
-          // pointer to the value from the second parameter. Otherwise, it does nothing.
-          case 5:
-            p1 = mem[pc + 1];
-            p2 = mem[pc + 2];
-            v1 = (m1 == 0 ? mem[p1] : p1);
-            v2 = (m2 == 0 ? mem[p2] : p2);
-            pc = (v1 != 0 ? v2 : pc + 3);
-            break;
-
-          // Opcode 6 is jump-if-false: if the first parameter is zero, it sets the instruction
-          // pointer to the value from the second parameter. Otherwise, it does nothing.
-          case 6:
-            p1 = mem[pc + 1];
-            p2 = mem[pc + 2];
-            v1 = (m1 == 0 ? mem[p1] : p1);
-            v2 = (m2 == 0 ? mem[p2] : p2);
-            pc = (v1 == 0 ? v2 : pc + 3);
-            break;
-
-          // Opcode 7 is less than: if the first parameter is less than the second parameter, it
-          // stores 1 in the position given by the third parameter. Otherwise, it stores 0.
-          case 7:
-            p1 = mem[pc + 1];
-            p2 = mem[pc + 2];
-            p3 = mem[pc + 3];
-            v1 = (m1 == 0 ? mem[p1] : p1);
-            v2 = (m2 == 0 ? mem[p2] : p2);
-            if (m3 == 1) throw new RuntimeException(("CMH"));
-            //v3 = (m2 == 0 ? mem[p3] : p3);
-            mem[p3] = (v1 < v2 ? 1 : 0);
-            pc += 4;
-            break;
-
-          // Opcode 8 is equals: if the first parameter is equal to the second parameter, it
-          // stores 1 in the position given by the third parameter. Otherwise, it stores 0.
-          case 8:
-            p1 = mem[pc + 1];
-            p2 = mem[pc + 2];
-            p3 = mem[pc + 3];
-            v1 = (m1 == 0 ? mem[p1] : p1);
-            v2 = (m2 == 0 ? mem[p2] : p2);
-            if (m3 == 1) throw new RuntimeException(("CMH"));
-            // v3 = (m3 == 0 ? mem[p3] : p3);
-            mem[p3] = (v1 == v2 ? 1 : 0);
-            pc += 4;
-            break;
-
-          case 99:
-            status = Status.HALT_OK;
-            return this;
-
-          default:
-            System.out.print("Error, pc=" + pc + " op=" + op);
-            status = Status.ERROR;
-            return this;
-        }
-      }
-    }
-
-    void printOp() {
-      System.out.printf(
-          "[%3d] %4s %4s %4s %4s   ||",
-          pc,
-          (pc < mem.length ? "" + mem[pc] : "-"),
-          (pc + 1 < mem.length ? "" + mem[pc + 1] : "-"),
-          (pc + 2 < mem.length ? "" + mem[pc + 2] : "-"),
-          (pc + 3 < mem.length ? "" + mem[pc + 3] : "-"));
-
-      for (int i = 0; i < mem.length && i < 16; i++) {
-        System.out.printf(" %4s%s", mem[i], (i % 4 == 0 ? "  " : ""));
-      }
-      System.out.println();
-    }
-
-    void printProgram() {
+    void print() {
       System.out.println("======================= pc=" + pc + "   input=" + input.toString());
       System.out.println("======================= memory=" + Arrays.toString(mem));
     }
@@ -283,6 +143,152 @@ public class Dec07 {
       String line = getLines(program).get(0);
       int[] memory = Arrays.stream(line.split(",")).mapToInt(Integer::parseInt).toArray();
       return create(memory, input);
+    }
+  }
+
+  private static class IntCode {
+
+    static Program execute(Program p) {
+
+      // p.print();
+
+      while (true) {
+
+        final int pc = p.pc;
+        int [] mem = p.mem;
+
+        int op = p.mem[p.pc];
+        int p1 = 0, p2 = 0, p3 = 0, v1 = 0, v2 = 0, v3 = 0;
+        int m1 = 0, m2 = 0, m3 = 0;
+
+        if (op >= 100) {
+          int modes = op / 100;
+          m1 = (modes / 1) % 10;
+          m2 = (modes / 10) % 10;
+          m3 = (modes / 100) % 10;
+          op = op % 100;
+        }
+
+        // printOp(pc, mem);
+
+        switch (op) {
+          // Opcode 1 adds together numbers read from two positions and stores the result in a third position.
+          case 1: // ADD
+            p1 = mem[pc + 1];
+            p2 = mem[pc + 2];
+            p3 = mem[pc + 3];
+            v1 = (m1 == 0 ? mem[p1] : p1);
+            v2 = (m2 == 0 ? mem[p2] : p2);
+            if (m3 == 1) throw new RuntimeException(("CMH"));
+            mem[p3] = v1 + v2;
+            p.pc += 4;
+            break;
+
+          // Opcode 2 multiplies the two inputs and stores the result in a third position.
+          case 2: // MUL
+            p1 = mem[pc + 1];
+            p2 = mem[pc + 2];
+            p3 = mem[pc + 3];
+            v1 = (m1 == 0 ? mem[p1] : p1);
+            v2 = (m2 == 0 ? mem[p2] : p2);
+            if (m3 == 1) throw new RuntimeException(("CMH"));
+            mem[p3] = v1 * v2;
+            p.pc += 4;
+            break;
+
+          // Opcode 3 takes a single integer as input and saves it to the position given by its only parameter
+          case 3: // INPUT
+            if (p.input.isEmpty()) {
+              p.status = Program.Status.BLOCKED;
+              return p;
+            }
+            p1 = mem[pc + 1];
+            v1 = p.input.poll();
+            mem[p1] = v1;
+            p.pc += 2;
+            break;
+
+          // Opcode 4 outputs the value of its only parameter.
+          case 4: // OUTPUT
+            p1 = mem[pc + 1];
+            v1 = (m1 == 0 ? mem[p1] : p1);
+            p.output.add(v1);
+            p.pc += 2;
+            break;
+
+          // Opcode 5 is jump-if-true: if the first parameter is non-zero, it sets the instruction
+          // pointer to the value from the second parameter. Otherwise, it does nothing.
+          case 5:
+            p1 = mem[pc + 1];
+            p2 = mem[pc + 2];
+            v1 = (m1 == 0 ? mem[p1] : p1);
+            v2 = (m2 == 0 ? mem[p2] : p2);
+            p.pc = (v1 != 0 ? v2 : pc + 3);
+            break;
+
+          // Opcode 6 is jump-if-false: if the first parameter is zero, it sets the instruction
+          // pointer to the value from the second parameter. Otherwise, it does nothing.
+          case 6:
+            p1 = mem[pc + 1];
+            p2 = mem[pc + 2];
+            v1 = (m1 == 0 ? mem[p1] : p1);
+            v2 = (m2 == 0 ? mem[p2] : p2);
+            p.pc = (v1 == 0 ? v2 : pc + 3);
+            break;
+
+          // Opcode 7 is less than: if the first parameter is less than the second parameter, it
+          // stores 1 in the position given by the third parameter. Otherwise, it stores 0.
+          case 7:
+            p1 = mem[pc + 1];
+            p2 = mem[pc + 2];
+            p3 = mem[pc + 3];
+            v1 = (m1 == 0 ? mem[p1] : p1);
+            v2 = (m2 == 0 ? mem[p2] : p2);
+            if (m3 == 1) throw new RuntimeException(("CMH"));
+            //v3 = (m2 == 0 ? mem[p3] : p3);
+            mem[p3] = (v1 < v2 ? 1 : 0);
+            p.pc += 4;
+            break;
+
+          // Opcode 8 is equals: if the first parameter is equal to the second parameter, it
+          // stores 1 in the position given by the third parameter. Otherwise, it stores 0.
+          case 8:
+            p1 = mem[pc + 1];
+            p2 = mem[pc + 2];
+            p3 = mem[pc + 3];
+            v1 = (m1 == 0 ? mem[p1] : p1);
+            v2 = (m2 == 0 ? mem[p2] : p2);
+            if (m3 == 1) throw new RuntimeException(("CMH"));
+            // v3 = (m3 == 0 ? mem[p3] : p3);
+            mem[p3] = (v1 == v2 ? 1 : 0);
+            p.pc += 4;
+            break;
+
+          case 99:
+            p.status = Program.Status.HALT_OK;
+            return p;
+
+          default:
+            System.out.print("Error, pc=" + pc + " op=" + op);
+            p.status = Program.Status.ERROR;
+            return p;
+        }
+      }
+    }
+
+    static void printOp(int pc, int [] mem) {
+      System.out.printf(
+          "[%3d] %4s %4s %4s %4s   ||",
+          pc,
+          (pc < mem.length ? "" + mem[pc] : "-"),
+          (pc + 1 < mem.length ? "" + mem[pc + 1] : "-"),
+          (pc + 2 < mem.length ? "" + mem[pc + 2] : "-"),
+          (pc + 3 < mem.length ? "" + mem[pc + 3] : "-"));
+
+      for (int i = 0; i < mem.length && i < 16; i++) {
+        System.out.printf(" %4s%s", mem[i], (i % 4 == 0 ? "  " : ""));
+      }
+      System.out.println();
     }
   }
 }
