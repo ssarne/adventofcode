@@ -20,7 +20,7 @@ public class Dec08 {
   }
 
   public static void task1() throws Exception {
-    String line = getLines("aoc2019/dec08.txt").get(0);
+    String line = getLines().get(0);
     int result = doit(line, 25, 6);
     System.out.println("Result 1: " + result);
   }
@@ -61,7 +61,7 @@ public class Dec08 {
 
   public static void task2() throws Exception {
 
-    String line = getLines("aoc2019/dec08.txt").get(0);
+    String line = getLines().get(0);
     List<String> layers = getLayers(line, 25, 6);
     char[] image = buildImage(layers, 25, 6);
 
