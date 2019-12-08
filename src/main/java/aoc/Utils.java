@@ -9,9 +9,22 @@ import java.util.List;
 
 public class Utils {
 
+  public static List<String> getLines() throws Exception {
+    String name = getCallerClass();
+    String year = name.split("\\.")[1].replace("aoc", "");
+    String day = name.split("\\.")[2];
+    if (!InputDownloader.hasInputFile(year, day)) {
+      InputDownloader.getInputFile(year, day);
+    }
+    return getLines(InputDownloader.getPathname(year, day));
+  }
+
+
+
   public static List<String> getLines(String filename) {
     try {
-      File file = new File("src/main/resources/" + filename);
+      String pathName = InputDownloader.getPathname(filename);
+      File file = new File(pathName);
       BufferedReader br = new BufferedReader(new FileReader(file));
 
       ArrayList<String> lines = new ArrayList<>();
@@ -22,6 +35,17 @@ public class Utils {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  private static String getCallerClass() {
+    StackTraceElement[] stElements = Thread.currentThread().getStackTrace();
+    for (int i = 1; i < stElements.length; i++) {
+      StackTraceElement ste = stElements[i];
+      if (!ste.getClassName().equals(Utils.class.getName()) && ste.getClassName().indexOf("java.lang.Thread") != 0) {
+        return ste.getClassName();
+      }
+    }
+    return null;
   }
 
   public static String indent(int level) {

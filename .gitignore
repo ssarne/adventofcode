@@ -1,3 +1,6 @@
+## Personal files
+.aocdlconfig
+
 ## Artifacts
 *.class
 
@@ -17,10 +20,6 @@ target
 ## Temp
 *~
 .#*
-
-dependency-reduced-pom.xml
-.helios/helios-job-ids
-created_job_ids
 
 ## Project Files
 *-user.conf
