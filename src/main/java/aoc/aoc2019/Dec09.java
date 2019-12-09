@@ -150,7 +150,6 @@ public class Dec09 {
           m2 = (modes / 10) % 10;
           m3 = (modes / 100) % 10;
           op = op % 100;
-          // if (m3 > 0) throw new RuntimeException(("CMH"));
         }
 
         // printOp(pc, mem);
@@ -189,9 +188,7 @@ public class Dec09 {
               return p;
             }
             p1 = read(pc + 1, mem);
-            v1 = resolve(p1, m1, mem, offset, true); //, true);
-            // v1 = resolve(p1, 0, mem, offset);
-            // v1 = (m1 != 2 ? v1 : v1 + offset);
+            v1 = resolve(p1, m1, mem, offset, true);
             v2 = p.input.poll();
             store(v1, v2, mem);
             p.pc += 2;
@@ -200,9 +197,7 @@ public class Dec09 {
           // Opcode 4 outputs the value of its only parameter.
           case 4: // OUTPUT
             p1 = read(pc + 1, mem);
-            v1 = resolve(p1, m1, mem, offset); // true
-            // v1 = resolve(p1, 0, mem, offset);
-            // v1 = (m1 != 2 ? v1 : v1 + offset);
+            v1 = resolve(p1, m1, mem, offset);
             p.output.add(v1);
             p.pc += 2;
             break;
