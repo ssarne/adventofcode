@@ -24,29 +24,26 @@ public class Dec09 {
   }
 
   public static void testit(String line, String expected) throws Exception {
-    long [] memory = Arrays.stream(line.split(",")).mapToLong(Long::parseLong).toArray();
-    Program p = Program.create(memory);
+    Program p = Program.create(line);
     IntCode.execute(p);
     String result = p.output.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(","));
     check(result, expected);
   }
 
   public static void task1() throws Exception {
-    String line = getLines().get(0);
-    long [] memory = Arrays.stream(line.split(",")).mapToLong(Long::parseLong).toArray();
-    Program p = Program.create(memory);
+
+    Program p = Program.create(getLines().get(0));
     p.input.add(1L);
     IntCode.execute(p);
-    System.out.println("Result: " + p.output.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(",")));
+    System.out.println("Result: " + p.getOutputAsString());
   }
 
   public static void task2() throws Exception {
-    String line = getLines().get(0);
-    long [] memory = Arrays.stream(line.split(",")).mapToLong(Long::parseLong).toArray();
-    Program p = Program.create(memory);
+
+    Program p = Program.create(getLines().get(0));
     p.input.add(2L);
     IntCode.execute(p);
-    System.out.println("Result: " + p.output.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(",")));
+    System.out.println("Result: " + p.getOutputAsString());
   }
 
   private static class Program {
@@ -78,6 +75,10 @@ public class Dec09 {
       System.out.println("======================= memory=" + mem.toString());
     }
 
+    public String getOutputAsString() {
+      return output.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(","));
+    }
+
     static Program create(long[] memory) {
       return new Program(memory);
     }
@@ -90,10 +91,9 @@ public class Dec09 {
       return p;
     }
 
-    static Program create(String program, long[] input) {
-      String line = getLines(program).get(0);
-      long[] memory = Arrays.stream(line.split(",")).mapToLong(Long::parseLong).toArray();
-      return create(memory, input);
+    static Program create(String program) {
+      long[] memory = Arrays.stream(program.split(",")).mapToLong(Long::parseLong).toArray();
+      return create(memory);
     }
   }
 
