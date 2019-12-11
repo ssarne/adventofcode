@@ -9,19 +9,25 @@ import java.util.List;
 
 public class Utils {
 
-  public static List<String> getLines() throws Exception {
-    String name = getCallerClass();
-    String year = name.split("\\.")[1].replace("aoc", "");
-    String day = name.split("\\.")[2];
-    if (!InputDownloader.hasInputFile(year, day)) {
-      InputDownloader.getInputFile(year, day);
+  public static List<String> getLines() {
+    try {
+      String name = getCallerClass();
+      String year = name.split("\\.")[1].replace("aoc", "");
+      String day = name.split("\\.")[2];
+      if (!InputDownloader.hasInputFile(year, day)) {
+        InputDownloader.getInputFile(year, day);
+      }
+      return getLines(InputDownloader.getPathname(year, day));
+    } catch (Exception e) {
+      throw new RuntimeException(e);
     }
-    return getLines(InputDownloader.getPathname(year, day));
   }
 
 
-
   public static List<String> getLines(String filename) {
+    if (filename == null) {
+      return getLines();
+    }
     try {
       String pathName = InputDownloader.getPathname(filename);
       File file = new File(pathName);
@@ -56,7 +62,7 @@ public class Utils {
     return Integer.parseInt(s);
   }
 
-  public static int [] ints(int ... is) {
+  public static int[] ints(int... is) {
     return is;
   }
 
