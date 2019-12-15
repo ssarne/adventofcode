@@ -8,9 +8,12 @@ import java.util.stream.Collectors;
 
 public class IntCode {
 
+  static int loglevel = 0;
+  static int memtrace = 385;
+
   static Program execute(Program p) {
 
-    // p.print();
+    if (loglevel >= 1) p.print();
 
     while (true) {
 
@@ -30,7 +33,7 @@ public class IntCode {
         op = op % 100;
       }
 
-      // printOp(pc, mem);
+      if (loglevel >= 2) printOp(pc, mem);
 
       switch (op) {
         // Opcode 1 adds together numbers read from two positions and stores the result in a third position.
@@ -229,7 +232,7 @@ public class IntCode {
     }
 
     void print() {
-      System.out.println("======================= pc=" + pc + "   input=" + input.toString());
+      System.out.println("======================= pc=" + pc + "  status=" + status + "  input=" + input.toString());
       System.out.println("======================= memory=" + mem.toString());
     }
 
@@ -270,11 +273,29 @@ public class IntCode {
         map.put(addr, 0L);
       }
       Long chunk = map.get(addr);
+      if (addr == memtrace && loglevel >= 1) {
+        System.out.println("[mem|read |" + memtrace + "] " + chunk);
+      }
       return chunk.longValue();
     }
 
     public void store(long addr, long value) {
+      if (addr == memtrace && loglevel >= 1) {
+        System.out.println("[mem|store|" + memtrace + "] " + value);
+      }
       map.put(addr, value);
+    }
+
+    public String toString() {
+      return toString(0, 16);
+    }
+
+    public String toString(int start, int length) {
+      StringBuilder sb = new StringBuilder();
+      for (int i = start; i < start + length; i++) {
+        sb.append(String.format("%4d%s", read(i), (i % 4 == 3 ? "   " : " ")));
+      }
+      return sb.toString();
     }
   }
 }
