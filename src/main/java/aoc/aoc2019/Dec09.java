@@ -26,7 +26,7 @@ public class Dec09 {
   public static void testit(String line, String expected) throws Exception {
     Program p = Program.create(line);
     IntCode.execute(p);
-    String result = p.output.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(","));
+    String result = p.getOutputAsString();
     check(result, expected);
   }
 
