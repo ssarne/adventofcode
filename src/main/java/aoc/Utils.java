@@ -94,4 +94,10 @@ public class Utils {
     return line.indexOf(part) + part.length();
   }
 
+  public static String [] concat(String[] src, String s) {
+    String [] res = new String[src.length + 1];
+    System.arraycopy(src, 0, res, 0, src.length);
+    res[src.length] = s;
+    return res;
+  }
 }

@@ -11,6 +11,11 @@ public class IntCode {
   static int loglevel = 0;
   static int memtrace = 385;
 
+  static Program restart(Program p) {
+    p.pc = 0;
+    return execute(p);
+  }
+
   static Program execute(Program p) {
 
     if (loglevel >= 1) p.print();
@@ -231,9 +236,23 @@ public class IntCode {
       this.output = new ConcurrentLinkedQueue();
     }
 
+    Program(Memory memory) {
+      this.pc = 0;
+      this.mem = memory;
+      this.status = Program.Status.NA;
+      this.input = new ConcurrentLinkedQueue();
+      this.output = new ConcurrentLinkedQueue();
+    }
+
     void print() {
       System.out.println("======================= pc=" + pc + "  status=" + status + "  input=" + input.toString());
       System.out.println("======================= memory=" + mem.toString());
+    }
+
+    public void addInput(String ascii) {
+      for (char c : ascii.toCharArray()) {
+        input.add((long) c);
+      }
     }
 
     public String getOutputAsString() {
@@ -243,6 +262,11 @@ public class IntCode {
     static Program create(long[] memory) {
       return new Program(memory);
     }
+
+    static Program create(Memory memory) {
+      return new Program(memory);
+    }
+
 
     static Program create(long[] memory, long[] input) {
       Program p = new Program(memory);
