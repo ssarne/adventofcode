@@ -66,6 +66,10 @@ public class Utils {
     return is;
   }
 
+  public static long[] longs(long... ls) {
+    return ls;
+  }
+
   public static void check(boolean actual, boolean expected) {
     if (actual != expected) {
       System.err.println("Failure: actual=" + actual + "  expected=" + expected);
