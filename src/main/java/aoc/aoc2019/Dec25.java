@@ -107,7 +107,7 @@ public class Dec25 {
     if (output.contains("heavier")) {
       System.out.println("Too light: " + bitSet);
     } else if (output.contains("lighter")) {
-      System.out.println("Too light: " + bitSet);
+      System.out.println("Too heavy: " + bitSet);
     } else {
       System.out.println("Match: " + bitSet);
       return true;

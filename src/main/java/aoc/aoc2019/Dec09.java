@@ -285,7 +285,7 @@ public class Dec09 {
     }
 
     private static long resolve(long p, int m, Memory mem, long offset, boolean write) {
-      // return (m1 == 0 ? mem[(int) p1] : p1);
+      // return (m1 == 0 ? mem[(int) program1] : program1);
      switch (m) {
         case 0:
           if (write) return p;
