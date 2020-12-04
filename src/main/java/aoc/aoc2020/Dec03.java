@@ -48,7 +48,7 @@ public class Dec03 {
     int width = lines.get(0).length();
     int trees = 0;
 
-    for (int i = 0; i < lines.size(); i++) {
+    for (int i = 0; true; i++) {
       int x = (i * dx) % width;
       int y = (i * dy);
       if (y >= lines.size()) {

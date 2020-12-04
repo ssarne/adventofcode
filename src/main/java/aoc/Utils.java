@@ -104,4 +104,48 @@ public class Utils {
     res[src.length] = s;
     return res;
   }
+
+  public static void ensure(boolean b) {
+    if (!b) {
+      throw new AssertionError("Failed sanity check");
+    }
+  }
+
+  public static boolean isNumber(String s) {
+    if (s == null) {
+      return false;
+    }
+
+    try {
+      Integer.parseInt(s);
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
+  public static boolean isNumber(String s, int low, int high) {
+    if (s == null) {
+      return false;
+    }
+
+    try {
+      int i = Integer.parseInt(s);
+      return i >= low && i <= high;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
+  public static boolean isNumberWithUnit(String s, int low, int high, String unit) {
+    if (s == null) {
+      return false;
+    }
+
+    if (!s.endsWith(unit)) {
+      return false;
+    }
+
+    return isNumber(s.replace(unit, ""), low, high);
+  }
 }
