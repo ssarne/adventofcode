@@ -1,0 +1,81 @@
+package aoc.aoc2020;
+
+
+import static aoc.Utils.*;
+
+import java.util.*;
+import java.util.function.Function;
+
+public class Dec05 {
+
+  public static void main(String[] args) throws Exception {
+    test();
+    task1();
+    task2();
+  }
+
+
+  public static void test() {
+    // check(doit("aoc2020/dec05_test.txt", Dec05::calc1), 820);
+    // check(doit("aoc2020/dec05_test.txt", Dec05::calc2), 1);
+  }
+
+  public static void task1() {
+    var result = doit("aoc2020/dec05.txt", Dec05::calc1);
+    check(result, 801);
+    System.out.println("Result: " + result);
+  }
+
+  public static void task2() {
+    int result = doit("aoc2020/dec05.txt", Dec05::calc2);
+    check(result, 597);
+    System.out.println("Result: " + result);
+  }
+
+  public static int doit(String input, Function<HashMap, Integer> calc) {
+
+    var lines = getLines(input);
+    HashMap<Integer, String> seats = new HashMap<>();
+    for (String line : lines) {
+      int row = binary(line, 'F', 'B', 0, 127, 0, 7);
+      int seat = binary(line, 'L', 'R', 0, 7, 7, 10);
+      int id = row * 8 + seat;
+      seats.put(id, line);
+    }
+
+    return calc.apply(seats);
+  }
+
+  private static int binary(String line, char l, char h, int low, int high, int start, int end) {
+    int row;
+    for (int i = start; i < end; i++) {
+      if (line.charAt(i) == h) {
+        low = 1 + (low + high) / 2;
+      } else {
+        ensure(line.charAt(i) == l);
+        high = (low + high) / 2;
+      }
+    }
+    row = low;
+    return row;
+  }
+
+  private static int calc1(HashMap<Integer, String> seats) {
+    int max = 0;
+    for (int id : seats.keySet()) {
+      max = Math.max(max, id);
+    }
+    return max;
+  }
+
+  private static int calc2(HashMap<String, String> seats) {
+    for (int i = 0; i < 127 * 8 + 8; i++) {
+      if (!seats.containsKey(i)) {
+        if (seats.containsKey(i - 1) && seats.containsKey(i + 1)) {
+          return i;
+        }
+      }
+    }
+    return -1;
+  }
+}
