@@ -35,7 +35,7 @@ public class Dec07 {
     Set<String> goldies = new HashSet<>();
     for (Bag bag : bags.values()) {
       if (canContain(bag, bags, goldies, "shiny gold")) {
-        goldies.add(bag.name);
+        goldies.add(bag.color);
       }
     }
     return goldies.size();
@@ -51,18 +51,18 @@ public class Dec07 {
     HashMap<String, Bag> bags = new HashMap<>();
     for (String line : getLines(input)) {
       Bag bag = new Bag(line);
-      bags.put(bag.name, bag);
+      bags.put(bag.color, bag);
     }
     return bags;
   }
 
   private static boolean canContain(Bag bag, Map<String,Bag> bags, Set<String> matches, String target) {
-    if  (matches.contains(bag.name)) {
+    if  (matches.contains(bag.color)) {
       return true;
     }
-    for (Dest d : bag.capabilities) {
+    for (Dest d : bag.contains) {
       if (d.color.equals(target)) {
-        matches.add(bag.name);
+        matches.add(bag.color);
         return true;
       }
       if (matches.contains(d.color)) {
@@ -70,7 +70,7 @@ public class Dec07 {
       }
     }
 
-    for (Dest d : bag.capabilities) {
+    for (Dest d : bag.contains) {
       if (canContain(bags.get(d.color), bags, matches, target)) {
         return true;
       }
@@ -80,17 +80,17 @@ public class Dec07 {
 
   private static int count(HashMap<String,Bag> bags, Bag bag) {
     int sum = 1;
-    for (Dest d : bag.capabilities) {
+    for (Dest d : bag.contains) {
       sum += d.n * count(bags, bags.get(d.color));
     }
     return sum;
   }
 
   private static class Bag {
-    String name;
-    List<Dest> capabilities = new ArrayList<>();
+    String color;
+    List<Dest> contains = new ArrayList<>();
     public Bag(String line) {
-      name = line.substring(0, line.indexOf(" bags contain"));
+      color = line.substring(0, line.indexOf(" bags contain"));
       if (!line.contains("no other bags")) {
         line = line.substring(line.indexOf("contain") + "contain".length() + 1);
         line = line.replace(".", "");
@@ -101,7 +101,7 @@ public class Dec07 {
           int p = target.indexOf(" ");
           int n = Integer.parseInt(target.substring(0, p));
           String color = target.substring(p + 1);
-          capabilities.add(new Dest(color, n));
+          contains.add(new Dest(color, n));
         }
       }
     }
