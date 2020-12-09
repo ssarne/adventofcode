@@ -54,6 +54,16 @@ public class Utils {
     return null;
   }
 
+  public static long[] getNumbers(String input) {
+    List<String> lines = getLines(input);
+    long [] numbers = new long[lines.size()];
+    for (int i = 0; i < lines.size(); i++) {
+      numbers[i] = Long.parseLong(lines.get(i));
+    }
+    return numbers;
+  }
+
+
   public static String indent(int level) {
     return new String(new char[2 * level]).replace('\0', ' ');
   }
