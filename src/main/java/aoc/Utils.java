@@ -64,6 +64,16 @@ public class Utils {
   }
 
 
+  public static int[] getInts(String input) {
+    List<String> lines = getLines(input);
+    int [] numbers = new int[lines.size()];
+    for (int i = 0; i < lines.size(); i++) {
+      numbers[i] = Integer.parseInt(lines.get(i));
+    }
+    return numbers;
+  }
+
+
   public static String indent(int level) {
     return new String(new char[2 * level]).replace('\0', ' ');
   }
