@@ -17,8 +17,6 @@ public class Dec10 {
     check(solve1("aoc2020/dec10_test2.txt"), 220);
     check(solve2("aoc2020/dec10_test1.txt"), 8);
     check(solve2("aoc2020/dec10_test2.txt"), 19208);
-    check(solve2("aoc2020/dec10_test3.txt"), 19208);
-    check(solve2("aoc2020/dec10_test4.txt"), 19208);
   }
 
   public static void task1() {
@@ -50,7 +48,6 @@ public class Dec10 {
 
   private static int adapt(int[] numbers, int n, int c, int... usage) {
     if (n == numbers.length) {
-      System.out.println();
       return usage[1] * usage[3];
     }
 
@@ -77,6 +74,7 @@ public class Dec10 {
         perms[n] += perms[n-1];
       }
     }
+
     return perms[numbers.length - 1];
   }
 }
