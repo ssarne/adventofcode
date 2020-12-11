@@ -6,7 +6,6 @@ import java.util.*;
 
 public class Dec10 {
 
-
   public static void main(String[] args) throws Exception {
     test();
     task1();
