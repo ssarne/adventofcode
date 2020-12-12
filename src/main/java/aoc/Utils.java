@@ -96,6 +96,12 @@ public class Utils {
     }
   }
 
+  public static void check(char actual, char expected) {
+    if (actual != expected) {
+      System.err.println("Failure: actual=" + actual + "  expected=" + expected);
+    }
+  }
+
   public static void check(int actual, int expected) {
     if (actual != expected) {
       System.err.println("Failure: actual=" + actual + "  expected=" + expected);
