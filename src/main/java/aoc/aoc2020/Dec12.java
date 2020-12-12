@@ -1,5 +1,7 @@
 package aoc.aoc2020;
 
+import aoc.Point;
+
 import static aoc.Utils.*;
 
 import java.util.*;
@@ -72,59 +74,42 @@ public class Dec12 {
     public static int solve2(String input) {
 
         var lines = getLines(input);
-        int dx = 0, dy = 0;
-        int wx = 10, wy = 1;
+        var p = new Point(0, 0);
+        var wp = new Point(10, 1);
 
         for (String line : lines) {
             var instr = line.charAt(0);
-            var dist = Integer.parseInt(line.substring(1));
+            var value = Integer.parseInt(line.substring(1));
 
             if (instr == 'F') {
-                dx += dist * wx;
-                dy += dist * wy;
+                p = p.add(wp.scale(value));
                 continue;
             }
 
             if (instr == 'L' || instr == 'R') {
-                ensure(dist == 90 || dist == 180 || dist == 270);
-                int a = (instr == 'L' ? dist : 360 - dist);
-                int t = wx;
-                switch (a) {
-                    case 90:
-                        wx = -wy;
-                        wy = t;
-                        break;
-                    case 180:
-                        wx = -wx;
-                        wy = -wy;
-                        break;
-                    case 270:
-                        wx = wy;
-                        wy = -t;
-                        break;
-                }
+                wp = wp.rotate(instr, value);
                 continue;
             }
 
             switch (instr) {
                 case 'N':
-                    wy += dist;
+                    wp = wp.dy(value);
                     break;
                 case 'S':
-                    wy -= dist;
+                    wp = wp.dy(-value);
                     break;
                 case 'E':
-                    wx += dist;
+                    wp = wp.dx(value);
                     break;
                 case 'W':
-                    wx -= dist;
+                    wp = wp.dx(-value);
                     break;
                 default:
                     throw new UnsupportedOperationException();
             }
         }
 
-        return Math.abs(dx) + Math.abs(dy);
+        return p.manhattan();
     }
 
     private static char rotate(char direction, int angle, char rotation) {

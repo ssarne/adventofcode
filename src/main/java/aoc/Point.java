@@ -39,4 +39,12 @@ public class Point {
                 throw new UnsupportedOperationException("Unsupported angle " + angle);
         }
     }
+
+    public int manhattan() {
+        return Math.abs(x) + Math.abs(y);
+    }
+
+    public String toString() {
+        return x + "," + y;
+    }
 }
