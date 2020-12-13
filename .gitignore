@@ -30,3 +30,7 @@ nb-configuration.xml
 
 *.orig
 *.swp
+
+# PyCharm
+venv
+
