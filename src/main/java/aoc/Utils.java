@@ -82,6 +82,16 @@ public class Utils {
     return Integer.parseInt(s);
   }
 
+  public static int[] asInts(String s) {
+    String [] sv = s.split(",");
+    int [] ints = new int[sv.length];
+    for (int i = 0; i < sv.length; i++) {
+      ints[i] = Integer.parseInt(sv[i]);
+    }
+    return ints;
+  }
+
+
   public static int[] ints(int... is) {
     return is;
   }
