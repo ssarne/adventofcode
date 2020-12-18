@@ -1,10 +1,10 @@
 package aoc.aoc2020;
 
-import aoc.Utils;
+import aoc.utils.Utils;
 
 import java.util.HashMap;
 
-import static aoc.Utils.check;
+import static aoc.utils.Utils.check;
 
 public class Dec15 {
 

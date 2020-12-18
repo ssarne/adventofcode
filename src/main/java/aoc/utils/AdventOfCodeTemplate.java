@@ -1,6 +1,6 @@
-package aoc;
+package aoc.utils;
 
-import static aoc.Utils.*;
+import static aoc.utils.Utils.*;
 import static java.lang.System.out;
 
 import java.util.*;

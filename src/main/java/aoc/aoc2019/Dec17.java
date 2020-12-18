@@ -1,8 +1,8 @@
 package aoc.aoc2019;
 
-import static aoc.Utils.getLines;
+import static aoc.utils.Utils.getLines;
 
-import aoc.Utils;
+import aoc.utils.Utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -1,6 +1,6 @@
-package aoc;
+package aoc.utils;
 
-import aoc.InputDownloader;
+import aoc.utils.InputDownloader;
 import java.io.File;
 import org.junit.Assert;
 import org.junit.Ignore;

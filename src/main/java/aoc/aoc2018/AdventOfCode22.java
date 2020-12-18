@@ -1,6 +1,6 @@
 package aoc.aoc2018;
 
-import static aoc.Utils.check;
+import static aoc.utils.Utils.check;
 import static java.lang.System.out;
 
 import java.util.LinkedList;

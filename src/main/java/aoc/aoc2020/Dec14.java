@@ -4,7 +4,7 @@ import java.util.*;
 
 import static java.util.Arrays.stream;
 
-import static aoc.Utils.*;
+import static aoc.utils.Utils.*;
 
 public class Dec14 {
 

@@ -2,7 +2,7 @@ package aoc.aoc2020;
 
 import java.util.*;
 
-import static aoc.Utils.*;
+import static aoc.utils.Utils.*;
 
 public class Dec16 {
 

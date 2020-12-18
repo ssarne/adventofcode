@@ -1,8 +1,8 @@
 package aoc.aoc2018;
 
-import static aoc.Utils.check;
+import static aoc.utils.Utils.check;
 
-import aoc.Utils;
+import aoc.utils.Utils;
 import java.io.IOException;
 
 public class AdventOfCode11 {

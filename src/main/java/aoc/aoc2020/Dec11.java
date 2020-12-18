@@ -2,8 +2,8 @@ package aoc.aoc2020;
 
 import java.util.*;
 
-import static aoc.Utils.check;
-import static aoc.Utils.getLines;
+import static aoc.utils.Utils.check;
+import static aoc.utils.Utils.getLines;
 
 public class Dec11 {
 

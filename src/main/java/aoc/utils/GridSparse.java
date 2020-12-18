@@ -1,20 +1,17 @@
-package aoc;
-
-import aoc.aoc2020.Dec17;
+package aoc.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import static aoc.Utils.check;
-import static aoc.Utils.ensure;
+import static aoc.utils.Utils.check;
 
 public class GridSparse {
 
+    final static String dims = "xyzwvuts";
     final static int X = 0;
     final static int Y = 1;
-    final static String dims = "xyzw";
 
     HashMap<String, Character> grid = new HashMap<>();
     int dimensions;

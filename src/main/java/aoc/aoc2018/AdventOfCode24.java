@@ -1,9 +1,9 @@
 package aoc.aoc2018;
 
-import static aoc.Utils.after;
-import static aoc.Utils.asInt;
-import static aoc.Utils.check;
-import static aoc.Utils.getLines;
+import static aoc.utils.Utils.after;
+import static aoc.utils.Utils.asInt;
+import static aoc.utils.Utils.check;
+import static aoc.utils.Utils.getLines;
 import static java.lang.System.out;
 
 import java.util.ArrayList;

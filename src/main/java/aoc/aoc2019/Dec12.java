@@ -1,8 +1,7 @@
 package aoc.aoc2019;
 
-import static aoc.Utils.check;
-import static aoc.Utils.getLines;
-import static java.lang.System.console;
+import static aoc.utils.Utils.check;
+import static aoc.utils.Utils.getLines;
 import static java.lang.System.out;
 
 import java.util.ArrayList;

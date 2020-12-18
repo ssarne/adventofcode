@@ -1,6 +1,6 @@
 package aoc.aoc2019;
 
-import static aoc.Utils.getLines;
+import static aoc.utils.Utils.getLines;
 
 import java.util.ArrayList;
 import java.util.HashMap;

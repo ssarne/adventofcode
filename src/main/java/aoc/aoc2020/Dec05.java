@@ -1,7 +1,7 @@
 package aoc.aoc2020;
 
 
-import static aoc.Utils.*;
+import static aoc.utils.Utils.*;
 
 import java.util.*;
 import java.util.function.Function;

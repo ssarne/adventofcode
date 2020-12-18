@@ -1,15 +1,10 @@
 package aoc.aoc2019;
 
-import static aoc.Utils.check;
-import static aoc.Utils.getLines;
+import static aoc.utils.Utils.check;
+import static aoc.utils.Utils.getLines;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Dec24 {
 

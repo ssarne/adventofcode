@@ -1,6 +1,6 @@
 package aoc.aoc2018;
 
-import static aoc.Utils.getLines;
+import static aoc.utils.Utils.getLines;
 
 import java.io.IOException;
 import java.util.ArrayList;

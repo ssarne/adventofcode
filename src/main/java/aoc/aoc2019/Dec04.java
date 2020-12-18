@@ -1,6 +1,6 @@
 package aoc.aoc2019;
 
-import static aoc.Utils.check;
+import static aoc.utils.Utils.check;
 
 public class Dec04 {
 

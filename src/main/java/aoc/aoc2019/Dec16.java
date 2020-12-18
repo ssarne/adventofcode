@@ -1,12 +1,9 @@
 package aoc.aoc2019;
 
-import static aoc.Utils.check;
-import static aoc.Utils.getLines;
-import static java.lang.System.in;
-import static java.lang.System.out;
+import static aoc.utils.Utils.check;
+import static aoc.utils.Utils.getLines;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class Dec16 {
 

@@ -1,7 +1,7 @@
 package aoc.aoc2020;
 
-import static aoc.Utils.check;
-import static aoc.Utils.getLines;
+import static aoc.utils.Utils.check;
+import static aoc.utils.Utils.getLines;
 
 import java.util.List;
 

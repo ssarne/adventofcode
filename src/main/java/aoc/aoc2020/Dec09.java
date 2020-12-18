@@ -1,8 +1,6 @@
 package aoc.aoc2020;
 
-import static aoc.Utils.*;
-
-import java.util.*;
+import static aoc.utils.Utils.*;
 
 public class Dec09 {
 

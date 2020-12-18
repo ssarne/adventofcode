@@ -2,7 +2,7 @@ package aoc.aoc2020;
 
 import static java.util.Arrays.stream;
 
-import static aoc.Utils.*;
+import static aoc.utils.Utils.*;
 
 import java.util.*;
 

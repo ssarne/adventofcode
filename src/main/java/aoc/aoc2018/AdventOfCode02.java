@@ -1,6 +1,6 @@
 package aoc.aoc2018;
 
-import static aoc.Utils.*;
+import static aoc.utils.Utils.*;
 
 import java.io.IOException;
 import java.util.HashMap;

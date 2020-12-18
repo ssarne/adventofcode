@@ -1,10 +1,10 @@
 package aoc.aoc2018;
 
-import static aoc.Utils.check;
-import static aoc.Utils.getLines;
+import static aoc.utils.Utils.check;
+import static aoc.utils.Utils.getLines;
 import static java.lang.System.out;
 
-import aoc.Utils;
+import aoc.utils.Utils;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;

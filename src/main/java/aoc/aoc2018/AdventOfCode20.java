@@ -1,6 +1,6 @@
 package aoc.aoc2018;
 
-import static aoc.Utils.getLines;
+import static aoc.utils.Utils.getLines;
 import static java.lang.System.out;
 
 import java.math.BigInteger;

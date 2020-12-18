@@ -1,7 +1,7 @@
 package aoc.aoc2020;
 
-import aoc.GridSparse;
-import static aoc.Utils.*;
+import aoc.utils.GridSparse;
+import static aoc.utils.Utils.*;
 
 public class Dec17 {
 
