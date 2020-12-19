@@ -106,6 +106,17 @@ public class Utils {
     }
   }
 
+  public static void check(long [] actual, long [] expected) {
+    if (actual.length != expected.length) {
+      System.err.println("Failure: length actual=" + actual.length + "  length expected=" + expected.length);
+    }
+    for (int i = 0; i < actual.length; i++) {
+      if (actual[i] != expected[i]) {
+        System.err.println("Failure: actual["+i+"]=" + actual[i] + "  expected[\"+i+\"]=" + expected[i]);
+      }
+    }
+  }
+
   public static void check(char actual, char expected) {
     if (actual != expected) {
       System.err.println("Failure: actual=" + actual + "  expected=" + expected);

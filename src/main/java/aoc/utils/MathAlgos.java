@@ -1,10 +1,66 @@
 package aoc.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static aoc.utils.Utils.check;
 
 public class MathAlgos {
 
-    public static void testChineseRemainder() {
+    public static void main(String [] args) {
+        testGCD();
+        testFactors();
+        testChineseRemainder();
+    }
+
+    // The greatest common divisor (GCD) of two integers (numbers),
+    // the largest number that divides them both without a remainder
+    // Euclidian algorithm
+    public static long gcd(long a, long b) {
+        if (a == 0) {
+            return b;
+        }
+        return gcd(b % a, a);
+    }
+
+    private static void testGCD() {
+        check(gcd(10, 15), 5);
+        check(gcd(35, 10), 5);
+        check(gcd(31, 2), 1);
+        check(gcd(31, 3), 1);
+        check(gcd(21, 3), 3);
+    }
+
+    public static List<Long> factors(long n) {
+        List<Long> fs = new ArrayList<>();
+        long end = (long) Math.sqrt(n);
+        long d = 2;
+        while (n != 1 && d <= end) {
+            if (n == d) {
+                fs.add(d);
+                break;
+            }
+            if (n % d == 0) {
+                fs.add(d);
+                n = n/d;
+            } else {
+                d += 1;
+            }
+        }
+        if (n > end) {
+            fs.add(n);
+        }
+        return fs;
+    }
+
+    private static void testFactors() {
+        check(factors(32).stream().mapToLong(Long::longValue).toArray(), Utils.longs(2, 2, 2, 2, 2));
+        check(factors(31).stream().mapToLong(Long::longValue).toArray(), Utils.longs(31));
+        check(factors(150).stream().mapToLong(Long::longValue).toArray(), Utils.longs(2, 3, 5, 5));
+        check(factors(21).stream().mapToLong(Long::longValue).toArray(), Utils.longs(3, 7));
+    }
+
+    private static void testChineseRemainder() {
         long[] l1 = {3, 7, 10};
         long[] l2 = {2, 3, 3};
         check(chineseRemainder(l1, l2), 143);
@@ -63,5 +119,4 @@ public class MathAlgos {
 
         return y;
     }
-
 }
