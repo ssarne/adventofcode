@@ -32,7 +32,7 @@ public class Dec20 {
     public static long solve1(String input) {
         var lines = getLines(input);
         List<Image> tiles = parseTiles(lines);
-        var puzzle = solvePussle(tiles);
+        var puzzle = solvePuzzle(tiles);
         return puzzle.tiles[0][0].id
                 * puzzle.tiles[0][puzzle.size - 1].id
                 * puzzle.tiles[puzzle.size - 1][0].id
@@ -42,7 +42,7 @@ public class Dec20 {
     public static long solve2(String input) {
         var lines = getLines(input);
         var tiles = parseTiles(lines);
-        var puzzle = solvePussle(tiles);
+        var puzzle = solvePuzzle(tiles);
         var image = puzzle.crop();
 
         //puzzle.printIds();
@@ -54,7 +54,7 @@ public class Dec20 {
                 "#    ##    ##    ###",
                 " #  #  #  #  #  #   "};
 
-        int nessies = 0;
+        int monsters = 0;
         Orientation oo = null;
         for (Orientation o : Orientation.values()) {
             for (int y = 0; y < image.size() - nessie.length; y++) {
@@ -68,9 +68,8 @@ public class Dec20 {
                         }
                     }
                     if (match) {
-                        nessies++;
-                        // check orientation, so that all nessie's on the same page
-                        ensure(oo == null || oo == o);
+                        monsters++;
+                        ensure(oo == null || oo == o); // check orientation, verify that all monsters are on the same page
                         oo = o;
                     }
                 }
@@ -86,16 +85,16 @@ public class Dec20 {
             }
         }
 
-        int m = 0; // count # in nessie
-        for (int y = 0; y < nessie.length; y++) {
-            for (int x = 0; x < nessie[y].length(); x++) {
-                if (nessie[y].charAt(x) == '#') {
+        long m = 0; // count # in nessie
+        for (String s : nessie) {
+            for (char c : s.toCharArray()) {
+                if (c == '#') {
                     m++;
                 }
             }
         }
 
-        return n - nessies * m;
+        return n - monsters * m;
     }
 
     private enum Orientation {
@@ -112,13 +111,13 @@ public class Dec20 {
         public final int r;
         public final boolean f;
 
-        private Orientation(int r, boolean f) {
+        Orientation(int r, boolean f) {
             this.r = r;
             this.f = f;
         }
     }
 
-    private static Puzzle solvePussle(List<Image> tiles) {
+    private static Puzzle solvePuzzle(List<Image> tiles) {
         int size = (int) Math.sqrt(tiles.size());
         var puzzle = new Puzzle(size);
         solvePuzzleRecurse(puzzle, tiles, 0);
@@ -375,9 +374,9 @@ public class Dec20 {
 
         public void print() {
             System.out.println("================= Image " + id);
-            for (int y = 0; y < this.canvas.size(); y++) {
-                for (int x = 0; x < this.canvas.get(y).length(); x++) {
-                    System.out.print(this.canvas.get(y).charAt(x));
+            for (String line : this.canvas) {
+                for (char c : line.toCharArray()) {
+                    System.out.print(c);
                 }
                 System.out.println();
             }

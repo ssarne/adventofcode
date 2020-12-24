@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Utils {
@@ -100,6 +101,10 @@ public class Utils {
     return ls;
   }
 
+  public static int ctoi(String input, int index) {
+    return Integer.parseInt(String.valueOf(input.charAt(index)));
+  }
+
   public static void check(boolean actual, boolean expected) {
     if (actual != expected) {
       System.err.println("Failure: actual=" + actual + "  expected=" + expected);
@@ -113,6 +118,21 @@ public class Utils {
     for (int i = 0; i < actual.length; i++) {
       if (actual[i] != expected[i]) {
         System.err.println("Failure: actual["+i+"]=" + actual[i] + "  expected[\"+i+\"]=" + expected[i]);
+      }
+    }
+  }
+
+  public static void check(int [] actual, int [] expected) {
+    if (actual.length < 20 && expected.length < 20) {
+      check(Arrays.toString(actual), Arrays.toString(expected));
+      return;
+    }
+    if (actual.length != expected.length) {
+      System.err.println("Failure: length actual=" + actual.length + "  length expected=" + expected.length);
+    }
+    for (int i = 0; i < actual.length; i++) {
+      if (actual[i] != expected[i]) {
+        System.err.println("Failure: actual["+i+"]=" + actual[i] + "  expected["+i+"]=" + expected[i]);
       }
     }
   }
@@ -194,5 +214,20 @@ public class Utils {
     }
 
     return isNumber(s.replace(unit, ""), low, high);
+  }
+
+  public static void print(int[] arr) {
+    StringBuilder sb = new StringBuilder("[");
+    for (int i = 0; i < Math.min(arr.length, 15); i++) {
+      sb.append(arr[i]).append(" ");
+    }
+    if (arr.length > 20) {
+      sb.append("...");
+      for (int i = arr.length - 5; i < arr.length ; i++) {
+        sb.append(" ").append(arr[i]);
+      }
+    }
+    sb.append("]");
+    System.out.println(sb.toString());
   }
 }
