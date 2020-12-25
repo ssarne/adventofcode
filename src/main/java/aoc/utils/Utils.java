@@ -105,6 +105,15 @@ public class Utils {
     return Integer.parseInt(String.valueOf(input.charAt(index)));
   }
 
+  public static int find(int[] arr, int value) {
+    for (int i = 0; i < arr.length; i++) {
+      if (arr[i] == value) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
   public static void check(boolean actual, boolean expected) {
     if (actual != expected) {
       System.err.println("Failure: actual=" + actual + "  expected=" + expected);
@@ -217,17 +226,26 @@ public class Utils {
   }
 
   public static void print(int[] arr) {
+    System.out.println(prettyToString(arr));
+  }
+
+  public static void print(String str) {
+    System.out.println(str);
+  }
+
+  public static String prettyToString(int[] arr) {
     StringBuilder sb = new StringBuilder("[");
-    for (int i = 0; i < Math.min(arr.length, 15); i++) {
-      sb.append(arr[i]).append(" ");
+    sb.append(arr.length > 0 ? Integer.toString(arr[0]) : "");
+    for (int i = 1; i < Math.min(arr.length, 15); i++) {
+      sb.append(" ").append(arr[i]);
     }
     if (arr.length > 20) {
-      sb.append("...");
-      for (int i = arr.length - 5; i < arr.length ; i++) {
+      sb.append(" ...");
+      for (int i = arr.length - 5; i < arr.length; i++) {
         sb.append(" ").append(arr[i]);
       }
     }
     sb.append("]");
-    System.out.println(sb.toString());
+    return sb.toString();
   }
 }

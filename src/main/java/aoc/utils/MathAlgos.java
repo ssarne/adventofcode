@@ -13,6 +13,15 @@ public class MathAlgos {
         testChineseRemainder();
     }
 
+    // Calculate x^y % z
+    public static long pow(long x, long y, long z) {
+        long v = 1;
+        for (int i = 0; i < y; i++) {
+            v = v * x % z;
+        }
+        return v;
+    }
+
     // The greatest common divisor (GCD) of two integers (numbers),
     // the largest number that divides them both without a remainder
     // Euclidian algorithm
