@@ -14,7 +14,7 @@ public class Utils {
     try {
       String name = getCallerClass();
       String year = name.split("\\.")[1].replace("aoc", "");
-      String day = name.split("\\.")[2];
+      String day = name.split("\\.")[2].replace("Kt", "");
       if (!InputDownloader.hasInputFile(year, day)) {
         InputDownloader.getInputFile(year, day);
       }
