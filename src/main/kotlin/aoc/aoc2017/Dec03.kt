@@ -17,9 +17,9 @@ fun main() {
     println(stressTest(368078)) // 369601
 }
 
-data class Pos(var x: Int, var y: Int)
+private data class Pos(var x: Int, var y: Int)
 
-fun getSpiralPosition(number: Int): Pos {
+private fun getSpiralPosition(number: Int): Pos {
 
     var pos = Pos(0,0)
     var step = 1
@@ -62,11 +62,11 @@ fun getSpiralPosition(number: Int): Pos {
     }
 }
 
-fun manhattan(pos: Pos): Int {
+private fun manhattan(pos: Pos): Int {
     return kotlin.math.abs(pos.x) + kotlin.math.abs(pos.y)
 }
 
-fun printStore(store: Map<Pos, Int>) {
+private fun printStore(store: Map<Pos, Int>) {
     for (y in -3 .. 3) {
         for (x in -3 .. 3) {
             var n: Int = store.getOrDefault(Pos(x,-1*y), 0)

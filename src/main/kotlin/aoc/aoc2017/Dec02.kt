@@ -10,7 +10,7 @@ fun main() {
     println(divisesum(null))
 }
 
-fun checksum(fileName: String?): Int {
+private fun checksum(fileName: String?): Int {
     var sum = 0
     for (line in Utils.getLines(fileName)) {
         var min: Int? = null
@@ -25,7 +25,7 @@ fun checksum(fileName: String?): Int {
     return sum
 }
 
-fun divisesum(fileName: String?): Int {
+private fun divisesum(fileName: String?): Int {
     var sum = 0
     for (line in Utils.getLines(fileName)) {
         for (num1 in line.split(" ", "\t")) {

@@ -10,7 +10,7 @@ fun main() {
     println(countJumps2(input(null))) // 31150702
 }
 
-fun countJumps(instructions: IntArray): Int {
+private fun countJumps(instructions: IntArray): Int {
     var steps = 0
     var pos = 0
 
@@ -24,7 +24,7 @@ fun countJumps(instructions: IntArray): Int {
     return steps
 }
 
-fun countJumps2(instructions: IntArray): Int {
+private fun countJumps2(instructions: IntArray): Int {
     var steps = 0
     var pos = 0
 

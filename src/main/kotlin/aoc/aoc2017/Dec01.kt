@@ -9,7 +9,7 @@ fun main() {
     println(sumOppositePairs(readText("aoc2017/dec01.txt")))
 }
 
-fun test() {
+private fun test() {
     check(sumNeighbourPairs("1122"), 3)
     check(sumNeighbourPairs("1111"), 4)
     check(sumNeighbourPairs("1234"), 0)
@@ -22,7 +22,7 @@ fun test() {
     check(sumOppositePairs("12131415"), 4)
 }
 
-fun sumNeighbourPairs(input: String): Int {
+private fun sumNeighbourPairs(input: String): Int {
     var sum = 0
     for (i in input.indices)
         if (input[i] == input[(i + 1) % input.length])
@@ -30,7 +30,7 @@ fun sumNeighbourPairs(input: String): Int {
     return sum
 }
 
-fun sumOppositePairs(input: String): Int {
+private fun sumOppositePairs(input: String): Int {
     var sum = 0
     for (i in input.indices)
         if (input[i] == input[(i + (input.length / 2)) % input.length])

@@ -10,7 +10,7 @@ fun main() {
     println(countValidPassPhrasesWithoutAnagrams(null))
 }
 
-fun countValidPassPhrases(fileName: String?): Int {
+private fun countValidPassPhrases(fileName: String?): Int {
     var sum = 0
     for (line in Utils.getLines(fileName)) {
         var words = HashSet<String>()
@@ -24,7 +24,7 @@ fun countValidPassPhrases(fileName: String?): Int {
     return sum
 }
 
-fun countValidPassPhrasesWithoutAnagrams(fileName: String?): Int {
+private fun countValidPassPhrasesWithoutAnagrams(fileName: String?): Int {
     var sum = 0
     for (line in Utils.getLines(fileName)) {
         var words = HashSet<String>()
