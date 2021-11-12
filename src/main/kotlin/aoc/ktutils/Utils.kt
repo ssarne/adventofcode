@@ -16,3 +16,9 @@ fun check(actual: Int, expected: Int) {
         System.err.println("Failure: actual=$actual  expected=$expected")
     }
 }
+
+fun check(actual: String?, expected: String?) {
+    if (actual != expected) {
+        System.err.println("Failure: actual=$actual  expected=$expected")
+    }
+}
