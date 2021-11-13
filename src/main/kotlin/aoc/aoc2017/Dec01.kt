@@ -5,8 +5,8 @@ import aoc.ktutils.readText
 
 fun main() {
     test()
-    println(sumNeighbourPairs(readText("aoc2017/dec01.txt")))
-    println(sumOppositePairs(readText("aoc2017/dec01.txt")))
+    println(sumNeighbourPairs(readText())) // 1182
+    println(sumOppositePairs(readText())) // 1152
 }
 
 private fun test() {

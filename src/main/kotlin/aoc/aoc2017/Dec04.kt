@@ -1,18 +1,20 @@
 package aoc.aoc2017
 
 import aoc.ktutils.check
+import aoc.ktutils.readLines
+import aoc.ktutils.readTestLines
 import aoc.utils.Utils
 
 fun main() {
-    check(countValidPassPhrases("aoc2017/dec04_test.txt"), 2)
-    println(countValidPassPhrases(null))
-    check(countValidPassPhrasesWithoutAnagrams("aoc2017/dec04_test2.txt"), 3)
-    println(countValidPassPhrasesWithoutAnagrams(null))
+    check(countValidPassPhrases(readTestLines()), 2)
+    println(countValidPassPhrases(readLines()))
+    check(countValidPassPhrasesWithoutAnagrams(readTestLines(2)), 3)
+    println(countValidPassPhrasesWithoutAnagrams(readLines()))
 }
 
-private fun countValidPassPhrases(fileName: String?): Int {
+private fun countValidPassPhrases(input: List<String>): Int {
     var sum = 0
-    for (line in Utils.getLines(fileName)) {
+    for (line in input) {
         var words = HashSet<String>()
         var pass = true
         for (word in line.split(" ", "\t")) {
@@ -24,9 +26,9 @@ private fun countValidPassPhrases(fileName: String?): Int {
     return sum
 }
 
-private fun countValidPassPhrasesWithoutAnagrams(fileName: String?): Int {
+private fun countValidPassPhrasesWithoutAnagrams(input: List<String>): Int {
     var sum = 0
-    for (line in Utils.getLines(fileName)) {
+    for (line in input) {
         var words = HashSet<String>()
         var pass = true
         for (word in line.split(" ", "\t")) {

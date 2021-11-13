@@ -1,18 +1,19 @@
 package aoc.aoc2017
 
 import aoc.ktutils.check
-import aoc.utils.Utils
+import aoc.ktutils.readLines
+import aoc.ktutils.readTestLines
 
 fun main() {
-    check(checksum("aoc2017/dec02_test.txt"), 18)
-    println(checksum(null))
-    check(divisesum("aoc2017/dec02_test2.txt"), 9)
-    println(divisesum(null))
+    check(checksum(readTestLines()), 18)
+    println(checksum(readLines())) // 34581
+    check(divisesum(readTestLines(2)), 9)
+    println(divisesum(readLines())) // 214
 }
 
-private fun checksum(fileName: String?): Int {
+private fun checksum(input: List<String>): Int {
     var sum = 0
-    for (line in Utils.getLines(fileName)) {
+    for (line in input) {
         var min: Int? = null
         var max: Int? = null
         for (num in line.split(" ", "\t")) {
@@ -25,9 +26,9 @@ private fun checksum(fileName: String?): Int {
     return sum
 }
 
-private fun divisesum(fileName: String?): Int {
+private fun divisesum(input: List<String>): Int {
     var sum = 0
-    for (line in Utils.getLines(fileName)) {
+    for (line in input) {
         for (num1 in line.split(" ", "\t")) {
             for (num2 in line.split(" ", "\t")) {
                 val a = num1.toInt()

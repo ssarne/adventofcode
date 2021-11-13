@@ -44,7 +44,7 @@ public class Utils {
     }
   }
 
-  private static String getCallerClass() {
+  public static String getCallerClass() {
     StackTraceElement[] stElements = Thread.currentThread().getStackTrace();
     for (int i = 1; i < stElements.length; i++) {
       StackTraceElement ste = stElements[i];

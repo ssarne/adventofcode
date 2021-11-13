@@ -2,22 +2,24 @@ package aoc.aoc2017
 
 import aoc.utils.Utils
 import aoc.ktutils.check
+import aoc.ktutils.readLines
+import aoc.ktutils.readTestLines
 import java.lang.RuntimeException
 
 private data class Res(var end: Int, var top: Int)
 
 fun main() {
-    check(execute("aoc2017/dec08_test.txt").end, 1)
-    check(execute("aoc2017/dec08_test.txt").top, 10)
-    println(execute(null).end) // 3880
-    println(execute(null).top) // 5035
+    check(execute(readTestLines()).end, 1)
+    check(execute(readTestLines()).top, 10)
+    println(execute(readLines()).end) // 3880
+    println(execute(readLines()).top) // 5035
 }
 
-private fun execute(fileName: String?): Res {
+private fun execute(input: List<String>): Res {
 
     val registers: MutableMap<String, Int> = HashMap()
     var top = 0
-    for (line in Utils.getLines(fileName)) {
+    for (line in input) {
         var instr = line.split(" ")
         var cur = registers.getOrDefault(instr[0], 0)
         var ccur = registers.getOrDefault(instr[4], 0)

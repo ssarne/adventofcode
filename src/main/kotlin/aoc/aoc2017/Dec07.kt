@@ -1,7 +1,8 @@
 package aoc.aoc2017
 
-import aoc.utils.Utils
 import aoc.ktutils.check
+import aoc.ktutils.readLines
+import aoc.ktutils.readTestLines
 import java.lang.RuntimeException
 import java.util.*
 
@@ -15,11 +16,11 @@ private data class Input(
 private data class BalanceResult(var result: Boolean = true, var node: Tree? = null, var adjusted: Int = 0)
 
 fun main() {
-    check(findRoot(parse("aoc2017/dec07_test.txt")).label, "tknk")
-    println(findRoot(parse(null)).label)
-    check((isBalanced(findRoot(parse("aoc2017/dec07_test.txt")))).node?.label, "ugml")
-    check((isBalanced(findRoot(parse("aoc2017/dec07_test.txt")))).adjusted, 60)
-    println(isBalanced(findRoot(parse(null))).adjusted) // 802
+    check(findRoot(parse(readTestLines())).label, "tknk")
+    println(findRoot(parse(readLines())).label) // ahnofa
+    check((isBalanced(findRoot(parse(readTestLines())))).node?.label, "ugml")
+    check((isBalanced(findRoot(parse(readTestLines())))).adjusted, 60)
+    println(isBalanced(findRoot(parse(readLines()))).adjusted) // 802
 }
 
 private fun isBalanced(tree: Tree): BalanceResult {
@@ -114,10 +115,10 @@ private fun findRoot(input: Input): Tree {
     throw RuntimeException("Failed")
 }
 
-private fun parse(fileName: String?): Input {
+private fun parse(lines: List<String>): Input {
 
     val input = Input(HashMap(), HashMap(), HashMap())
-    for (line in Utils.getLines(fileName)) {
+    for (line in lines) {
         val tokens = line.split(" ")
         val p = Tree(tokens[0], tokens[1].removePrefix("(").removeSuffix(")").toInt())
         input.nodes[p.label] = p

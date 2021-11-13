@@ -21,12 +21,12 @@ public class InputDownloader {
            : "src/main/resources/" + filename;
   }
 
-  static boolean hasInputFile(String year, String day) throws Exception {
+  public static boolean hasInputFile(String year, String day) throws Exception {
     return new File(getPathname(year, day)).exists();
   }
   
   // https://adventofcode.com/2019/day/8/input
-  static void getInputFile(String year, String day) throws Exception {
+  public static void getInputFile(String year, String day) throws Exception {
     
     String d = day.toLowerCase()
         .replace("dec0", "")

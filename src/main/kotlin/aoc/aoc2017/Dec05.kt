@@ -1,13 +1,15 @@
 package aoc.aoc2017
 
 import aoc.ktutils.check
+import aoc.ktutils.readLines
+import aoc.ktutils.readTestLines
 import aoc.utils.Utils
 
 fun main() {
-    check(countJumps(input("aoc2017/dec05_test.txt")), 5)
-    println(countJumps(input(null))) // 394829
-    check(countJumps2(input("aoc2017/dec05_test.txt")), 10)
-    println(countJumps2(input(null))) // 31150702
+    check(countJumps(input(readTestLines())), 5)
+    println(countJumps(input(readLines()))) // 394829
+    check(countJumps2(input(readTestLines())), 10)
+    println(countJumps2(input(readLines()))) // 31150702
 }
 
 private fun countJumps(instructions: IntArray): Int {
@@ -38,9 +40,8 @@ private fun countJumps2(instructions: IntArray): Int {
     return steps
 }
 
-private fun input(fileName: String?): IntArray {
-    var instr = Utils.getLines(fileName)
-        .map { line -> line.toInt() }
+private fun input(input: List<String>): IntArray {
+    var instr = input.map { line -> line.toInt() }
         .toIntArray()
     return instr
 }

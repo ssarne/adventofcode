@@ -2,15 +2,16 @@ package aoc.aoc2017
 
 import aoc.utils.Utils
 import aoc.ktutils.check
+import aoc.ktutils.readLines
 import java.util.*
 
 private data class Result(var allocs: Int, var loop: Int)
 
 fun main() {
     check(countReallocations(intArrayOf(0, 2, 7, 0)).allocs, 5)
-    println(countReallocations(input(null)).allocs) // 14029
+    println(countReallocations(input(readLines())).allocs) // 14029
     check(countReallocations(intArrayOf(0, 2, 7, 0)).loop, 4)
-    println(countReallocations(input(null)).loop) // 2765
+    println(countReallocations(input(readLines())).loop) // 2765
 }
 
 private fun countReallocations(banks: IntArray): Result {
@@ -37,8 +38,8 @@ private fun getMax(banks: IntArray): Int {
     return max
 }
 
-private fun input(fileName: String?): IntArray {
-    var ints = Utils.getLines(fileName)
+private fun input(input: List<String>): IntArray {
+    var ints = input
         .first()
         .split(" ", "\t")
         .map { t -> t.toInt() }
