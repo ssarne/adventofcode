@@ -18,7 +18,7 @@ fun main() {
     check(execute("s,s,s,nw").first, 3)
     println(execute(readText()).first) // 796
     check(execute("ne,ne,sw,sw").second, 2)
-    println(execute(readText()).second) // 796
+    println(execute(readText()).second) // 1585
 }
 
 private fun execute(input: String): Pair<Int, Int> {
