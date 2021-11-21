@@ -2,7 +2,6 @@ package aoc.ktutils
 
 import aoc.utils.InputDownloader
 import java.io.File
-import kotlin.math.exp
 
 fun check(actual: Boolean, expected: Boolean) {
     if (actual != expected) {
@@ -56,7 +55,9 @@ fun readText(): String {
     var fileName = getInputFilePath(year, day)
     if (!InputDownloader.hasInputFile(year, day))
         InputDownloader.getInputFile(year, day)
-    return File(fileName).readText(Charsets.UTF_8)
+    var text = File(fileName).readText(Charsets.UTF_8)
+    if (text.endsWith("\n") || text.endsWith("\r")) text = text.substring(0, text.length - 1)
+    return text
 }
 
 fun readTestText(testIndex: Int = 0): String {
