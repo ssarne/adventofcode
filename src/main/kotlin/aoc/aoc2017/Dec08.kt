@@ -1,6 +1,5 @@
 package aoc.aoc2017
 
-import aoc.utils.Utils
 import aoc.ktutils.check
 import aoc.ktutils.readLines
 import aoc.ktutils.readTestLines

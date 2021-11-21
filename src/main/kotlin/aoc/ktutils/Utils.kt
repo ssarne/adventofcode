@@ -2,6 +2,7 @@ package aoc.ktutils
 
 import aoc.utils.InputDownloader
 import java.io.File
+import kotlin.math.exp
 
 fun check(actual: Boolean, expected: Boolean) {
     if (actual != expected) {
@@ -14,6 +15,20 @@ fun check(actual: Int, expected: Int) {
         System.err.println("Failure: actual=$actual  expected=$expected")
     }
 }
+
+fun check(actual: IntArray, expected: IntArray) {
+    if (actual.size != expected.size) {
+        System.err.println("Failure: actual.size=${actual.size}  expected.size=${expected.size}")
+        return
+    }
+    for (i in actual.indices) {
+        if (actual[i] != expected[i]) {
+            System.err.println("Failure: actual[$i]=${actual[i]}  expected[i]=${expected[i]}")
+            return
+        }
+    }
+}
+
 
 fun check(actual: String?, expected: String?) {
     if (actual != expected) {
@@ -46,8 +61,25 @@ fun readText(): String {
 
 fun readTestText(testIndex: Int = 0): String {
     val (year, day) = getYearAndDay()
-    var fileName = getInputFilePath(year, day,true, testIndex)
-    return  File(fileName).readText(Charsets.UTF_8)
+    var fileName = getInputFilePath(year, day, true, testIndex)
+    return File(fileName).readText(Charsets.UTF_8)
+}
+
+fun readInts(): IntArray {
+    return asIntArray(readText())
+}
+
+fun readTestInts(): IntArray {
+    return asIntArray(readTestText())
+}
+
+fun asIntArray(text: String): IntArray {
+    return text
+        .replace("\n", " ")
+        .split(",", " ", "\t")
+        .filter{ t -> t != "" }
+        .map { t -> t.toInt() }
+        .toIntArray()
 }
 
 private fun getInputFilePath(year: String, day: String, test: Boolean = false, testIndex: Int = 0): String {
@@ -58,6 +90,7 @@ private fun getInputFilePath(year: String, day: String, test: Boolean = false, t
 }
 
 private data class YearAndDay(var year: String, var day: String)
+
 private fun getYearAndDay(): YearAndDay {
     val name = getCallerClass()
     val year = name.split(".").toTypedArray()[1].replace("aoc", "")
@@ -71,7 +104,8 @@ private fun getCallerClass(): String {
         val ste = stElements[i]
         if (ste.className != "aoc.ktutils.UtilsKt"
             && ste.className != "aoc.utils.Utils"
-            && ste.className.indexOf("java.lang.Thread") != 0) {
+            && ste.className.indexOf("java.lang.Thread") != 0
+        ) {
             return ste.className
         }
     }
