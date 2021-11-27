@@ -8,7 +8,7 @@ fun main() {
     check(severity(parse(readTestLines()), 0).second, 24)
     println(severity(parse(readLines()), 0).second) // 1580
     check(probe(parse(readTestLines())), 10)
-    println(probe(parse(readLines())))
+    println(probe(parse(readLines()))) // 3943252
 }
 
 private fun probe(firewall: Map<Int, Int>): Int {
