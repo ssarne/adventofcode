@@ -15,6 +15,12 @@ fun check(actual: Int, expected: Int) {
     }
 }
 
+fun check(actual: Long, expected: Long) {
+    if (actual != expected) {
+        System.err.println("Failure: actual=$actual  expected=$expected")
+    }
+}
+
 fun check(actual: IntArray, expected: IntArray) {
     if (actual.size != expected.size) {
         System.err.println("Failure: actual.size=${actual.size}  expected.size=${expected.size}")
