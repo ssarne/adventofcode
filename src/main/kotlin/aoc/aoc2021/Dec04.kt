@@ -7,19 +7,19 @@ import aoc.ktutils.readTestLines
 
 fun main() {
     check(execute1(readTestLines()), 4512)
-    println(execute1(readLines())) // 50008
+    execute1(readLines()).let { println(it) ; check(it , 50008) }
 
     check(execute2(readTestLines()), 1924)
-    println(execute2(readLines())) // 17408
+    execute2(readLines()).let { println(it) ; check(it, 17408) }
 }
 
 private fun execute1(input: List<String>): Int {
 
-    var numbers = asIntArray(input.first())
-    var boards = parseBoards(input)
+    val numbers = asIntArray(input.first())
+    val boards = parseBoards(input)
 
     for (number in numbers) {
-        var result = play(boards, number)
+        val result = play(boards, number)
         if (result != null) return result.score
     }
     return 0
@@ -27,11 +27,11 @@ private fun execute1(input: List<String>): Int {
 
 private fun execute2(input: List<String>): Int {
 
-    var numbers = asIntArray(input.first())
-    var boards = parseBoards(input)
+    val numbers = asIntArray(input.first())
+    val boards = parseBoards(input)
 
     for (number in numbers) {
-        var result = play(boards, number)
+        val result = play(boards, number)
         if (result != null) {
             var next = result
             while (next != null) {
@@ -60,7 +60,7 @@ private fun play(boards: HashMap<Int, IntArray>, number: Int): Result? {
 
     var result: Result? = null
     for (k in boards.keys) {
-        var board = boards[k]
+        val board = boards[k]
         if (bingo(board!!)) {
             result = Result(k, number * posSum(board), result)
         }
@@ -96,8 +96,8 @@ private fun bingo(board: IntArray): Boolean {
 }
 
 private fun parseBoards(input: List<String>): HashMap<Int, IntArray> {
-    var boards = HashMap<Int, IntArray>()
-    var noBoards = input.size / 6
+    val boards = HashMap<Int, IntArray>()
+    val noBoards = input.size / 6
     for (i in 0 until noBoards) {
         var board = IntArray(0)
         for (j in 0 until 5) {

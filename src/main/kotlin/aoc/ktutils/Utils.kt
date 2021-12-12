@@ -45,19 +45,19 @@ fun readLines(): List<String> {
     if (!InputDownloader.hasInputFile(year, day))
         InputDownloader.getInputFile(year, day)
 
-    var fileName = getInputFilePath(year, day)
+    val fileName = getInputFilePath(year, day)
     return File(fileName).readLines(Charsets.UTF_8)
 }
 
 fun readTestLines(testIndex: Int = 0): List<String> {
     val (year, day) = getYearAndDay()
-    var fileName = getInputFilePath(year, day, true, testIndex)
+    val fileName = getInputFilePath(year, day, true, testIndex)
     return File(fileName).readLines(Charsets.UTF_8)
 }
 
 fun readText(): String {
     val (year, day) = getYearAndDay()
-    var fileName = getInputFilePath(year, day)
+    val fileName = getInputFilePath(year, day)
     if (!InputDownloader.hasInputFile(year, day))
         InputDownloader.getInputFile(year, day)
     var text = File(fileName).readText(Charsets.UTF_8)
@@ -67,7 +67,7 @@ fun readText(): String {
 
 fun readTestText(testIndex: Int = 0): String {
     val (year, day) = getYearAndDay()
-    var fileName = getInputFilePath(year, day, true, testIndex)
+    val fileName = getInputFilePath(year, day, true, testIndex)
     return File(fileName).readText(Charsets.UTF_8)
 }
 
@@ -101,8 +101,7 @@ fun isLowerCase(text: String): Boolean {
 private fun getInputFilePath(year: String, day: String, test: Boolean = false, testIndex: Int = 0): String {
     var suffix = (if (test) "_test" else "")
     suffix += if (testIndex > 0) "$testIndex" else ""
-    var name = "src/main/resources/aoc$year/$day$suffix.txt"
-    return name
+    return "src/main/resources/aoc$year/$day$suffix.txt"
 }
 
 private data class YearAndDay(var year: String, var day: String)

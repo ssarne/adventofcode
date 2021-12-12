@@ -6,9 +6,10 @@ import java.lang.RuntimeException
 
 fun main() {
     check(execute1(readTestLines()), 0)
-    println(execute1(readLines())) //
-    check(execute2(readTestLines()), 0)
-    println(execute2(readLines())) //
+    execute1(readLines()).let { println(it); check(it, 0) }
+
+    // check(execute2(readTestLines()), 0)
+    // execute2(readLines()).let { println(it); check(it, 0) }
 }
 
 private fun execute1(input: List<String>): Int {

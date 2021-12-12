@@ -7,17 +7,17 @@ import java.lang.RuntimeException
 
 fun main() {
     check(execute1(readTestLines()), 198)
-    println(execute1(readLines())) // 1307354
+    execute1(readLines()).let { println(it) ; check(it, 1307354) }
 
     check(execute2(readTestLines()), 230)
-    println(execute2(readLines())) // 482500
+    execute2(readLines()).let { println(it); check(it, 482500) }
 }
 
 private fun execute1(input: List<String>): Int {
 
-    var size = input.first().length
-    var ones = occurencies(size, input, '1')
-    var zeros = occurencies(size, input, '0')
+    val size = input.first().length
+    val ones = occurrences(size, input, '1')
+    val zeros = occurrences(size, input, '0')
 
     var gamma = ""
     var epsilon = ""
@@ -40,24 +40,24 @@ private fun execute1(input: List<String>): Int {
 
 private fun execute2(input: List<String>): Int {
 
-    var oxygen = getRating(input.toMutableList(), Substance.OXYGEN)
-    var carbons = getRating(input.toMutableList(), Substance.CO2)
+    val oxygen = getRating(input.toMutableList(), Substance.OXYGEN)
+    val carbons = getRating(input.toMutableList(), Substance.CO2)
     return Integer.parseInt(oxygen, 2) * Integer.parseInt(carbons, 2)
 }
 
 private enum class Substance {OXYGEN, CO2}
 private fun getRating(input: List<String>, type: Substance): String {
 
-    var funnel = input.toMutableList()
-    var size = input.first().length
+    val funnel = input.toMutableList()
+    val size = input.first().length
 
     for (i in 0 until size) {
         if (funnel.size == 1) return funnel.first()
 
-        var ones = occurencies(size, funnel, '1')
-        var zeros = occurencies(size, funnel, '0')
+        val ones = occurrences(size, funnel, '1')
+        val zeros = occurrences(size, funnel, '0')
 
-        var c = when (type) {
+        val c = when (type) {
             Substance.OXYGEN -> if (ones[i] >= zeros[i]) '1' else '0'
             Substance.CO2 -> if (ones[i] < zeros[i]) '1' else '0'
         }
@@ -69,8 +69,8 @@ private fun getRating(input: List<String>, type: Substance): String {
     throw RuntimeException("WAT")
 }
 
-private fun occurencies(length: Int, input: List<String>, c: Char): IntArray {
-    var counts = IntArray(length)
+private fun occurrences(length: Int, input: List<String>, c: Char): IntArray {
+    val counts = IntArray(length)
     for (i in 0 until length) {
         for (line in input) {
             if (line[i] == c) {

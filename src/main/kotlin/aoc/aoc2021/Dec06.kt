@@ -5,34 +5,34 @@ import aoc.ktutils.*
 fun main() {
 
     check(simulate(readTestText(), 80), 5934)
-    println(simulate(readText(), 80)) // 360268
+    simulate(readText(), 80).let { println(it); check(it, 360268) }
 
     check(bucketize(readTestText(), 80), 5934L)
     check(bucketize(readTestText(), 256), 26984457539L)
-    println(bucketize(readText(), 256)) // 1632146183902
+    bucketize(readText(), 256).let { println(it); check(it, 1632146183902L) }
 }
 
 
 private fun simulate(input: String, days: Int): Int {
 
-    var fishes = HashMap<Int, Int>() // age
+    var fish = HashMap<Int, Int>() // age
     var counter = 0
 
-    for (fish in asIntArray(input)) {
-        fishes[counter++] = fish
+    for (f in asIntArray(input)) {
+        fish[counter++] = f
     }
 
     for (i in 1..days) {
-        var next = HashMap<Int, Int>()
-        for (fish in fishes.keys) {
-            if (fishes[fish] == 0) {
-                next[fish] = 6
+        val next = HashMap<Int, Int>()
+        for (f in fish.keys) {
+            if (fish[f] == 0) {
+                next[f] = 6
                 next[counter++] = 8
             } else {
-                next[fish] = fishes[fish]!! - 1
+                next[f] = fish[f]!! - 1
             }
         }
-        fishes = next
+        fish = next
     }
     return counter
 }
@@ -45,15 +45,14 @@ private fun bucketize(input: String, days: Int): Long {
     }
 
     for (i in 1..days) {
-        var next = LongArray(9)
+        val next = LongArray(9)
         next[6] = buckets[0]
         next[8] = buckets[0]
-        for (phase in 1 .. 8) {
-            next[phase-1] += buckets[phase]
+        for (phase in 1..8) {
+            next[phase - 1] += buckets[phase]
         }
         buckets = next
     }
 
     return buckets.sum()
 }
-

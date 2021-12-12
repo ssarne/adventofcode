@@ -31,7 +31,7 @@ private fun execute(input: List<String>, loops: Int): Res11 {
         for (y in 0 until height) { // flash
             for (x in 0 until width) {
                 if (grid[x][y] > 9) {
-                    var size = flash(grid, x, y)
+                    val size = flash(grid, x, y)
                     count += size
                     flashSize += size
                 }
@@ -40,7 +40,7 @@ private fun execute(input: List<String>, loops: Int): Res11 {
 
         if (flashSize == 100 && step == 0) {
             step = i
-            break;
+            break
         }
     }
 

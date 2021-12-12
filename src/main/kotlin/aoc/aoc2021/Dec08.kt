@@ -5,19 +5,19 @@ import java.lang.RuntimeException
 
 fun main() {
     check(execute1(readTestLines()), 26)
-    println(execute1(readLines())) // 397
+    execute1(readLines()).let { println(it); check(it, 397) }
 
     check(readEntry("acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf"), 5353)
 
     check(execute2(readTestLines()), 61229)
-    println(execute2(readLines())) // 1027422
+    execute2(readLines()).let { println(it); check(it, 1027422) }
 }
 
 private fun execute1(lines: List<String>): Int {
 
     var count = 0
     for (line in lines) {
-        var output = line.split(" | ")[1]
+        val output = line.split(" | ")[1]
         for (token in output.split(" ")) {
             when (token.length) {
                 2 -> count++  // 1
@@ -39,12 +39,12 @@ private fun execute2(lines: List<String>): Int {
 
 private fun readEntry(line: String): Int {
 
-    var input = line.split(" | ")[0].split(" ")
-    var output = line.split(" | ")[1].split(" ")
+    val input = line.split(" | ")[0].split(" ")
+    val output = line.split(" | ")[1].split(" ")
     check(input.size, 10)
     check(output.size, 4)
 
-    var digits = deduce(input)
+    val digits = deduce(input)
 
     return 1000 * resolve(output[0], digits) +
             100 * resolve(output[1], digits) +
@@ -54,7 +54,7 @@ private fun readEntry(line: String): Int {
 
 private fun deduce(input: List<String>): HashMap<Int, String> {
 
-    var digits = HashMap<Int, String>()
+    val digits = HashMap<Int, String>()
 
     for (digit in input) {
         when (digit.length) { // 1, 4, 7, 8
