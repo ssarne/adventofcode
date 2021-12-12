@@ -34,7 +34,6 @@ fun check(actual: IntArray, expected: IntArray) {
     }
 }
 
-
 fun check(actual: String?, expected: String?) {
     if (actual != expected) {
         System.err.println("Failure: actual=$actual  expected=$expected")
@@ -88,6 +87,16 @@ fun asIntArray(text: String): IntArray {
         .map { t -> t.toInt() }
         .toIntArray()
 }
+
+fun isLowerCase(text: String): Boolean {
+    for (c in text) {
+        if (c.toInt() < 'a'.toInt() || c.toInt() > 'z'.toInt()) {
+            return false
+        }
+    }
+    return true
+}
+
 
 private fun getInputFilePath(year: String, day: String, test: Boolean = false, testIndex: Int = 0): String {
     var suffix = (if (test) "_test" else "")
