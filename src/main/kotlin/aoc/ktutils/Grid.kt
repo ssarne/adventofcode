@@ -14,3 +14,20 @@ fun createIntMatrixFromDigits(input: List<String>): Array<IntArray> {
     }
     return grid
 }
+
+fun printSparseSet(dots: Set<Point>) {
+    val minX = dots.stream().mapToInt { it.x }.min().orElse(0)
+    val minY = dots.stream().mapToInt { it.y }.min().orElse(0)
+    val maxX = dots.stream().mapToInt { it.x }.max().orElse(1)
+    val maxY = dots.stream().mapToInt { it.y }.max().orElse(1)
+    for (y in minY..maxY) {
+        for (x in minX..maxX) {
+            if (dots.contains(Point(x, y))) {
+                print('#')
+            } else {
+                print(' ')
+            }
+        }
+        println()
+    }
+}
