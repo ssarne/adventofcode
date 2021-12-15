@@ -97,6 +97,22 @@ fun isLowerCase(text: String): Boolean {
     return true
 }
 
+fun getMinMaxOccurence(text: String): Pair<Int, Int> {
+    val counts = HashMap<Char, Int>()
+    var min = Int.MAX_VALUE
+    var max = 0
+    for (c1 in text) {
+        if (counts.containsKey(c1)) continue
+        var count = 0
+        for (c2 in text) {
+            if (c1 == c2) count++
+        }
+        counts[c1] = count
+        if (min > count) min = count
+        if (max < count) max = count
+    }
+    return Pair(min, max)
+}
 
 private fun getInputFilePath(year: String, day: String, test: Boolean = false, testIndex: Int = 0): String {
     var suffix = (if (test) "_test" else "")
