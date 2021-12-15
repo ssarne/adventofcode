@@ -2,7 +2,7 @@ package aoc.ktutils
 
 import java.lang.RuntimeException
 
-fun createIntMatrixFromDigits(input: List<String>): Array<IntArray> {
+fun createIntMatrixFromDigits(input: List<String>): Triple<Array<IntArray>, Int, Int> {
     if (input.isEmpty()) throw RuntimeException("Height should be larger than 0. Input list is empty.")
     val height = input.size
     val width = input[0].length
@@ -12,7 +12,7 @@ fun createIntMatrixFromDigits(input: List<String>): Array<IntArray> {
             grid[x][y] = Character.getNumericValue(input[y][x])
         }
     }
-    return grid
+    return Triple(grid, width, height)
 }
 
 fun printSparseSet(dots: Set<Point>) {

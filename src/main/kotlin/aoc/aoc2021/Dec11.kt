@@ -13,9 +13,7 @@ private data class Res11(val count: Int, val step: Int)
 
 private fun execute(input: List<String>, loops: Int): Res11 {
 
-    val grid = createIntMatrixFromDigits(input)
-    val height = input.size
-    val width = input[0].length
+    val (grid, width, height) = createIntMatrixFromDigits(input)
     var count = 0
     var step = 0
 
