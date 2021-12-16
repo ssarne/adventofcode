@@ -2,6 +2,7 @@ package aoc.ktutils
 
 import aoc.utils.InputDownloader
 import java.io.File
+import java.lang.RuntimeException
 
 fun check(actual: Boolean, expected: Boolean) {
     if (actual != expected) {
@@ -96,6 +97,33 @@ fun isLowerCase(text: String): Boolean {
     }
     return true
 }
+
+fun hexToBinary0Padded(input: String): String {
+    var res = ""
+    for (c in input) {
+        res += when (c) {
+            '0' -> "0000"
+            '1' -> "0001"
+            '2' -> "0010"
+            '3' -> "0011"
+            '4' -> "0100"
+            '5' -> "0101"
+            '6' -> "0110"
+            '7' -> "0111"
+            '8' -> "1000"
+            '9' -> "1001"
+            'A' -> "1010"
+            'B' -> "1011"
+            'C' -> "1100"
+            'D' -> "1101"
+            'E' -> "1110"
+            'F' -> "1111"
+            else -> throw RuntimeException("wat: $c")
+        }
+    }
+    return res
+}
+
 
 fun getMinMaxOccurence(text: String): Pair<Int, Int> {
     val counts = HashMap<Char, Int>()
