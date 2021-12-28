@@ -48,8 +48,7 @@ private fun parseAndResolve(input: List<String>, trace: Boolean = false): SNF {
     var snf = parseSNF(input[0])
     snf.reduce(0, trace)
     for (i in 1 until input.size) {
-        var snf2 = parseSNF(input[i])
-        snf = SNFPair(snf, snf2)
+        snf = SNFPair(snf, parseSNF(input[i]))
         snf.reduce(0, trace)
     }
     return snf
@@ -204,5 +203,3 @@ private fun parseSNF(input: String): SNF {
     }
     throw RuntimeException("wat")
 }
-
-fun String.isDigitsOnly() = all(Char::isDigit) && isNotEmpty()

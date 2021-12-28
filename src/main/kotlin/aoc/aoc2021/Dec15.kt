@@ -19,51 +19,49 @@ private data class PV(val x: Int, val y: Int, val v: Int) : Comparable<PV> {
 
 private fun execute1(input: List<String>): Int {
 
-    val (map, width, height) = createIntMatrixFromDigits(input)
-    val ack = Array(width) { IntArray(height) }
-    djikstra(map, width, height, ack)
-    return ack[width - 1][height - 1]
+    val map = IntMatrix.create(input)
+    val ack = IntMatrix.create(map.width, map.height)
+    djikstra(map, ack)
+    return ack.get(ack.width - 1, ack.height - 1)
 }
 
 private fun execute2(input: List<String>): Int {
 
-    val (map0, _, _) = createIntMatrixFromDigits(input)
-    val (map, width, height) = scaleMap(map0, 5, 5)
-    val ack = Array(width) { IntArray(height) }
-    djikstra(map, width, height, ack)
-    return ack[width - 1][height - 1]
+    val map0 = IntMatrix.create(input)
+    val map = scaleMap(map0, 5, 5)
+    val ack = IntMatrix.create(map.width, map.height)
+    djikstra(map, ack)
+    return ack.get(ack.width - 1, ack.height - 1)
 }
 
-private fun scaleMap(map0: Array<IntArray>, xFactor: Int, yFactor: Int): Triple<Array<IntArray>, Int, Int> {
-    val h0 = map0.size
-    val w0 = map0[0].size
-    val height = h0 * yFactor
-    val width = w0 * xFactor
-    val map = Array(width) { IntArray(height) }
+private fun scaleMap(map0: IntMatrix, xFactor: Int, yFactor: Int): IntMatrix {
+    val height = map0.height * yFactor
+    val width = map0.width * xFactor
+    val map = IntMatrix.create(width, height)
     for (j in 0 until yFactor) {
         for (i in 0 until xFactor) {
-            for (y in map0.indices) {
-                for (x in map0[y].indices) {
-                    map[i * w0 + x][j * h0 + y] = gv(map0[x][y], i, j)
+            for (y in 0 until map0.height) {
+                for (x in 0 until map0.width) {
+                    map.set(i * map0.width + x, j * map0.height + y, gv(map0.get(x, y), i, j))
                 }
             }
         }
     }
-    return Triple(map, width, height)
+    return map
 }
 
-private fun djikstra(map: Array<IntArray>, width: Int, height: Int, ack: Array<IntArray>) {
+private fun djikstra(map: IntMatrix, ack: IntMatrix) {
     var heap = PriorityQueue<PV>()
-    heap.add(PV(0, 0, -map[0][0]))
+    heap.add(PV(0, 0, -map.get(0, 0)))
     while (heap.isNotEmpty()) {
         var p = heap.poll()
-        if (p.x < 0 || p.x >= width || p.y < 0 || p.y >= height) continue
-        if (ack[p.x][p.y] != 0) continue
-        ack[p.x][p.y] = p.v + map[p.x][p.y]
-        heap.add(PV(p.x + 1, p.y, p.v + map[p.x][p.y]))
-        heap.add(PV(p.x - 1, p.y, p.v + map[p.x][p.y]))
-        heap.add(PV(p.x, p.y - 1, p.v + map[p.x][p.y]))
-        heap.add(PV(p.x, p.y + 1, p.v + map[p.x][p.y]))
+        if (p.x < 0 || p.x >= map.width || p.y < 0 || p.y >= map.height) continue
+        if (ack.get(p.x, p.y) != 0) continue
+        ack.set(p.x, p.y, p.v + map.get(p.x, p.y))
+        heap.add(PV(p.x + 1, p.y, p.v + map.get(p.x, p.y)))
+        heap.add(PV(p.x - 1, p.y, p.v + map.get(p.x, p.y)))
+        heap.add(PV(p.x, p.y - 1, p.v + map.get(p.x, p.y)))
+        heap.add(PV(p.x, p.y + 1, p.v + map.get(p.x, p.y)))
     }
 }
 

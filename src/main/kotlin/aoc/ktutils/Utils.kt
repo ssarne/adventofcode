@@ -4,49 +4,6 @@ import aoc.utils.InputDownloader
 import java.io.File
 import java.lang.RuntimeException
 
-fun check(actual: Boolean, expected: Boolean) {
-    if (actual != expected) {
-        System.err.println("Failure: actual=$actual  expected=$expected")
-    }
-}
-
-fun check(actual: Int, expected: Int) {
-    if (actual != expected) {
-        System.err.println("Failure: actual=$actual  expected=$expected")
-    }
-}
-
-fun check(actual: Char, expected: Char) {
-    if (actual != expected) {
-        System.err.println("Failure: actual=$actual  expected=$expected")
-    }
-}
-
-fun check(actual: Long, expected: Long) {
-    if (actual != expected) {
-        System.err.println("Failure: actual=$actual  expected=$expected")
-    }
-}
-
-fun check(actual: IntArray, expected: IntArray) {
-    if (actual.size != expected.size) {
-        System.err.println("Failure: actual.size=${actual.size}  expected.size=${expected.size}")
-        return
-    }
-    for (i in actual.indices) {
-        if (actual[i] != expected[i]) {
-            System.err.println("Failure: actual[$i]=${actual[i]}  expected[i]=${expected[i]}")
-            return
-        }
-    }
-}
-
-fun check(actual: String?, expected: String?) {
-    if (actual != expected) {
-        System.err.println("Failure: actual=$actual  expected=$expected")
-    }
-}
-
 fun readLines(): List<String> {
     val (year, day) = getYearAndDay()
     if (!InputDownloader.hasInputFile(year, day))
@@ -85,6 +42,12 @@ fun readInts(): IntArray {
 fun readTestInts(): IntArray {
     return asIntArray(readTestText())
 }
+
+fun asInt(c: Char) = Character.getNumericValue(c)
+fun asLong(c: Char) = Character.getNumericValue(c).toLong()
+
+fun String.isDigitsOnly() = all(Char::isDigit) && isNotEmpty()
+fun String.isSingleChar() = this.length == 1 && all(Char::isLetter)
 
 fun asIntArray(text: String): IntArray {
     return text

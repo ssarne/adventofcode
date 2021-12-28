@@ -13,22 +13,22 @@ private data class Res11(val count: Int, val step: Int)
 
 private fun execute(input: List<String>, loops: Int): Res11 {
 
-    val (grid, width, height) = createIntMatrixFromDigits(input)
+    val grid = IntMatrix.create(input)
     var count = 0
     var step = 0
 
     for (i in 1..loops) {
 
-        for (y in 0 until height) {  // increase
-            for (x in 0 until width) {
-                grid[x][y]++
+        for (y in 0 until grid.height) {  // increase
+            for (x in 0 until grid.width) {
+                grid.inc(x, y)
             }
         }
 
         var flashSize = 0
-        for (y in 0 until height) { // flash
-            for (x in 0 until width) {
-                if (grid[x][y] > 9) {
+        for (y in 0 until grid.height) { // flash
+            for (x in 0 until grid.width) {
+                if (grid.get(x, y) > 9) {
                     val size = flash(grid, x, y)
                     count += size
                     flashSize += size
@@ -45,12 +45,12 @@ private fun execute(input: List<String>, loops: Int): Res11 {
     return Res11(count, step)
 }
 
-fun flash(grid: Array<IntArray>, x: Int, y: Int): Int {
+fun flash(grid: IntMatrix, x: Int, y: Int): Int {
 
-    if (grid[x][y] == 0) return 0
+    if (grid.get(x, y) == 0) return 0
 
     var count = 1
-    grid[x][y] = 0
+    grid.set(x, y, 0)
     count += inc(grid, x - 1, y - 1)
     count += inc(grid, x - 1, y)
     count += inc(grid, x - 1, y + 1)
@@ -63,10 +63,10 @@ fun flash(grid: Array<IntArray>, x: Int, y: Int): Int {
     return count
 }
 
-fun inc(grid: Array<IntArray>, x: Int, y: Int): Int {
-    if (x < 0 || x >= grid.size) return 0
-    if (y < 0 || y >= grid[0].size) return 0
-    if (grid[x][y] == 0) return 0
-    grid[x][y]++
-    return if (grid[x][y] > 9) flash(grid, x, y) else 0
+fun inc(grid: IntMatrix, x: Int, y: Int): Int {
+    if (x < 0 || x >= grid.width) return 0
+    if (y < 0 || y >= grid.height) return 0
+    if (grid.get(x, y) == 0) return 0
+    grid.inc(x, y)
+    return if (grid.get(x, y) > 9) flash(grid, x, y) else 0
 }
