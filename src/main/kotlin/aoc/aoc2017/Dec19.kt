@@ -9,13 +9,13 @@ import java.util.*
 
 fun main() {
     check(execute1(readTestLines()).first, "ABCDEF")
-    println(execute1(readLines()).first) // MKXOIHZNBL
+    execute1(readLines()).first.let { println(it); check(it, "MKXOIHZNBL") }
 
     check(execute1(readTestLines()).second, 38)
     println(execute1(readLines()).second) // 17872
 }
 
-private fun execute1(input: List<String>): Pair<String,Int> {
+private fun execute1(input: List<String>): Pair<String, Int> {
     var maze = parseMaze(input)    // Read maze
     // printMaze(maze)
     var letters = ""               // The result of the path
@@ -25,7 +25,7 @@ private fun execute1(input: List<String>): Pair<String,Int> {
 
     while (maze.containsKey(pos)) {
         when (maze[pos]) {         // Walk the path  (position, direction)
-            '|','-' -> pos += dir  //     If straight, continue
+            '|', '-' -> pos += dir  //     If straight, continue
             in 'A'..'Z' -> {       //     If letter, store it, continue
                 letters += maze[pos]
                 pos += dir
@@ -41,7 +41,7 @@ private fun execute1(input: List<String>): Pair<String,Int> {
         steps++                    // Count steps
     }
 
-    return Pair(letters,steps)     // return the letters from walking the path and the steps it took
+    return Pair(letters, steps)     // return the letters from walking the path and the steps it took
 }
 
 private fun getStart(maze: Map<Point, Char>): Point {
@@ -63,11 +63,11 @@ private fun parseMaze(input: List<String>): Map<Point, Char> {
 
 private fun printMaze(maze: Map<Point, Char>) {
 
-    var maxX = maze.keys.stream().mapToInt{ it.x }.max().orElse(0)
-    var maxY = maze.keys.stream().mapToInt{ it.y }.max().orElse(0)
+    var maxX = maze.keys.stream().mapToInt { it.x }.max().orElse(0)
+    var maxY = maze.keys.stream().mapToInt { it.y }.max().orElse(0)
 
-    for (y in 0 .. maxY) {
-        for (x in 0 .. maxX) {
+    for (y in 0..maxY) {
+        for (x in 0..maxX) {
             print(maze[Point(x, y)] ?: ' ')
         }
         println()

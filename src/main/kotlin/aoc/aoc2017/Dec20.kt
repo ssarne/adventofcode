@@ -1,15 +1,13 @@
 package aoc.aoc2017
 
 import aoc.ktutils.*
-import kotlin.math.abs
 
 fun main() {
     check(execute1(readTestLines()), 0)
-    println(execute1(readLines()))
+    execute1(readLines()).let { println(it); check(it, 144) }
 
     check(execute2(readTestLines(2)), 1)
-    println(execute2(readLines()))
-
+    execute2(readLines()).let { println(it); check(it, 477) }
 }
 
 private fun execute1(input: List<String>): Int {
@@ -41,7 +39,7 @@ private fun execute2(input: List<String>): Int {
             p.p += p.v
         }
 
-        for (i in 0 until input.size) { // remove duplicates
+        for (i in input.indices) { // remove duplicates
             if (!particles.containsKey(i)) continue
             val p1 = particles[i]
             for (j in i + 1 until input.size) {
