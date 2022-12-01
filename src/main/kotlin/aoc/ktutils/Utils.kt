@@ -19,6 +19,21 @@ fun readTestLines(testIndex: Int = 0): List<String> {
     return File(fileName).readLines(Charsets.UTF_8)
 }
 
+fun asChunks(lines: List<String>): List<List<String>> {
+    var chunks = ArrayList<List<String>>()
+    var chunk = ArrayList<String>()
+    chunks.add(chunk)
+    for (line in lines) {
+        if (line == "") {
+            chunk = ArrayList<String>()
+            chunks.add(chunk)
+            continue
+        }
+        chunk.add(line)
+    }
+    return chunks
+}
+
 fun readText(): String {
     val (year, day) = getYearAndDay()
     val fileName = getInputFilePath(year, day)
