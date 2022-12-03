@@ -1,4 +1,4 @@
-package aoc.aoc2022
+package aoc.aoc2022.dec02
 
 import aoc.ktutils.asChunks
 import aoc.ktutils.readLines
@@ -17,7 +17,7 @@ private fun execute1(lines: List<String>): Int {
     var score = 0
     for (line in lines) {
         var round = line.split(" ")
-        
+
         if (round[0] == "A" && round[1] == "X") score += 1 + 3
         else if (round[0] == "A" && round[1] == "Y") score += 2 + 6
         else if (round[0] == "A" && round[1] == "Z") score += 3 + 0
