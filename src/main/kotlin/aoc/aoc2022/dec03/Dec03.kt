@@ -14,30 +14,20 @@ fun main() {
 private fun execute1(lines: List<String>): Int {
     var score = 0
     for (line in lines) {
-        var first = line.subSequence(0, line.length / 2)
-        var second = line.subSequence(line.length / 2, line.length)
-        var m = '0'
-        for (c in first)
-            for (d in second)
-                if (c == d)
-                    m = c
-
-        score += if (m.isLowerCase()) (m - 'a') + 1 else (m - 'A') + 27
+        val first = line.subSequence(0, line.length / 2).toSet()
+        val second = line.subSequence(line.length / 2, line.length).toSet()
+        for (m in first intersect second)
+            score += if (m.isLowerCase()) (m - 'a') + 1 else (m - 'A') + 27
     }
     return score
 }
 
 private fun execute2(lines: List<String>): Int {
     var score = 0
-    var m = '0'
     for (i in lines.indices step 3) {
-        for (c in lines[i])
-            for (d in lines[i + 1])
-                for (e in lines[i + 2])
-                    if (c == d && d == e)
-                        m = c
-
-        score += if (m.isLowerCase()) (m - 'a') + 1 else (m - 'A') + 27
+        val intersection = lines[i].toSet() intersect lines[i+1].toSet() intersect lines[i+2].toSet()
+        for (m in intersection)
+            score += if (m.isLowerCase()) (m - 'a') + 1 else (m - 'A') + 27
     }
     return score
 }
