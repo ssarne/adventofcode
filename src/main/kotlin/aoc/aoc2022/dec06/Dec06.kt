@@ -14,9 +14,9 @@ fun main() {
 }
 
 private fun execute(line: String, len: Int): Int {
-    for (i in 0 until line.length - len) {
-        if (line.subSequence(i, i+len).toSet().size == len)
-            return i + len
+    line.windowed(len).withIndex().forEach() {
+        if (it.value.toSet().size == len)
+            return it.index + len
     }
     return -1
 }
