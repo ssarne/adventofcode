@@ -15,17 +15,8 @@ fun main() {
 
 private fun execute(line: String, len: Int): Int {
     for (i in 0 until line.length - len) {
-        var match = false
-        for (j in i until i + len) {
-            for (k in j + 1 until i + len) {
-                if (line[j] == line[k]) {
-                    match = true
-                }
-            }
-        }
-        if (!match) {
+        if (line.subSequence(i, i+len).toSet().size == len)
             return i + len
-        }
     }
     return -1
 }
