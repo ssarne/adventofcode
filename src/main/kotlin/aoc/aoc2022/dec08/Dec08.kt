@@ -4,7 +4,7 @@ import aoc.ktutils.*
 
 fun main() {
     check(execute1(readTestLines()), 21)
-    execute1(readLines()).let { println(it); check(it, 0) }
+    execute1(readLines()).let { println(it); check(it, 1787) }
 
     check(execute2(readTestLines()), 8)
     execute2(readLines()).let { println(it); check(it, 440640) }
@@ -15,27 +15,23 @@ private fun execute1(input: List<String>): Int {
     var num = 0
     for (y in input.indices) {
         for (x in input[y].indices) {
-            var visible1 = true
-            for (i in 0 until x) {
-               if (input[y][i] >= input[y][x]) visible1 = false
-            }
-            var visible2 = true
-            for (i in x+1 until input[y].length) {
-                if (input[y][i] >= input[y][x]) visible2 = false
-            }
-
-            var visible3 = true
-            for (i in 0 until y) {
-                if (input[i][x] >= input[y][x]) visible3 = false
-            }
-            var visible4 = true
-            for (i in y+1 until input.size) {
-                if (input[i][x] >= input[y][x]) visible4 = false
-            }
-            if (visible1 || visible2 || visible3 || visible4) num++
+            if (isVisible(input, 0 until x, y..y, input[y][x])
+                || isVisible(input, x + 1 until input[y].length, y..y, input[y][x])
+                || isVisible(input, x..x, 0 until y, input[y][x])
+                || isVisible(input, x..x, y + 1 until input.size, input[y][x])
+            )
+                num++
         }
     }
     return num
+}
+
+fun isVisible(input: List<String>, xRange: IntRange, yRange: IntRange, height: Char): Boolean {
+    for (x in xRange)
+        for (y in yRange)
+            if (input[y][x] >= height)
+                return false
+    return true
 }
 
 private fun execute2(input: List<String>): Int {
@@ -43,36 +39,30 @@ private fun execute2(input: List<String>): Int {
     var max = 0
     for (y in input.indices) {
         for (x in input[y].indices) {
-            var num1 = 0
-            for (i in 0 until x) {
-                num1++
-                if (input[y][x-i-1] >= input[y][x]) break
-            }
-
-            var num2 = 0
-            for (i in x+1 until input[y].length) {
-                num2++
-                if (input[y][i] >= input[y][x]) break
-            }
-
-            var num3 = 0
-            for (i in 0 until y) {
-                num3++
-                if (input[y-i-1][x] >= input[y][x]) break
-            }
-
-            var num4 = 0
-            for (i in y+1 until input.size) {
-                num4++
-                if (input[i][x] >= input[y][x]) break
-            }
-
-            var num = num1 * num2 * num3 * num4
-            if (num > max) {
+            var num = sight(input, x, y, -1, 0, 0 until x, y..y) *
+                    sight(input, x, y, 1, 0, x + 1 until input[y].length, y..y) *
+                    sight(input, x, y, 0, -1, x..x, 0 until y) *
+                    sight(input, x, y, 0, 1, x..x, y + 1 until input.size)
+            if (num > max)
                 max = num
-            }
+
         }
     }
     return max
 }
+
+fun sight(input: List<String>, x: Int, y: Int, dx: Int, dy: Int, xRange: IntRange, yRange: IntRange): Int {
+    var sight = 0
+    var nx = x + dx
+    var ny = y + dy
+    while (nx in xRange && ny in yRange) {
+        sight++
+        if (input[ny][nx] >= input[y][x])
+            return sight
+        nx += dx
+        ny += dy
+    }
+    return sight
+}
+
 
