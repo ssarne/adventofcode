@@ -10,28 +10,43 @@ import java.util.List;
 
 public class Utils {
 
+  private static String [] getYearAndDay() {
+    String name = getCallerClass();
+    String year = name.split("\\.")[1].replace("aoc", "");
+    String day = name.split("\\.")[2].replace("Kt", "");
+    return strings(year, day);
+  }
+
   public static List<String> getLines() {
     try {
-      String name = getCallerClass();
-      String year = name.split("\\.")[1].replace("aoc", "");
-      String day = name.split("\\.")[2].replace("Kt", "");
-      if (!InputDownloader.hasInputFile(year, day)) {
-        InputDownloader.getInputFile(year, day);
+      var yd = getYearAndDay();
+      if (!InputDownloader.hasInputFile(yd[0], yd[1])) {
+        InputDownloader.getInputFile(yd[0], yd[1]);
       }
-      return getLines(InputDownloader.getPathname(year, day));
+      return getLinesFromPath(InputDownloader.getInputPath(yd[0], yd[1]));
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
 
-
   public static List<String> getLines(String filename) {
     if (filename == null) {
-      return getLines();
+      throw new RuntimeException("Given filename is null. Use getLines()");
     }
+
+    var yd = getYearAndDay();
+    var base = "src/main/resources/";
+    if (filename.startsWith(base)) {
+      base = "";
+    }
+    String path = base + yd[0] + "/" + yd[1] + "/" + filename;
+    return getLinesFromPath(path);
+  }
+
+  private static List<String> getLinesFromPath(String path) {
     try {
-      String pathName = InputDownloader.getPathname(filename);
-      File file = new File(pathName);
+
+      File file = new File(path);
       BufferedReader br = new BufferedReader(new FileReader(file));
 
       ArrayList<String> lines = new ArrayList<>();
@@ -99,6 +114,10 @@ public class Utils {
 
   public static long[] longs(long... ls) {
     return ls;
+  }
+
+  public static String [] strings(String... ss) {
+    return ss;
   }
 
   public static int ctoi(String input, int index) {

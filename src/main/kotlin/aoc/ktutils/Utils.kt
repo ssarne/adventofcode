@@ -44,6 +44,20 @@ fun readText(): String {
     return text
 }
 
+fun readAnswer(part: Int = 0): String {
+    val (year, day) = getYearAndDay()
+    val fileName = getInputFilePath(year, day)
+        .replace(".txt", ".out")
+    if (!File(fileName).exists())
+        return "No answers file at $fileName"
+    var text = File(fileName).readText(Charsets.UTF_8)
+    if (text.endsWith("\n") || text.endsWith("\r"))
+        text = text.substring(0, text.length - 1)
+    if (part > 0)
+        text = text.split("\n")[part-1]
+    return text
+}
+
 fun readTestText(testIndex: Int = 0): String {
     val (year, day) = getYearAndDay()
     val fileName = getInputFilePath(year, day, true, testIndex)
@@ -127,9 +141,10 @@ fun getMinMaxOccurence(text: String): Pair<Int, Int> {
 }
 
 private fun getInputFilePath(year: String, day: String, test: Boolean = false, testIndex: Int = 0): String {
-    var suffix = (if (test) "_test" else "")
-    suffix += if (testIndex > 0) "$testIndex" else ""
-    return "src/main/resources/aoc$year/$day$suffix.txt"
+    var base = if (test) "src/main/resources" else "input"
+    var suffix = if (test) "_test" else ""
+    if (testIndex > 0) suffix += "$testIndex"
+    return "$base/aoc$year/$day$suffix.txt"
 }
 
 private data class YearAndDay(var year: String, var day: String)

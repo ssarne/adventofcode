@@ -11,18 +11,12 @@ import java.nio.file.Files;
 
 public class InputDownloader {
 
-  static String getPathname(String year, String day) {
-    return "src/main/resources/aoc" + year + "/" + day.toLowerCase() + ".txt";
-  }
-
-  static String getPathname(String filename) {
-    return filename.startsWith("src/main/resources")
-           ? filename
-           : "src/main/resources/" + filename;
+  static String getInputPath(String year, String day) {
+    return "input/aoc" + year + "/" + day.toLowerCase() + ".txt";
   }
 
   public static boolean hasInputFile(String year, String day) throws Exception {
-    return new File(getPathname(year, day)).exists();
+    return new File(getInputPath(year, day)).exists();
   }
   
   // https://adventofcode.com/2019/day/8/input
@@ -53,7 +47,7 @@ public class InputDownloader {
       throw new IOException("Failed request for input file. status=" + response.statusCode() + " " + response.body());
     }
 
-    FileWriter fw = new FileWriter(getPathname(year, day));
+    FileWriter fw = new FileWriter(getInputPath(year, day));
     fw.write(response.body());
     fw.close();
   }
@@ -68,5 +62,4 @@ public class InputDownloader {
         .findFirst()
         .get();
   }
-
 }
