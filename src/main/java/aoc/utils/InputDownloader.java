@@ -37,7 +37,7 @@ public class InputDownloader {
     HttpRequest request = HttpRequest.newBuilder()
         .GET()
         .uri(uri)
-        .setHeader("User-Agent", "Java AoC lib")
+        .setHeader("User-Agent", "github.com/ssarne/adventofcode")
         .setHeader("cookie", "session=" + sid)
         .build();
 
