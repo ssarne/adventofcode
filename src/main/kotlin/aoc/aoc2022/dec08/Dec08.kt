@@ -4,10 +4,10 @@ import aoc.ktutils.*
 
 fun main() {
     check(execute1(readTestLines()), 21)
-    execute1(readLines()).let { println(it); check(it, 1787) }
+    execute1(readLines()).let { println(it); check(it, readAnswer(1).toInt()) }
 
     check(execute2(readTestLines()), 8)
-    execute2(readLines()).let { println(it); check(it, 440640) }
+    execute2(readLines()).let { println(it); check(it, readAnswer(2).toInt()) }
 }
 
 private fun execute1(input: List<String>): Int {

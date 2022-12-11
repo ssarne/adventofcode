@@ -6,8 +6,8 @@ import java.lang.RuntimeException
 
 fun main() {
     check(execute(readTestLines(), 2), 13)
-    execute(readLines(), 2).let { println(it); check(it, 5619) }
-    execute(readLines(), 10).let { println(it); check(it, 2376) }
+    execute(readLines(), 2).let { println(it); check(it, readAnswer(1).toInt()) }
+    execute(readLines(), 10).let { println(it); check(it, readAnswer(2).toInt()) }
 }
 
 private fun execute(input: List<String>, length: Int): Int {

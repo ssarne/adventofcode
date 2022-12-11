@@ -6,10 +6,10 @@ import java.lang.RuntimeException
 
 fun main() {
     check(execute1(readTestLines()), 95437)
-    execute1(readLines()).let { println(it); check(it, 2104783) }
+    execute1(readLines()).let { println(it); check(it, readAnswer(1).toInt()) }
 
     check(execute2(readTestLines()), 24933642)
-    execute2(readLines()).let { println(it); check(it, 5883165) }
+    execute2(readLines()).let { println(it); check(it, readAnswer(2).toInt()) }
 }
 
 data class Dir(

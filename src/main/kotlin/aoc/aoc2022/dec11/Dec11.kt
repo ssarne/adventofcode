@@ -4,16 +4,16 @@ import aoc.ktutils.*
 
 fun main() {
     check(execute1(readTestLines()), 10605L)
-    execute1(readLines()).let { println(it); check(it, 90294L) }
+    execute1(readLines()).let { println(it); check(it, readAnswer(1).toLong()) }
 
     check(execute2(readTestLines(), 20), 99 * 103L)
     check(execute2(readTestLines(), 10000), 2713310158L)
-    execute2(readLines(), 10000).let { println(it); check(it, 18170818354L) }
+    execute2(readLines(), 10000).let { println(it); check(it, readAnswer(2).toLong()) }
 }
 
 data class Monkey(
     val name: Int,
-    val items: ArrayList<Long>,
+    val items: MutableList<Long>,
     val operation: List<String>,
     val test: Long,
     val pass: Int,
@@ -38,7 +38,7 @@ private fun execute2(input: List<String>, rounds: Int): Long {
     return sorted[0].inspections.toLong() * sorted[1].inspections.toLong()
 }
 
-private fun execute(monkeys: ArrayList<Monkey>, rounds: Int, gcd: Long) {
+private fun execute(monkeys: List<Monkey>, rounds: Int, gcd: Long) {
 
     for (round in 1..rounds) {
         for (monkey in monkeys) {
@@ -67,15 +67,13 @@ private fun execute(monkeys: ArrayList<Monkey>, rounds: Int, gcd: Long) {
     }
 }
 
-private fun parse(input: List<String>): ArrayList<Monkey> {
+private fun parse(input: List<String>): List<Monkey> {
 
     val monkeys = ArrayList<Monkey>()
 
     for (chunk in asChunks(input)) {
         val name = chunk[0].replace("Monkey ", "").replace(":", "").toInt()
-        val items = ArrayList<Long>()
-        val ii = chunk[1].replace("  Starting items: ", "").split(", ").map { it.toLong() }.toLongArray()
-        for (i in ii) items.add(i)
+        val items = chunk[1].replace("  Starting items: ", "").split(", ").map { it.toLong() }.toMutableList()
         val operation = chunk[2].replace("  Operation: new = ", "").split(" ").toList()
         val test = chunk[3].replace("  Test: ", "").split(" ")[2].toLong()
         val tt = chunk[4].replace("    If true: throw to monkey", "").trim().toInt()

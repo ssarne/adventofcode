@@ -1,16 +1,17 @@
 package aoc.aoc2022.dec02
 
 import aoc.ktutils.asChunks
+import aoc.ktutils.readAnswer
 import aoc.ktutils.readLines
 import aoc.ktutils.readTestLines
 
 
 fun main() {
     aoc.ktutils.check(execute1(readTestLines()), 15)
-    execute1(readLines()).let { println(it); aoc.ktutils.check(it, 13221) }
+    execute1(readLines()).let { println(it); aoc.ktutils.check(it, readAnswer(1).toInt()) }
 
     aoc.ktutils.check(execute2(readTestLines()), 12)
-    execute2(readLines()).let { println(it); aoc.ktutils.check(it, 13131) }
+    execute2(readLines()).let { println(it); aoc.ktutils.check(it, readAnswer(2).toInt()) }
 }
 
 private fun execute1(lines: List<String>): Int {

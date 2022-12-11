@@ -7,10 +7,10 @@ import java.lang.RuntimeException
 fun main() {
     check(execute("bvwbjplbgvbhsrlpgdmjqwftvncz", 4), 5)
     check(execute("nppdvjthqldpwncqszvftbrmjlhg", 4), 6)
-    execute(readText(), 4).let { println(it); check(it, 1757) }
+    execute(readText(), 4).let { println(it); check(it, readAnswer(1).toInt()) }
 
     check(execute("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 14), 19)
-    execute(readText(), 14).let { println(it); check(it, 2950) }
+    execute(readText(), 14).let { println(it); check(it, readAnswer(2).toInt()) }
 }
 
 private fun execute(line: String, len: Int): Int {

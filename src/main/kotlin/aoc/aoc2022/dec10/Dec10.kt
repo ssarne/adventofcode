@@ -4,7 +4,7 @@ import aoc.ktutils.*
 
 fun main() {
     check(execute1(readTestLines()), 13140)
-    execute1(readLines()).let { println(it); check(it, 16060) }
+    execute1(readLines()).let { println(it); check(it, readAnswer(1).toInt()) }
 
     var expected = "##..##..##..##..##..##..##..##..##..##.." +
                 "###...###...###...###...###...###...###." +
