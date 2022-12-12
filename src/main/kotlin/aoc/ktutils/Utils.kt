@@ -58,6 +58,10 @@ fun readAnswer(part: Int = 0): String {
     return text
 }
 
+fun readAnswerAsInt(part: Int = 0): Int {
+    return readAnswer(part).toInt()
+}
+
 fun readTestText(testIndex: Int = 0): String {
     val (year, day) = getYearAndDay()
     val fileName = getInputFilePath(year, day, true, testIndex)
