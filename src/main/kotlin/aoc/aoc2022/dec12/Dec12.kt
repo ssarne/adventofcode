@@ -15,20 +15,21 @@ fun main() {
 data class Step(val pos: Point, val dist: Int, val height: Char)
 
 private fun execute1(input: List<String>): Int {
-    var (map, start, end) = parse(input)
-    var dist = bfs(start, end, map)
+    val (map, start, end) = parse(input)
+    val dist = bfs(start, end, map)
     return dist[end]!!
 }
 
 private fun execute2(input: List<String>): Int {
 
-    var (map, _, end) = parse(input)
+    val (map, _, end) = parse(input)
     var min = Int.MAX_VALUE
 
     for (pp in map.keys) {
         if (map[pp] == 'a') {
-            var dist = bfs(pp, end, map)
-            if (dist.containsKey(end) && dist[end]!! < min) min = dist[end]!!
+            val dist = bfs(pp, end, map)
+            if (dist.containsKey(end) && dist[end]!! < min)
+                min = dist[end]!!
         }
     }
 
@@ -36,54 +37,28 @@ private fun execute2(input: List<String>): Int {
 }
 
 private fun parse(input: List<String>): Triple<HashMap<Point, Char>, Point, Point> {
-    var map = HashMap<Point, Char>()
-    var start = Point(-1, -1)
-    var end = Point(-1, -1)
-    var y = 0
-    for (line in input) {
-        var x = 0
-        for (c in line) {
-            var d = c
-            if (c == 'S') {
-                d = 'a'
-                start = Point(x, y)
-            }
-            if (c == 'E') {
-                d = 'z'
-                end = Point(x, y)
-            }
-            map.put(Point(x, y), d)
-            x++
-        }
-        y++
-    }
+    val map = parseCharacterGridToMap(input)
+    val start = map.keys.first { map[it] == 'S'}
+    val end = map.keys.first { map[it] == 'E'}
+    map[start] = 'a'
+    map[end] = 'z'
     return Triple(map, start, end)
 }
 
-private fun enqueue(
-    map: HashMap<Point, Char>,
-    next: Point,
-    step: Step,
-    queue: ArrayList<Step>
-) {
+private fun enqueue(map: Map<Point, Char>, next: Point, step: Step, queue: ArrayList<Step>) {
     if (map.containsKey(next))
         if (map[next]!! <= step.height + 1)
             queue.add(Step(next, step.dist + 1, map[next]!!))
-
 }
 
-private fun bfs(
-    start: Point,
-    end: Point,
-    map: HashMap<Point, Char>
-): HashMap<Point, Int> {
-    var dist = HashMap<Point, Int>()
-    var queue = ArrayList<Step>()
+private fun bfs(start: Point, end: Point, map: Map<Point, Char>): HashMap<Point, Int> {
+    val dist = HashMap<Point, Int>()
+    val queue = ArrayList<Step>()
     queue.add(Step(start, 0, 'a'))
-    while (!queue.isEmpty()) {
+    while (queue.isNotEmpty()) {
         val step = queue.removeAt(0)
         if (dist.containsKey(step.pos)) continue
-        dist.put(step.pos, step.dist)
+        dist[step.pos] = step.dist
 
         if (step.pos == end) break
 

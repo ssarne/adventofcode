@@ -2,7 +2,7 @@ package aoc.ktutils
 
 import java.lang.RuntimeException
 
-fun createSparseBinaryMatrix(input: List<String>): HashSet<Point> {
+fun parseSparseBinaryMatrix(input: List<String>): HashSet<Point> {
     if (input.isEmpty()) throw RuntimeException("Height should be larger than 0. Input list is empty.")
     var grid = HashSet<Point>()
     for (y in input.indices) {
@@ -11,6 +11,17 @@ fun createSparseBinaryMatrix(input: List<String>): HashSet<Point> {
             if (c == '#') {
                 grid.add(Point(x, y))
             }
+        }
+    }
+    return grid
+}
+
+fun parseCharacterGridToMap(input: List<String>): HashMap<Point, Char> {
+    if (input.isEmpty()) throw RuntimeException("Height should be larger than 0. Input list is empty.")
+    var grid = HashMap<Point, Char>()
+    for (y in input.indices) {
+        for (x in 0 until input[y].length) {
+            grid.put(Point(x, y), input[y][x])
         }
     }
     return grid
