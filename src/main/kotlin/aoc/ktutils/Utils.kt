@@ -54,7 +54,7 @@ fun readAnswer(part: Int = 0): String {
     if (text.endsWith("\n") || text.endsWith("\r"))
         text = text.substring(0, text.length - 1)
     if (part > 0)
-        text = text.split("\n")[part-1]
+        text = text.split("\n")[part - 1]
     return text
 }
 
@@ -86,7 +86,7 @@ fun asIntArray(text: String): IntArray {
     return text
         .replace("\n", " ")
         .split(",", " ", "\t")
-        .filter{ t -> t != "" }
+        .filter { t -> t != "" }
         .map { t -> t.toInt() }
         .toIntArray()
 }
@@ -126,7 +126,6 @@ fun hexToBinary0Padded(input: String): String {
     return res
 }
 
-
 fun getMinMaxOccurence(text: String): Pair<Int, Int> {
     val counts = HashMap<Char, Int>()
     var min = Int.MAX_VALUE
@@ -142,6 +141,20 @@ fun getMinMaxOccurence(text: String): Pair<Int, Int> {
         if (max < count) max = count
     }
     return Pair(min, max)
+}
+
+/* Match the first/outer parenthesis pair of open and close, e.g. [ and ] */
+fun matchFirstParenthesis(text: String, open: Char = '[', close: Char = ']'): Pair<Int, Int> {
+    var start = -1
+    var lb = 0
+    var rb = 0
+    for ((i, c) in text.withIndex()) {
+        if (c == open) lb++
+        if (lb == 1) start = i
+        if (c == close) rb++
+        if (lb > 0 && lb == rb) return Pair(start, i)
+    }
+    throw RuntimeException("CMH failed to find matching $open $close in '$text'")
 }
 
 private fun getInputFilePath(year: String, day: String, test: Boolean = false, testIndex: Int = 0): String {

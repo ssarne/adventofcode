@@ -9,7 +9,7 @@ fun main() {
     execute1(readLines()).let { println(it) } // ; check(it, readAnswerAsInt(1)) }
 
     // check(execute2(readTestLines()), -1)
-    // execute1(readLines()).let { println(it) } // ; check(it, readAnswerAsInt(1)) }
+    // execute2(readLines()).let { println(it) } // ; check(it, readAnswerAsInt(2)) }
 }
 
 private fun execute1(input: List<String>): Int {
