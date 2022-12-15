@@ -89,5 +89,6 @@ fun compare(left: String, right: String): Int {
         val first = compare(firstLeft, firstRight)
         if (first != 0) return first
         return compare(restLeft, restRight)
+
     } else throw RuntimeException("CMH left=$left   right=$right")
 }
