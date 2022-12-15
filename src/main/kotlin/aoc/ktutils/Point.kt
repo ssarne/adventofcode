@@ -18,4 +18,8 @@ data class Point(val x: Int, val y: Int) {
     operator fun times(scale: Int): Point {
         return Point(this.x * scale, this.y * scale)
     }
+
+    fun manhattan(other: Point): Int {
+        return Math.abs(this.x - other.x) + Math.abs(this.y - other.y)
+    }
 }

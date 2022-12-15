@@ -58,9 +58,8 @@ fun readAnswer(part: Int = 0): String {
     return text
 }
 
-fun readAnswerAsInt(part: Int = 0): Int {
-    return readAnswer(part).toInt()
-}
+fun readAnswerAsInt(part: Int = 0) = readAnswer(part).toInt()
+fun readAnswerAsLong(part: Int = 0) = readAnswer(part).toLong()
 
 fun readTestText(testIndex: Int = 0): String {
     val (year, day) = getYearAndDay()
@@ -68,13 +67,8 @@ fun readTestText(testIndex: Int = 0): String {
     return File(fileName).readText(Charsets.UTF_8)
 }
 
-fun readInts(): IntArray {
-    return asIntArray(readText())
-}
-
-fun readTestInts(): IntArray {
-    return asIntArray(readTestText())
-}
+fun readInts() = asIntArray(readText())
+fun readTestInts() = asIntArray(readTestText())
 
 fun asInt(c: Char) = Character.getNumericValue(c)
 fun asLong(c: Char) = Character.getNumericValue(c).toLong()
