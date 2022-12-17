@@ -45,6 +45,25 @@ fun printSparseMatrix(dots: Map<Point, Char>, header: Boolean = false) {
     }
 }
 
+fun printSparseMatrixReversed(dots: Map<Point, Char>, header: Boolean = false) {
+    val minX = dots.keys.stream().mapToInt { it.x }.min().orElse(0)
+    val minY = dots.keys.stream().mapToInt { it.y }.min().orElse(0)
+    val maxX = dots.keys.stream().mapToInt { it.x }.max().orElse(1)
+    val maxY = dots.keys.stream().mapToInt { it.y }.max().orElse(1)
+    if (header) for (x in minX..maxX) print("-"); println("")
+    for (y1 in minY..maxY) {
+        var y = maxY - y1
+        for (x in minX..maxX) {
+            if (dots.contains(Point(x, y))) {
+                print(dots[Point(x, y)])
+            } else {
+                print(' ')
+            }
+        }
+        println()
+    }
+}
+
 fun printSparseSet(dots: Set<Point>, header: Boolean = false) {
     val minX = dots.stream().mapToInt { it.x }.min().orElse(0)
     val minY = dots.stream().mapToInt { it.y }.min().orElse(0)
