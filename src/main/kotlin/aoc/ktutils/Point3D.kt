@@ -33,6 +33,26 @@ data class Point3D(val x: Int, val y: Int, val z: Int) : Comparable<Point3D> {
         return this.z - that.z
     }
 
+    fun adjacent6(): List<Point3D> {
+        return listOf(
+            Point3D(x + 1, y, z),
+            Point3D(x - 1, y, z),
+            Point3D(x, y + 1, z),
+            Point3D(x, y - 1, z),
+            Point3D(x, y, z + 1),
+            Point3D(x, y, z - 1))
+    }
+
+    fun adjacent26(): List<Point3D> {
+        val list = ArrayList<Point3D>(26)
+        for (xi in -1..1)
+            for (yi in -1..1)
+                for (zi in -1..1)
+                    if (xi != 0 && yi != 0 && zi != 0)
+                        list.add(Point3D(xi, yi, zi))
+        return list
+    }
+
     // Rotation matrix's for counterclockwise in 3D, S for sinus, C for co-sinus
     // sin(90)=1, cos(90)=0, sin(0)=0, cos(0)=1
     //
