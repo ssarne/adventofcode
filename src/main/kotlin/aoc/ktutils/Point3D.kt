@@ -33,7 +33,8 @@ data class Point3D(val x: Int, val y: Int, val z: Int) : Comparable<Point3D> {
         return this.z - that.z
     }
 
-    fun adjacent6(): List<Point3D> {
+    /** Enumerate the 6 directly adjacent coordinates to this Point */
+    fun adjacent(): List<Point3D> {
         return listOf(
             Point3D(x + 1, y, z),
             Point3D(x - 1, y, z),
@@ -43,7 +44,8 @@ data class Point3D(val x: Int, val y: Int, val z: Int) : Comparable<Point3D> {
             Point3D(x, y, z - 1))
     }
 
-    fun adjacent26(): List<Point3D> {
+    /** Enumerate the 26 surrounding coordinates to this Point */
+    fun surrounding(): List<Point3D> {
         val list = ArrayList<Point3D>(26)
         for (xi in -1..1)
             for (yi in -1..1)
