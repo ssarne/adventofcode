@@ -1,7 +1,5 @@
 package aoc.aoc2020;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.*;
 import static aoc.utils.Utils.*;
 
@@ -78,7 +76,6 @@ public class Dec21 {
         return tot;
     }
 
-    @NotNull
     private static HashSet<String> getAllergenicIngredients(HashMap<String, List<String>> allergensMap) {
         var allergenicIngredients = new HashSet<String>();
         for (String a : allergensMap.keySet()) {
@@ -108,7 +105,6 @@ public class Dec21 {
         }
     }
 
-    @NotNull
     private static HashMap<String, List<String>> mergeAllergens(HashMap<String, List<List<String>>> allergensMap) {
         var aToI2 = new HashMap<String, List<String>>();
         for (String a : allergensMap.keySet()) {

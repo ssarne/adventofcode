@@ -6,7 +6,6 @@ import static aoc.utils.Utils.getLines;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
-import org.jetbrains.annotations.Nullable;
 
 public class Dec15 {
 
@@ -69,7 +68,6 @@ public class Dec15 {
     return max;
   }
 
-  @Nullable
   private static Pos findOxygen(HashMap<String, Character> board) {
 
     Queue<Pos> queue = new LinkedList<>();

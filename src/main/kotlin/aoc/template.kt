@@ -2,7 +2,6 @@ package aoc
 
 import aoc.ktutils.*
 import kotlin.math.*
-import java.lang.RuntimeException
 
 fun main() {
     check(execute1(readTestLines()), -1)
