@@ -4,7 +4,6 @@ import aoc.ktutils.asChunks
 import aoc.ktutils.readAnswer
 import aoc.ktutils.readLines
 import aoc.ktutils.readTestLines
-import kotlin.streams.toList
 
 fun main() {
     aoc.ktutils.check(execute1(readTestLines()), 24000)
@@ -29,5 +28,5 @@ private fun readElfes(lines: List<String>): List<Int> {
     var chunks = asChunks(lines)
     return chunks.stream()
         .map { chunk -> chunk.map { it.toInt() }.reduce { a, n -> a + n } }
-        .toList()
+        .mapToInt {it.toInt()}.toArray().toList()
 }
