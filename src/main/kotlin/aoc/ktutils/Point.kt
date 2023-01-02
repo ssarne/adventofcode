@@ -32,8 +32,8 @@ data class Point(val x: Int, val y: Int) {
         val list = ArrayList<Point>(8)
         for (xi in -1..1)
             for (yi in -1..1)
-                if (xi != 0 && yi != 0)
-                    list.add(Point(xi, yi))
+                if (xi != 0 || yi != 0)
+                    list.add(Point(x + xi, y + yi))
         return list
     }
 }
