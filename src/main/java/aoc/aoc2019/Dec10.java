@@ -6,8 +6,6 @@ import static aoc.utils.Utils.getLines;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class Dec10 {
 
@@ -77,7 +75,6 @@ public class Dec10 {
     return (last.y * 100 + last.x);
   }
 
-  @Nullable
   private static Pos destroyClockwise(List<Pos> astroids, int number) {
     astroids.sort(Dec10::compareAngle);
     ;
@@ -98,7 +95,6 @@ public class Dec10 {
     return last;
   }
 
-  @NotNull
   private static List<Pos> getPositions(int a, int b, int ytot, int xtot, char[][] space) {
     List<Pos> astroids = new LinkedList<>();
     for (int yi = 0; yi < ytot; yi++) {
