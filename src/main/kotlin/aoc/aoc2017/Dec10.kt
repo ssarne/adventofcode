@@ -1,28 +1,25 @@
 package aoc.aoc2017
 
-import aoc.ktutils.check
-import aoc.ktutils.readInts
-import aoc.ktutils.readText
+import aoc.ktutils.*
 
 fun main() {
     check(hash(5, intArrayOf(3, 4, 1, 5)), 12)
-    println(hash(256, readInts())) // 54675
+    hash(256, readInts()).let { println(it) ; check(it, readAnswerAsInt(1)) }
+
     check(hash2(256, ""), "a2582a3a0e66e6e86e3812dcb672a272")
     check(hash2(256, "AoC 2017"), "33efeb34ea91902bb2f59c9920caa6cd")
     check(hash2(256, "1,2,3"), "3efbe78a8d82f29979031a4aa0b16a9d")
     check(hash2(256, "1,2,4"), "63960835bcdc130f0b66d7ff4f6a5a8e")
-    println(hash2(256, readText())) // a7af2706aa9a09cf5d848c1e6605dd2a
+    hash2(256, readText()).let { println(it) ; check(it, readAnswer(2)) }
 }
 
 private fun hash(size: Int, input: IntArray): Int {
     var pos = 0
-    var skip = 0
     var data = IntArray(size)
     for (i in data.indices) data[i] = i
-    for (x in input) {
+    for ((skip, x) in input.withIndex()) {
         reverse(pos, x, data)
         pos = (pos + x + skip) % size
-        skip++
     }
     return data[0] * data[1]
 }

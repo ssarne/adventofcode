@@ -1,6 +1,7 @@
 package aoc.aoc2017
 
 import aoc.ktutils.check
+import aoc.ktutils.readAnswerAsInt
 import aoc.ktutils.readLines
 import aoc.ktutils.readTestLines
 import java.lang.RuntimeException
@@ -10,8 +11,8 @@ private data class Res(var end: Int, var top: Int)
 fun main() {
     check(execute(readTestLines()).end, 1)
     check(execute(readTestLines()).top, 10)
-    println(execute(readLines()).end) // 3880
-    println(execute(readLines()).top) // 5035
+    execute(readLines()).end.let { println(it) ; check(it, readAnswerAsInt(1)) }
+    execute(readLines()).top.let { println(it) ; check(it, readAnswerAsInt(2)) }
 }
 
 private fun execute(input: List<String>): Res {

@@ -1,14 +1,15 @@
 package aoc.aoc2017
 
 import aoc.ktutils.check
+import aoc.ktutils.readAnswerAsInt
 import aoc.ktutils.readLines
 import aoc.ktutils.readTestLines
 
 fun main() {
     check(checksum(readTestLines()), 18)
-    println(checksum(readLines())) // 34581
+    checksum(readLines()).let { println(it); check(it, readAnswerAsInt(1)) }
     check(divisesum(readTestLines(2)), 9)
-    println(divisesum(readLines())) // 214
+    divisesum(readLines()).let { println(it); check(it, readAnswerAsInt(2)) }
 }
 
 private fun checksum(input: List<String>): Int {

@@ -1,6 +1,7 @@
 package aoc.aoc2017
 
 import aoc.ktutils.check
+import aoc.ktutils.readAnswerAsInt
 import aoc.ktutils.readText
 
 fun main() {
@@ -12,7 +13,8 @@ fun main() {
     check(parse("{{<ab>},{<ab>},{<ab>},{<ab>}}").score, 9)
     check(parse("{{<!!>},{<!!>},{<!!>},{<!!>}}").score, 9)
     check(parse("{{<a!>},{<a!>},{<a!>},{<ab>}}").score, 3)
-    println(parse(readText()).score) // 17537
+    parse(readText()).score.let { println(it) ; check(it, readAnswerAsInt(1)) }
+
     check(parse("<>").garbage, 0)
     check(parse("<random characters>").garbage, 17)
     check(parse("<<<<>").garbage, 3)
@@ -20,7 +22,7 @@ fun main() {
     check(parse("<!!>").garbage, 0)
     check(parse("<!!!>>").garbage, 0)
     check(parse("<{o\"i!a,<{i<a>").garbage, 10)
-    println(parse(readText()).garbage) // 7539
+    parse(readText()).garbage.let { println(it) ; check(it, readAnswerAsInt(2)) }
 }
 
 private data class Res09(var score: Int, var garbage: Int)

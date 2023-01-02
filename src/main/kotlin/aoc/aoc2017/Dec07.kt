@@ -1,8 +1,6 @@
 package aoc.aoc2017
 
-import aoc.ktutils.check
-import aoc.ktutils.readLines
-import aoc.ktutils.readTestLines
+import aoc.ktutils.*
 import java.lang.RuntimeException
 import java.util.*
 
@@ -17,10 +15,10 @@ private data class BalanceResult(var result: Boolean = true, var node: Tree? = n
 
 fun main() {
     check(findRoot(parse(readTestLines())).label, "tknk")
-    println(findRoot(parse(readLines())).label) // ahnofa
+    findRoot(parse(readLines())).label.let { println(it); check(it, readAnswer(1)) }
     check((isBalanced(findRoot(parse(readTestLines())))).node?.label, "ugml")
     check((isBalanced(findRoot(parse(readTestLines())))).adjusted, 60)
-    println(isBalanced(findRoot(parse(readLines()))).adjusted) // 802
+    isBalanced(findRoot(parse(readLines()))).adjusted.let { println(it); check(it, readAnswerAsInt(2)) }
 }
 
 private fun isBalanced(tree: Tree): BalanceResult {

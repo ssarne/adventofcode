@@ -1,6 +1,6 @@
 package aoc.aoc2017
 
-import aoc.ktutils.check
+import aoc.ktutils.*
 
 fun main() {
 
@@ -8,13 +8,13 @@ fun main() {
     check(manhattan(getSpiralPosition(12)), 3)
     check(manhattan(getSpiralPosition(23)), 2)
     check(manhattan(getSpiralPosition(1024)), 31)
-    println(manhattan(getSpiralPosition(368078))) // 371
+    manhattan(getSpiralPosition(readText().toInt())).let { println(it); check(it, readAnswerAsInt(1)) }
 
     check(stressTest(1), 2)
     check(stressTest(2), 4)
     check(stressTest(60), 122)
     check(stressTest(750), 806)
-    println(stressTest(368078)) // 369601
+    stressTest(readText().toInt()).let {println(it); check(it, readAnswerAsInt(2)) }
 }
 
 private data class Pos(var x: Int, var y: Int)

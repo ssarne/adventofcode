@@ -1,15 +1,16 @@
 package aoc.aoc2017
 
 import aoc.ktutils.check
+import aoc.ktutils.readAnswerAsInt
 import aoc.ktutils.readLines
 import aoc.ktutils.readTestLines
 import aoc.utils.Utils
 
 fun main() {
     check(countJumps(input(readTestLines())), 5)
-    println(countJumps(input(readLines()))) // 394829
+    countJumps(input(readLines())).let { println(it); check(it, readAnswerAsInt(1)) }
     check(countJumps2(input(readTestLines())), 10)
-    println(countJumps2(input(readLines()))) // 31150702
+    countJumps2(input(readLines())).let { println(it); check(it, readAnswerAsInt(2)) }
 }
 
 private fun countJumps(instructions: IntArray): Int {

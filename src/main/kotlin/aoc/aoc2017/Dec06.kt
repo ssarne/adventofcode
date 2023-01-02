@@ -1,7 +1,7 @@
 package aoc.aoc2017
 
-import aoc.utils.Utils
 import aoc.ktutils.check
+import aoc.ktutils.readAnswerAsInt
 import aoc.ktutils.readLines
 import java.util.*
 
@@ -9,25 +9,25 @@ private data class Result(var allocs: Int, var loop: Int)
 
 fun main() {
     check(countReallocations(intArrayOf(0, 2, 7, 0)).allocs, 5)
-    println(countReallocations(input(readLines())).allocs) // 14029
+    countReallocations(input(readLines())).allocs.let { println(it); check(it, readAnswerAsInt(1)) }
     check(countReallocations(intArrayOf(0, 2, 7, 0)).loop, 4)
-    println(countReallocations(input(readLines())).loop) // 2765
+    countReallocations(input(readLines())).loop.let { println(it); check(it, readAnswerAsInt(2)) }
 }
 
 private fun countReallocations(banks: IntArray): Result {
-    var history = HashMap<String, Int>()
+    val history = HashMap<String, Int>()
     var allocs = 0
-    while (!history.contains(Arrays.toString(banks))) {
-        history.put(Arrays.toString(banks), allocs)
-        var pos = getMax(banks)
-        var blocks = banks[pos]
+    while (!history.contains(banks.contentToString())) {
+        history[banks.contentToString()] = allocs
+        val pos = getMax(banks)
+        val blocks = banks[pos]
         banks[pos] = 0
         for (i in 1..blocks) {
             banks[(pos+i) % banks.size]++
         }
         allocs++
     }
-    return Result(allocs, allocs - history.getOrDefault(Arrays.toString(banks), 0))
+    return Result(allocs, allocs - history.getOrDefault(banks.contentToString(), 0))
 }
 
 private fun getMax(banks: IntArray): Int {
@@ -39,10 +39,9 @@ private fun getMax(banks: IntArray): Int {
 }
 
 private fun input(input: List<String>): IntArray {
-    var ints = input
+    return input
         .first()
         .split(" ", "\t")
         .map { t -> t.toInt() }
         .toIntArray()
-    return ints
 }

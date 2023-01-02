@@ -1,15 +1,16 @@
 package aoc.aoc2017
 
 import aoc.ktutils.check
+import aoc.ktutils.readAnswerAsInt
 import aoc.ktutils.readLines
 import aoc.ktutils.readTestLines
 import aoc.utils.Utils
 
 fun main() {
     check(countValidPassPhrases(readTestLines()), 2)
-    println(countValidPassPhrases(readLines()))
+    countValidPassPhrases(readLines()).let { println(it); check(it, readAnswerAsInt(1)) }
     check(countValidPassPhrasesWithoutAnagrams(readTestLines(2)), 3)
-    println(countValidPassPhrasesWithoutAnagrams(readLines()))
+    countValidPassPhrasesWithoutAnagrams(readLines()).let { println(it); check(it, readAnswerAsInt(2)) }
 }
 
 private fun countValidPassPhrases(input: List<String>): Int {

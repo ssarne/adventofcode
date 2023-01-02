@@ -1,12 +1,14 @@
 package aoc.aoc2017
 
 import aoc.ktutils.check
+import aoc.ktutils.readAnswerAsInt
+import aoc.ktutils.readLines
 import aoc.ktutils.readText
 
 fun main() {
     test()
-    println(sumNeighbourPairs(readText())) // 1182
-    println(sumOppositePairs(readText())) // 1152
+    sumNeighbourPairs(readText()).let { println(it); check(it, readAnswerAsInt(1)) }
+    sumOppositePairs(readText()).let { println(it); check(it, readAnswerAsInt(2)) }
 }
 
 private fun test() {
