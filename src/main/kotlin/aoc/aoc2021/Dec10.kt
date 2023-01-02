@@ -2,7 +2,6 @@ package aoc.aoc2021
 
 import aoc.ktutils.*
 import java.util.*
-import kotlin.streams.toList
 
 fun main() {
     check(execute1(readTestLines()), 26397)
@@ -22,7 +21,7 @@ private fun execute2(input: List<String>): Long {
         .filter { errorScore(it) == 0 }
         .mapToLong { incompleteScore(it) }
         .sorted()
-        .toList()
+        .toArray()
     return scores[scores.size / 2]
 }
 
