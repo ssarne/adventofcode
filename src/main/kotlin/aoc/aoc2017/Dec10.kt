@@ -10,7 +10,12 @@ fun main() {
     check(hash2(256, "AoC 2017"), "33efeb34ea91902bb2f59c9920caa6cd")
     check(hash2(256, "1,2,3"), "3efbe78a8d82f29979031a4aa0b16a9d")
     check(hash2(256, "1,2,4"), "63960835bcdc130f0b66d7ff4f6a5a8e")
-    hash2(256, readText()).let { println(it) ; check(it, readAnswer(2)) }
+
+    hash2(256, readText()).let {
+        println(it)
+        checkNot(it, "899124dac201012ebc32e2f4d11eaec55")
+        check(it, readAnswer(2))
+    }
 }
 
 private fun hash(size: Int, input: IntArray): Int {
@@ -28,7 +33,7 @@ private fun hash2(size: Int, input: String): String {
 
     var lengths = input
         .toCharArray()
-        .map { c -> c.toInt() }
+        .map { c -> c.code }
         .toIntArray() +
             intArrayOf(17, 31, 73, 47, 23)
 
@@ -36,6 +41,7 @@ private fun hash2(size: Int, input: String): String {
     var skip = 0
     var data = IntArray(size)
     for (i in data.indices) data[i] = i
+
 
     for (i in 1 .. 64) {
         for (x in lengths) {
@@ -46,13 +52,12 @@ private fun hash2(size: Int, input: String): String {
     }
 
     var dense = ""
-    for (i in 0..15) {
+    for (i in 0 until 16) {
         var c = data[16 * i]
-        for (j in 1..15) {
+        for (j in 1 until 16) {
             c = c.xor(data[16 * i + j])
         }
-        if (c <= 16) dense += "0"
-        dense += c.toString(16)
+        dense += c.toString(16).padStart(2, '0')
     }
     return dense
 }

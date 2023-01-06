@@ -61,3 +61,9 @@ fun check(actual: String?, expected: String?) {
         System.err.println("Failure: actual=$actual  expected=$expected")
     }
 }
+
+fun checkNot(actual: String?, notAccepted: String?) {
+    if (actual == notAccepted) {
+        System.err.println("Failure, not accepted: $notAccepted")
+    }
+}
