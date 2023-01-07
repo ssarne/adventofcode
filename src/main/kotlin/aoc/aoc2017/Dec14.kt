@@ -1,13 +1,14 @@
 package aoc.aoc2017
 
 import aoc.ktutils.check
+import aoc.ktutils.readAnswerAsInt
 import java.lang.RuntimeException
 
 fun main() {
     check(countBits("flqrgnkx"), 8108)
-    println(countBits("hfdlxzhv")) // 8230
+    countBits("hfdlxzhv").let { println(it) ; check(it, readAnswerAsInt(1)) }
     check(countRegions("flqrgnkx"), 1242)
-    println(countRegions("hfdlxzhv")) // 1103
+    countRegions("hfdlxzhv").let { println(it) ; check(it, readAnswerAsInt(2)) }
 }
 
 private fun countRegions(input: String): Int {

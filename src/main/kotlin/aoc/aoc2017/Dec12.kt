@@ -1,6 +1,7 @@
 package aoc.aoc2017
 
 import aoc.ktutils.check
+import aoc.ktutils.readAnswerAsInt
 import aoc.ktutils.readTestLines
 import aoc.ktutils.readLines
 import java.util.*
@@ -9,9 +10,9 @@ import kotlin.collections.HashMap
 
 fun main() {
     check(groupSize(parse(readTestLines()), "0"),6)
-    println(groupSize(parse(readLines()), "0")) // 130
+    groupSize(parse(readLines()), "0").let { println(it) ; check(it, readAnswerAsInt(1)) }
     check(countGroups(parse(readTestLines())),2)
-    println(countGroups(parse(readLines()))) // 189
+    countGroups(parse(readLines())).let { println(it) ; check(it, readAnswerAsInt(2)) }
 }
 
 private data class Node(

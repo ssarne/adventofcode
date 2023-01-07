@@ -1,13 +1,11 @@
 package aoc.aoc2017
 
-import aoc.ktutils.check
-import aoc.ktutils.readTestText
-import aoc.ktutils.readText
+import aoc.ktutils.*
 
 fun main() {
     check(dance("abcde", input(readTestText())), "baedc")
-    println(dance("abcdefghijklmnop", input(readText()))) // jcobhadfnmpkglie
-    println(dances("abcdefghijklmnop", input(readText()), 1000000000L)) // pclhmengojfdkaib
+    dance("abcdefghijklmnop", input(readText())).let { println(it) ; check(it, readAnswer(1)) }
+    dances("abcdefghijklmnop", input(readText()), 1000000000L).let { println(it) ; check(it, readAnswer(2)) }
 }
 
 private fun dances(line : String, instructions : List<String>, iters : Long) : String {

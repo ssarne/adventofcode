@@ -1,14 +1,15 @@
 package aoc.aoc2017
 
 import aoc.ktutils.check
+import aoc.ktutils.readAnswerAsInt
 import aoc.ktutils.readTestLines
 import aoc.ktutils.readLines
 
 fun main() {
     check(severity(parse(readTestLines()), 0).second, 24)
-    println(severity(parse(readLines()), 0).second) // 1580
+    severity(parse(readLines()), 0).second.let { println(it) ; check(it, readAnswerAsInt(1)) }
     check(probe(parse(readTestLines())), 10)
-    println(probe(parse(readLines()))) // 3943252
+    probe(parse(readLines())).let { println(it) ; check(it, readAnswerAsInt(2)) }
 }
 
 private fun probe(firewall: Map<Int, Int>): Int {

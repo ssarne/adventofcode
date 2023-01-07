@@ -67,3 +67,9 @@ fun checkNot(actual: String?, notAccepted: String?) {
         System.err.println("Failure, not accepted: $notAccepted")
     }
 }
+
+fun checkNot(actual: Int, notAccepted: Int) {
+    if (actual == notAccepted) {
+        System.err.println("Failure, not accepted: $notAccepted")
+    }
+}

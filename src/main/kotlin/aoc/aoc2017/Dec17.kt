@@ -1,15 +1,16 @@
 package aoc.aoc2017
 import aoc.ktutils.check
+import aoc.ktutils.readText
 import java.lang.RuntimeException
 import java.util.*
 
 fun main() {
     check(after(spinlock(9, 3), 9), 5)
     check(after(spinlock(2017, 3), 2017), 638)
-    println(after(spinlock(2017, 366), 2017)) // 1025
+    after(spinlock(2017, readText().toInt()), 2017).let { println(it) } // ; check(it, readAnswerAsInt(1)) }
     check(spinlockNextArray(9, 3)[9], 5)
     check(spinlockNextArray(2017, 3)[2017], 638)
-    println(spinlockNextArray(50000000, 366)[0]) // 37803463
+    spinlockNextArray(50000000, readText().toInt())[0].let { println(it) } // ; check(it, readAnswerAsInt(1)) }
 }
 
 /**

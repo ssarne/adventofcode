@@ -1,18 +1,16 @@
 package aoc.aoc2017
 
 
-import aoc.ktutils.check
-import aoc.ktutils.readLines
-import aoc.ktutils.readTestLines
+import aoc.ktutils.*
 import java.lang.RuntimeException
 import java.util.*
 
 fun main() {
     check(execute1(readTestLines()).first, "ABCDEF")
-    execute1(readLines()).first.let { println(it); check(it, "MKXOIHZNBL") }
+    execute1(readLines()).first.let { println(it); check(it, readAnswer(1)) }
 
     check(execute1(readTestLines()).second, 38)
-    println(execute1(readLines()).second) // 17872
+    execute1(readLines()).second.let { println(it); check(it, readAnswerAsInt(2)) }
 }
 
 private fun execute1(input: List<String>): Pair<String, Int> {

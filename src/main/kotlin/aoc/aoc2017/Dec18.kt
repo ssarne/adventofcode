@@ -1,16 +1,18 @@
 package aoc.aoc2017
 
 import aoc.ktutils.check
+import aoc.ktutils.readAnswerAsLong
 import aoc.ktutils.readLines
 import aoc.ktutils.readTestLines
 import java.util.*
+import kotlin.collections.HashMap
 
 fun main() {
     check(execute1(readTestLines()), 4L)
-    println(execute1(readLines())) // 4601
+    execute1(readLines()).let { println(it) ; check(it, readAnswerAsLong(1)) }
 
     check(execute2(readTestLines(2)), 3L)
-    println(execute2(readLines())) // 6858
+    execute2(readLines()).let { println(it) ; check(it, readAnswerAsLong(2)) }
 }
 
 private fun execute1(program: List<String>): Long {

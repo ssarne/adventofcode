@@ -2,7 +2,7 @@ package aoc.aoc2017
 
 import aoc.ktutils.check
 import aoc.ktutils.readText
-import java.lang.RuntimeException
+import aoc.ktutils.readAnswerAsInt
 
 fun main() {
     check(execute("ne,ne,ne").first, 3)
@@ -16,9 +16,10 @@ fun main() {
     check(execute("s,s,s,nw").first, 3)
     check(execute("s,sw,sw,sw").first, 4)
     check(execute("s,s,s,nw").first, 3)
-    println(execute(readText()).first) // 796
+    execute(readText()).let { println(it.first) ; check(it.first, readAnswerAsInt(1)) }
+
     check(execute("ne,ne,sw,sw").second, 2)
-    println(execute(readText()).second) // 1585
+    execute(readText()).let { println(it.second) ; check(it.second, readAnswerAsInt(2)) }
 }
 
 private fun execute(input: String): Pair<Int, Int> {
