@@ -18,7 +18,7 @@ fun parseSparseBinaryMatrix(input: List<String>): HashSet<Point> {
     return grid
 }
 
-fun parseCharacterGridToMap(input: List<String>): HashMap<Point, Char> {
+fun parseCharacterGridToMap(input: List<String>, filter: Char? = null): HashMap<Point, Char> {
     if (input.isEmpty()) throw RuntimeException("Height should be larger than 0. Input list is empty.")
     var grid = HashMap<Point, Char>()
     for (y in input.indices) {
@@ -27,6 +27,15 @@ fun parseCharacterGridToMap(input: List<String>): HashMap<Point, Char> {
         }
     }
     return grid
+}
+
+fun <T> centerPoint(grid: Map<Point, T>): Point {
+    val maxX = grid.keys.map { it.x }.max()
+    val maxY = grid.keys.map { it.y }.max()
+    val minX = grid.keys.map { it.x }.min()
+    val minY = grid.keys.map { it.y }.min()
+    val center = Point((maxX - minX) / 2, (maxY - minY) / 2)
+    return center
 }
 
 fun printSparseMatrix(dots: Map<Point, Char>, header: Boolean = false, msg: String = "") {
