@@ -7,13 +7,17 @@ import java.util.List;
 
 public class AdventOfCode03 {
 
-  static int[][] cloth = new int[1001][1001];
-  // static Set<Integer> ids = new HashSet<>();
-  static int overlaps;
+  public static void main(String[] args) throws IOException {
+    System.out.println(task1());
+    System.out.println(task2());
+  }
 
-  public static void task1() throws IOException {
+  private static int[][] cloth = new int[1001][1001];
+  private static int overlaps;
 
-    List<String> lines = getLines("input03.txt");
+  public static int task1() throws IOException {
+
+    List<String> lines = getLines();
 
     for (String line : lines) {
       Claim c = new Claim(line);
@@ -30,14 +34,12 @@ public class AdventOfCode03 {
         }
       }
     }
-
-    // print();
-    System.out.print("Number of overlaps: " + overlaps);
+    return overlaps;
   }
 
-  public static void task2() throws IOException {
+  public static int task2() throws IOException {
 
-    List<String> lines = getLines("input03.txt");
+    List<String> lines = getLines();
 
     for (String line : lines) {
       Claim c = new Claim(line);
@@ -50,14 +52,10 @@ public class AdventOfCode03 {
         }
       }
       if (found) {
-        System.out.println("Match: " + c.id);
+        return c.id;
       }
     }
-  }
-
-  public static void main(String[] args) throws IOException {
-    task1();
-    task2();
+    throw new RuntimeException("CMH");
   }
 
   public static void print() {
@@ -97,4 +95,5 @@ public class AdventOfCode03 {
       height = Integer.parseInt(size[1]);
     }
   }
+
 }

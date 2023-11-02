@@ -1,6 +1,6 @@
 package aoc.aoc2018;
 
-import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -8,24 +8,13 @@ import java.util.*;
 public class AdventOfCode04 {
 
   public static void main(String[] args) throws IOException {
-    test();
-    task1();
-    // task2();
+    doit(getTestLines());
+    doit(getLines());
   }
 
-  public static void test() throws IOException {
-    doit("input04_test.txt");
-  }
+  public static void doit(List<String> lines) throws IOException {
 
-  public static void task1() throws IOException {
-    doit("input04.txt");
-  }
-
-  public static void task2() throws IOException {}
-
-  public static void doit(String filename) throws IOException {
-    List<String> lines = getLines(filename);
-    lines.sort((s1, s2) -> s1.compareTo(s2));
+    lines.sort(String::compareTo);
 
     TreeMap<Integer, Guard> guards = new TreeMap<>();
     Guard guard = null;

@@ -14,7 +14,7 @@ public class AdventOfCode10 {
   }
 
   public static void test() throws IOException {
-    List<String> lines = getLines("input10_test.txt");
+    List<String> lines = getTestLines();
     Sky sky = parse(lines);
     int time = getTime(sky);
     System.out.println("t=" + time);
@@ -24,7 +24,7 @@ public class AdventOfCode10 {
   }
 
   public static void task1() throws IOException {
-    List<String> lines = getLines("input10.txt");
+    List<String> lines = getLines();
     Sky sky = parse(lines);
     int time = getTime(sky);
     System.out.println("t=" + time);

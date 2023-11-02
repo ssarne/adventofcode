@@ -1,58 +1,36 @@
 package aoc.aoc2018;
 
-import static aoc.utils.Utils.asInt;
-import static aoc.utils.Utils.check;
-import static aoc.utils.Utils.getLines;
-
 import aoc.utils.Utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static aoc.utils.Utils.*;
+
 public class AdventOfCode08 {
 
   public static void main(String[] args) throws Exception {
-    test1();
-    task1();
-    test2();
-    task2();
+    Utils.check(execute1(getTestLines()), 138);
+    System.out.println(execute1(getLines()));
+    Utils.check(execute2(getTestLines()), 66);
+    System.out.println(execute2(getLines()));
   }
 
-  public static void test1() throws Exception {
-    int[] input = input("input08_test.txt");
+  public static int execute1(List<String> lines) throws Exception {
+    int[] input = input(lines);
     Node root = new Node();
     read(input, 0, root);
-    int result = root.sum();
-    System.out.println("Result: " + result);
-    Utils.check(result, 138);
+    return root.sum();
   }
 
-  public static void task1() throws Exception {
-    int[] input = input("input08.txt");
+  public static int execute2(List<String> lines) throws Exception {
+    int[] input = input(lines);
     Node root = new Node();
     read(input, 0, root);
-    int result = root.sum();
-    System.out.println("Result: " + result);
+    return root.sum2();
   }
 
-  public static void test2() throws Exception {
-    int[] input = input("input08_test.txt");
-    Node root = new Node();
-    read(input, 0, root);
-    int result = root.sum2();
-    System.out.println("Result: " + result);
-  }
-
-  public static void task2() throws Exception {
-    int[] input = input("input08.txt");
-    Node root = new Node();
-    read(input, 0, root);
-    int result = root.sum2();
-    System.out.println("Result: " + result);
-  }
-
-  private static int[] input(String name) {
-    List<String> lines = getLines(name);
+  private static int[] input(List<String> lines) {
     String[] inputs = lines.get(0).split(" ");
     return Arrays.stream(inputs).mapToInt(s -> asInt(s)).toArray();
   }

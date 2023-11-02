@@ -1,6 +1,7 @@
 package aoc.aoc2018;
 
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
 import static java.lang.System.out;
 
 import java.util.HashMap;
@@ -10,24 +11,12 @@ import java.util.Optional;
 public class AdventOfCode07 {
 
   public static void main(String[] args) throws Exception {
-    test();
-    task1();
-    // task2();
+    out.println("Test:   " + doit(getTestLines(), 2));
+    out.println("Result: " + doit(getLines(), 5));
   }
 
-  public static void test() throws Exception {
-    String result = doit("input07_test.txt", 2);
-    out.println("Result: " + result);
-  }
+  public static String doit(List<String> lines, int workers) throws Exception {
 
-  public static void task1() throws Exception {
-    String result = doit("input07.txt", 5);
-    System.out.println("Result: " + result);
-  }
-
-  public static String doit(String input, int workers) throws Exception {
-
-    List<String> lines = getLines(input);
     HashMap<String, Step> steps = new HashMap<>();
     for (String line : lines) {
       String[] tokens = line.split(" ");
@@ -86,14 +75,9 @@ public class AdventOfCode07 {
           }
         }
       }
-      out.print(String.format("[%4d]", time));
-      for (int i = 0; i < workers; i++) {
-        out.print(tasks[i] != null ? String.format("%3s", tasks[i].id) : "   ");
-      }
-      out.println();
     }
 
-    return result.toString();
+    return result + " / " + (time - 1);
   }
 
   private static boolean isWorking(Step[] tasks) {

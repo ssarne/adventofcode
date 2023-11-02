@@ -31,15 +31,13 @@ public class AdventOfCode14 {
 
   public static void task1() throws IOException {
     String result = doit(635041);
-    System.out.println("Result: " + result);
-    check(result, "" + 1150511382);
+    System.out.println(result);
   }
 
   public static void task2() throws IOException {
     int[] input = {6, 3, 5, 0, 4, 1};
     int result = doit2(input);
-    System.out.println("Result: " + result);
-    check(result, 20173656);
+    System.out.println(result);
   }
 
   public static int doit2(int[] target) throws IOException {

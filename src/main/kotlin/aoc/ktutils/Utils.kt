@@ -3,6 +3,9 @@ package aoc.ktutils
 import aoc.utils.InputDownloader
 import java.io.File
 import java.lang.RuntimeException
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 fun readLines(): List<String> {
     val (year, day) = getYearAndDay()
@@ -169,7 +172,7 @@ private data class YearAndDay(var year: String, var day: String)
 private fun getYearAndDay(): YearAndDay {
     val name = getCallerClass()
     val year = name.split(".").toTypedArray()[1].replace("aoc", "")
-    val day = name.split(".").toTypedArray()[2].replace("Kt", "").toLowerCase()
+    val day = name.split(".").toTypedArray()[2].replace("Kt", "").lowercase(Locale.getDefault())
     return YearAndDay(year, day)
 }
 

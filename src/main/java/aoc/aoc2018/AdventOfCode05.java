@@ -1,6 +1,7 @@
 package aoc.aoc2018;
 
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
 import static java.lang.System.out;
 
 import java.util.List;
@@ -8,26 +9,12 @@ import java.util.List;
 public class AdventOfCode05 {
 
   public static void main(String[] args) throws Exception {
-    test();
-    task1();
-    // task2();
+    doit(getTestLines());
+    doit(getLines());
   }
 
-  public static void test() throws Exception {
-    doit("input05_test.txt");
-  }
+  public static void doit(List<String> lines) throws Exception {
 
-  public static void task1() throws Exception {
-    doit("input05.txt");
-  }
-
-  public static void task2() throws Exception {
-    doit("FIXME");
-  }
-
-  public static void doit(String input) throws Exception {
-
-    List<String> lines = getLines(input);
     for (String line : lines) {
       out.println(line);
       String result = deduce(line);

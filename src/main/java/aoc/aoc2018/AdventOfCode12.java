@@ -1,11 +1,11 @@
 package aoc.aoc2018;
 
-import static aoc.utils.Utils.getLines;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
+
+import static aoc.utils.Utils.*;
 
 public class AdventOfCode12 {
 
@@ -14,12 +14,28 @@ public class AdventOfCode12 {
 
   public static void main(String[] args) throws IOException {
     test();
-    task1();
-    task2();
+    System.out.println(task1());
+    System.out.println(task2());
   }
 
-  public static void init(String filename) {
-    List<String> lines = getLines(filename);
+  static void test() throws IOException {
+    init(getTestLines());
+    check(doit(20), 325);
+  }
+
+  static long task1() throws IOException {
+    init(getLines());
+    return doit(20);
+  }
+
+  static long task2() throws IOException {
+    init(getLines());
+    doit(100);
+    return plants.calc(50000000000L - 100);
+  }
+
+  public static void init(List<String> lines) {
+
     String initial = lines.remove(0).substring("initial state: ".length());
     plants = new Plants(initial);
 
@@ -33,37 +49,7 @@ public class AdventOfCode12 {
     }
   }
 
-  static void test() throws IOException {
-    init("input12_test.txt");
-    plants.print();
-    doit(20);
-  }
-
-  static void task1() throws IOException {
-
-    init("input12.txt");
-    System.out.println("Input task 1: ");
-    plants.print();
-    System.out.println("");
-    doit(20);
-  }
-
-  static void task2() throws IOException {
-
-    init("input12.txt");
-    System.out.print("Input task 2: ");
-    plants.print();
-    System.out.println("");
-    // getBots(50000000000L);
-    doit(100);
-
-    // plants.print();
-    long sum = plants.calc(50000000000L - 100);
-    // print(plants, length);
-    System.out.println("Result: " + sum);
-  }
-
-  static void doit(long loops) throws IOException {
+  static long doit(long loops) throws IOException {
 
     // Only for progress udpate
     long step = Math.max(loops / 100, 1000L);
@@ -71,16 +57,9 @@ public class AdventOfCode12 {
 
     for (long age = 0; age < loops; age++) {
 
-      if (age == checkin) { // progress update
-        System.out.println(
-            "age=" + age + "  length=" + plants.length + "  offest=" + plants.offset);
-        checkin += Math.min(step, checkin);
-      }
-
       plants.leftpad();
       plants.rightpad();
-
-      plants.print();
+      // plants.print();
 
       for (int j = 2; j < plants.length - 2; j++) {
         boolean a = false;
@@ -99,9 +78,8 @@ public class AdventOfCode12 {
     }
 
     // plants.print();
-    long sum = plants.calc(0);
     // print(plants, length);
-    System.out.println("Result: " + sum);
+    return plants.calc(0);
   }
 
   private static boolean match(int plant, Rule rule, int pos) {

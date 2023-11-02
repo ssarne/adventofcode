@@ -1,6 +1,7 @@
 package aoc.aoc2018;
 
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
 import static java.lang.System.out;
 
 import java.util.ArrayList;
@@ -18,35 +19,35 @@ public class AdventOfCode06 {
   }
 
   public static void test() throws Exception {
-    var points = getPoints("input06_test.txt");
-    var area = new Area1(points);
-    bfs(points, area, true);
-    int result = area.eval(points, true);
-    System.out.println("Result: " + result);
-  }
-
-  public static void task1() throws Exception {
-    var points = getPoints("input06.txt");
+    var points = getPoints(getTestLines());
     var area = new Area1(points);
     bfs(points, area, false);
     int result = area.eval(points, false);
-    System.out.println("Result: " + result);
+    System.out.println("Test 1: " + result);
+  }
+
+  public static void task1() throws Exception {
+    var points = getPoints(getLines());
+    var area = new Area1(points);
+    bfs(points, area, false);
+    int result = area.eval(points, false);
+    System.out.println("Result 1: " + result);
   }
 
   public static void test2() throws Exception {
-    var points = getPoints("input06_test.txt");
+    var points = getPoints(getTestLines());
     var area = new Area2(points);
-    bfs(points, area, true);
-    int result = area.eval(points, 32, true);
-    System.out.println("Result: " + result);
+    bfs(points, area, false);
+    int result = area.eval(points, 32, false);
+    System.out.println("Test 1: " + result);
   }
 
   public static void task2() throws Exception {
-    var points = getPoints("input06.txt");
+    var points = getPoints(getLines());
     var area = new Area2(points);
     bfs(points, area, false);
     int result = area.eval(points, 10000, false);
-    System.out.println("Result: " + result);
+    System.out.println("Result 2: " + result);
   }
 
   public static void bfs(List<Point> points, Area area, boolean print) throws Exception {
@@ -75,8 +76,8 @@ public class AdventOfCode06 {
     if (print) area.print();
   }
 
-  private static ArrayList<Point> getPoints(String input) {
-    var lines = getLines(input);
+  private static ArrayList<Point> getPoints(List<String> lines) {
+
     var points = new ArrayList<Point>();
 
     int id = 1;

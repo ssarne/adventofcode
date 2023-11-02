@@ -44,7 +44,7 @@ public class InputDownloader {
     HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
     if (response.statusCode() != 200) {
-      throw new IOException("Failed request for input file. status=" + response.statusCode() + " " + response.body());
+      throw new IOException("Failed request for input file '" + uri + "'. status=" + response.statusCode() + " " + response.body());
     }
 
     FileWriter fw = new FileWriter(getInputPath(year, day));

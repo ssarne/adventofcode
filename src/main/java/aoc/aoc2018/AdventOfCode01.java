@@ -1,15 +1,23 @@
 package aoc.aoc2018;
 
+import aoc.utils.Utils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class AdventOfCode01 {
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) {
+    System.out.println(execute(1));
+    System.out.println(execute(2));
+  }
+
+  private static int execute(int task) {
 
     int c = 0;
     Set<Integer> exists = new HashSet<>();
@@ -17,10 +25,7 @@ public class AdventOfCode01 {
 
     for (int lap = 1; true; lap++) {
 
-      File file = new File("src/main/java/com/spotify/personal/ssa/advent/input01.txt");
-      BufferedReader br = new BufferedReader(new FileReader(file));
-
-      for (String line = br.readLine(); line != null; line = br.readLine()) {
+      for (String line : Utils.getLines()) {
         if (line.charAt(0) == '+') {
           c += Integer.parseInt(line.substring(1));
         } else if (line.charAt(0) == '-') {
@@ -29,17 +34,15 @@ public class AdventOfCode01 {
           System.out.println("Unhandled string: " + line);
         }
 
-        if (exists.contains(c)) {
-          System.out.println("Task 1: First frequency align: " + c);
-          return;
+        if (exists.contains(c) && task == 2) {
+          return c; // First frequency align
         }
 
         exists.add(c);
       }
 
-      // exists.stream().sorted().forEach(s -> System.out.println(s));
-      if (lap == 1) {
-        System.out.println("Task 1: Final frequency: " + c);
+      if (lap == 1 && task == 1) {
+        return c; // Resulting frequency
       }
     }
   }

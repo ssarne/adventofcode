@@ -10,26 +10,58 @@ import java.util.List;
 
 public class Utils {
 
-  private static String [] getYearAndDay() {
+  private static int [] getYearAndDay() {
     String name = getCallerClass();
-    String year = name.split("\\.")[1].replace("aoc", "");
-    String day = name.split("\\.")[2].replace("Kt", "");
-    return strings(year, day);
+    int year = Integer.parseInt(name
+            .split("\\.")[1]
+            .replace("aoc", ""));
+    int day = Integer.parseInt(name
+            .split("\\.")[2]
+            .replace("Kt", "")
+            .replace("AdventOfCode", "")
+            .replace("Dec", ""));
+    return ints(year, day);
   }
 
   public static List<String> getLines() {
     try {
       var yd = getYearAndDay();
-      if (!InputDownloader.hasInputFile(yd[0], yd[1])) {
-        InputDownloader.getInputFile(yd[0], yd[1]);
+      var yds = (yd[1] < 10 ? "0" + yd[1] : yd[1]);
+      if (!InputDownloader.hasInputFile("" + yd[0], "dec" + yds)) {
+        InputDownloader.getInputFile("" + yd[0], "dec" + yds);
       }
-      return getLinesFromPath(InputDownloader.getInputPath(yd[0], yd[1]));
+      return getLinesFromPath(InputDownloader.getInputPath("" + yd[0], "dec" + yds));
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
 
-  public static List<String> getLines(String filename) {
+  public static List<String> getTestLines() {
+    return getTestLines(1);
+  }
+
+  public static List<String> getTestLines(int i) {
+    var yd = getYearAndDay();
+    var yds = (yd[1] < 10 ? "0" + yd[1] : yd[1]);
+    var paths = new String[] {
+            "src/main/resources/aoc" + yd[0] + "/dec" + yds + "_test.txt",
+            "src/main/resources/aoc" + yd[0] + "/dec" + yds + "_test" + i + ".txt",
+            "src/main/resources/aoc" + yd[0] + "/dec" + yds + "_test0" + i + ".txt",
+            "src/main/resources/aoc" + yd[0] + "/input" + yds + "_test.txt",
+            "src/main/resources/aoc" + yd[0] + "/input" + yds + "_test" + i + ".txt",
+            "src/main/resources/aoc" + yd[0] + "/input" + yds + "_test_" + i + ".txt",
+            "src/main/resources/aoc" + yd[0] + "/input_" + yds + "_test.txt",
+            "src/main/resources/aoc" + yd[0] + "/input_" + yds + "_test" + i + ".txt",
+            "src/main/resources/aoc" + yd[0] + "/input_" + yds + "_test_" + i + ".txt",
+    };
+    var path = "";
+    for (String p : paths)
+      if (new File(p).exists())
+        path = p;
+    return getLinesFromPath(path);
+  }
+
+    public static List<String> getLines(String filename) {
     if (filename == null) {
       throw new RuntimeException("Given filename is null. Use getLines()");
     }
@@ -39,7 +71,7 @@ public class Utils {
     if (filename.startsWith(base)) {
       base = "";
     }
-    String path = base + yd[0] + "/" + yd[1] + "/" + filename;
+    String path = base + "aoc" + yd[0] + "/" + filename;
     return getLinesFromPath(path);
   }
 

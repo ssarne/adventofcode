@@ -8,9 +8,14 @@ import java.util.List;
 
 public class AdventOfCode02 {
 
-  public static void task1() throws IOException {
+  public static void main(String[] args) throws IOException {
+    System.out.println(task1());
+    System.out.println(task2());
+  }
 
-    List<String> lines = getLines("input02.txt");
+  public static int task1() throws IOException {
+
+    List<String> lines = getLines();
 
     int twos = 0;
     int threes = 0;
@@ -35,12 +40,12 @@ public class AdventOfCode02 {
         threes++;
       }
     }
-    System.out.println("Hash: " + twos * threes);
+    return twos * threes;
   }
 
-  public static void task2() throws IOException {
+  public static String task2() throws IOException {
 
-    List<String> lines = getLines("input02.txt");
+    List<String> lines = getLines();
     HashMap<Character, Integer> chars = new HashMap<>();
     for (String line1 : lines) {
       for (String line2 : lines) {
@@ -58,16 +63,11 @@ public class AdventOfCode02 {
                 result = result + line1.charAt(i);
               }
             }
-            System.out.println("Match: " + result);
-            return;
+            return result;
           }
         }
       }
     }
-  }
-
-  public static void main(String[] args) throws IOException {
-    task1();
-    task2();
+    throw new RuntimeException("Failed.");
   }
 }

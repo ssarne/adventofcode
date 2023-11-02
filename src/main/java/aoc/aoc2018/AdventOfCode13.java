@@ -1,6 +1,9 @@
 package aoc.aoc2018;
 
+import aoc.utils.Utils;
+
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,27 +15,12 @@ public class AdventOfCode13 {
   }
 
   public static void main(String[] args) throws IOException {
-    test();
-    // task();
+    Utils.check(doit(new Board(getTestLines()), true), "7,3");
+    System.out.println(doit(new Board(getLines()), true));
+    System.out.println(doit(new Board(getLines()), false));
   }
 
-  static void test() throws IOException {
-    Board board = init("input13_test.txt");
-    board.print();
-    doit(board);
-  }
-
-  static void task() throws IOException {
-
-    Board board = init("input13.txt");
-    board.print();
-    doit(board);
-  }
-
-  static void doit(Board board) throws IOException {
-
-    String lastCart = "";
-    boolean first = true;
+  static String doit(Board board, boolean first) throws IOException {
 
     for (int age = 1; true; age++) {
       for (int y = 0; y < board.y; y++) {
@@ -47,10 +35,7 @@ public class AdventOfCode13 {
             int x2 = nextX(cart.direction, x);
             int y2 = nextY(cart.direction, y);
             if (board.carts[x2][y2] != null) {
-              if (first) {
-                System.out.println("First collision: " + x2 + "," + y2);
-                first = false;
-              }
+              if (first) return x2 + "," + y2;
               board.carts[x][y] = null;
               board.carts[x2][y2] = null;
               continue;
@@ -62,10 +47,10 @@ public class AdventOfCode13 {
           }
         }
       }
+
       // board.print();
-      if (board.check()) {
-        return;
-      }
+      if (board.check() != null)
+        return board.check();
     }
   }
 
@@ -256,9 +241,9 @@ public class AdventOfCode13 {
       }
     }
 
-    boolean check() {
+    String check() {
       int cs = 0;
-      String lastCart = "";
+      String lastCart = null;
       for (int y = 0; y < this.y; y++) {
         for (int x = 0; x < this.x; x++) {
           if (carts[x][y] != null) {
@@ -267,12 +252,9 @@ public class AdventOfCode13 {
           }
         }
       }
-      // System.out.println("Carts: " + cs + "   last=" + lastCart);
-      if (cs <= 1) {
-        System.out.println("Last carts: " + lastCart);
-        return true;
-      }
-      return false;
+
+      if (cs <= 1) return lastCart;
+      return null;
     }
   }
 
