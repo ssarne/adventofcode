@@ -24,13 +24,17 @@ public class Utils {
   }
 
   public static List<String> getLines() {
+    var yd = getYearAndDay();
+    return getLines(yd[0], yd[1]);
+  }
+
+  public static List<String> getLines(int year, int day) {
     try {
-      var yd = getYearAndDay();
-      var yds = (yd[1] < 10 ? "0" + yd[1] : yd[1]);
-      if (!InputDownloader.hasInputFile("" + yd[0], "dec" + yds)) {
-        InputDownloader.getInputFile("" + yd[0], "dec" + yds);
+      var yds = (day < 10 ? "0" + day : day);
+      if (!InputDownloader.hasInputFile("" + day, "dec" + yds)) {
+        InputDownloader.getInputFile("" + year, "dec" + yds);
       }
-      return getLinesFromPath(InputDownloader.getInputPath("" + yd[0], "dec" + yds));
+      return getLinesFromPath(InputDownloader.getInputPath("" + year, "dec" + yds));
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

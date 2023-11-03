@@ -55,8 +55,8 @@ public class InputDownloader {
   static String getSessionCookie() throws IOException {
     return Files.lines(new File(".aocdlconfig").toPath())
         .map(s -> s.trim())
-        .filter(s -> s.contains("session-cookie"))
-        .map(s -> s.split(":")[1])
+        .filter(s -> s.contains("session"))
+        .map(s -> s.split("=")[1])
         .map(s -> s.trim())
         .map(s -> s.replaceAll("\"", ""))
         .findFirst()

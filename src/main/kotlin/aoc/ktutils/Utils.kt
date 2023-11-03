@@ -9,6 +9,10 @@ import kotlin.collections.HashMap
 
 fun readLines(): List<String> {
     val (year, day) = getYearAndDay()
+    return readLines(year, day)
+}
+
+fun readLines(year: String, day: String): List<String> {
     if (!InputDownloader.hasInputFile(year, day))
         InputDownloader.getInputFile(year, day)
 
@@ -29,7 +33,7 @@ fun hasTestFile(testIndex: Int = 0): Boolean {
 }
 
 fun asChunks(lines: List<String>): List<List<String>> {
-    var chunks = ArrayList<List<String>>()
+    val chunks = ArrayList<List<String>>()
     var chunk = ArrayList<String>()
     chunks.add(chunk)
     for (line in lines) {
@@ -45,6 +49,11 @@ fun asChunks(lines: List<String>): List<List<String>> {
 
 fun readText(): String {
     val (year, day) = getYearAndDay()
+    return readText(year, day)
+}
+
+ fun readText(year: String, day: String): String {
+
     val fileName = getInputFilePath(year, day)
     if (!InputDownloader.hasInputFile(year, day))
         InputDownloader.getInputFile(year, day)
@@ -161,7 +170,7 @@ fun matchFirstParenthesis(text: String, open: Char = '[', close: Char = ']'): Pa
 }
 
 private fun getInputFilePath(year: String, day: String, test: Boolean = false, testIndex: Int = 0): String {
-    var base = if (test) "src/main/resources" else "input"
+    val base = if (test) "src/main/resources" else "input"
     var suffix = if (test) "_test" else ""
     if (testIndex > 0) suffix += "$testIndex"
     return "$base/aoc$year/$day$suffix.txt"
