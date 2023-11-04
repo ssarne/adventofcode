@@ -40,6 +40,27 @@ public class Utils {
     }
   }
 
+  public static int readAnswerAsInt(int part) {
+    return Integer.parseInt(readAnswer(part));
+  }
+
+  public static long readAnswerAsLong(int part) {
+    return Long.parseLong(readAnswer(part));
+  }
+
+  public static String readAnswer(int part) {
+    var yd = getYearAndDay();
+    return readAnswer(part, yd[0], yd[1]);
+  }
+
+  public static String readAnswer(int part, int year, int day) {
+    var yds = (day < 10 ? "0" + day : day);
+    var path = InputDownloader.getInputPath("" + year, "dec" + yds)
+        .replace(".txt", ".out");
+    var lines = getLinesFromPath(path);
+    return lines.get(part - 1);
+  }
+
   public static List<String> getTestLines() {
     return getTestLines(1);
   }
@@ -65,7 +86,7 @@ public class Utils {
     return getLinesFromPath(path);
   }
 
-    public static List<String> getLines(String filename) {
+  public static List<String> getLines(String filename) {
     if (filename == null) {
       throw new RuntimeException("Given filename is null. Use getLines()");
     }

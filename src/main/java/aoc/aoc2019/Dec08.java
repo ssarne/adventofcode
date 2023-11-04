@@ -2,6 +2,7 @@ package aoc.aoc2019;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.readAnswerAsInt;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class Dec08 {
   public static void task1() throws Exception {
     String line = getLines().get(0);
     int result = doit(line, 25, 6);
+    check(result, readAnswerAsInt(1));
     System.out.println("Result 1: " + result);
   }
 

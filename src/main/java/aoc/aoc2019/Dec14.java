@@ -2,6 +2,8 @@ package aoc.aoc2019;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
+import static aoc.utils.Utils.readAnswerAsLong;
 import static java.lang.System.out;
 
 import java.util.ArrayList;
@@ -12,41 +14,39 @@ import java.util.List;
 public class Dec14 {
 
   public static void main(String[] args) throws Exception {
-    // test();
-    // task1();
+    test();
+    task1();
     task2();
   }
 
   public static void test() throws Exception {
-    check(doit("aoc2019/dec14_test1.txt"), 31);
-    check(doit("aoc2019/dec14_test2.txt"), 165);
-    check(doit("aoc2019/dec14_test3.txt"), 13312);
-    check(doit("aoc2019/dec14_test4.txt"), 180697);
-    check(doit("aoc2019/dec14_test5.txt"), 2210736);
+    check(doit(getTestLines(1)), 31);
+    check(doit(getTestLines(2)), 165);
+    check(doit(getTestLines(3)), 13312);
+    check(doit(getTestLines(4)), 180697);
+    check(doit(getTestLines(5)), 2210736);
 
     // max long: 9223372036854775808
     long ores = 1000000000000L;
-    check(fuel(ores, "aoc2019/dec14_test3.txt"), 82892753L);
-    check(fuel(ores, "aoc2019/dec14_test4.txt"), 5586022L);
-    check(fuel(ores, "aoc2019/dec14_test5.txt"), 460664L);
+    check(fuel(ores, getTestLines(3)), 82892753L);
+    check(fuel(ores, getTestLines(4)), 5586022L);
+    check(fuel(ores, getTestLines(5)), 460664L);
   }
 
   public static void task1() throws Exception {
-    long result = doit("aoc2019/dec14.txt");
-    check(result, 168046);
+    long result = doit(getLines());
+    check(result, readAnswerAsLong(1));
     System.out.println("Result: " + result);
   }
 
   public static void task2() throws Exception {
-    long fuel = fuel(1000000000000L, "aoc2019/dec14.txt");
-    // check(fuel, 6972987L);
-    // You guessed 6972987, 6972988
+    long fuel = fuel(1000000000000L, getLines());
+    check(fuel, readAnswerAsLong(2));
     System.out.println("Result: " + fuel);
   }
 
-  public static long doit(String input) throws Exception {
+  public static long doit(List<String> lines) throws Exception {
 
-    List<String> lines = getLines(input);
     HashMap<String, Reaction> reactions = parseReactions(lines);
     HashMap<String, Chemical> stash = new HashMap<>();
 
@@ -55,16 +55,14 @@ public class Dec14 {
   }
 
 
-  public static long fuel(long ores, String input) throws Exception {
+  public static long fuel(long ores, List<String> lines) throws Exception {
 
-    List<String> lines = getLines(input);
     HashMap<String, Reaction> reactions = parseReactions(lines);
     HashMap<String, Chemical> stash = new HashMap<>();
 
     long costPerFuel = nanofactor(reactions, stash, "FUEL", 1);
     long step = 100000L;
     long threshold = ores / 2;
-    out.println("step=" + step + "  ores=" + ores + "  threshold=" + threshold + "  costPerFuel=" + costPerFuel);
 
     long fuel = 0;
     while (true) {
@@ -74,17 +72,14 @@ public class Dec14 {
         ores -= cost;
       }
       if (ores < threshold) {
-        out.println("step=" + step + "  ores=" + ores + "  threshold=" + threshold + "  fuel=" + fuel + " hbgfl=" + stash.get("HBGFL"));
         step = Math.max(step / 10L, 1L);
         threshold = ores / 2;
       }
       if (cost > ores && step == 1L) {
-        out.println("step=" + step + "  ores=" + ores + "  threshold=" + threshold + "  fuel=" + fuel + " hbgfl=" + stash.get("HBGFL"));
-        printStash(stash);
         break;
       }
       if (cost > ores) {
-        throw new RuntimeException("CMF");
+        throw new RuntimeException("CMH");
       }
     }
 

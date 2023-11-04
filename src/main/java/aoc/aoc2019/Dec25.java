@@ -11,50 +11,69 @@ public class Dec25 {
 
   static String[] actions = {
       "east",
-      "take antenna",
+      "take sand",
+      "east",
+      // "take molten lava", // The molten lava is way too hot! You melt!
+      "west",
+      "west",
+      "west",
+      "south",
+      // "take giant electromagnet", // The giant electromagnet is stuck to you.  You can't move!!
+      "south",
+      "take candy cane",
+      "north",
+      "east",
+      // "take escape pod", // You're launched into space! Bye!
+      "south",
+      "north",
+      "east",
+      "south",
+      // "take photons", // It is suddenly completely dark! You are eaten by a Grue!
+      "north",
+      "east",
+      "take space law space brochure",
+      "south",
+      "take fuel cell",
+      "south",
       "west",
       "north",
-      "take weather machine",
       "north",
-      "take klein bottle",
+      "west",
+      "west",
+      "west",
+      "west",
+      "north",
+      "north",
+      "take wreath",
       "east",
+      "take fixed point",
+      "west",
+      "north",
+      // "take infinite loop", ...
+      "north",
       "take spool of cat6",
+      "south",
+      "south",
+      "south",
+      "south",
+      "north",
+      "south",
       "east",
-      "north",
-      "west",
-      "north",
-      "take cake",
-      "south",
       "east",
       "east",
-      "north",
-      "north",
-      "take tambourine",
       "south",
       "south",
-      "south",
-      "take shell",
-      "north",
-      "west",
-      "south",
-      "south",
-      "take mug",
-      "north",
-      "west",
-      "south",
-      "south",
-      "inv"
+      // inv
   };
 
   static String[] items = {
-      "shell",
-      "klein bottle",
-      "tambourine",
-      "weather machine",
-      "antenna",
-      "spool of cat6",
-      "mug",
-      "cake"
+      "sand",
+      "candy cane",
+      "space law space brochure",
+      "fuel cell",
+      "wreath",
+      "fixed point",
+      "spool of cat6"
   };
 
   public static void main(String[] args) throws Exception {
@@ -102,7 +121,7 @@ public class Dec25 {
         execute(droid, "take " + items[i]);
       }
     }
-    String output = execute(droid, "east");
+    String output = execute(droid, "west");
     if (output.contains("heavier")) {
       System.out.println("Too light: " + bitSet);
     } else if (output.contains("lighter")) {

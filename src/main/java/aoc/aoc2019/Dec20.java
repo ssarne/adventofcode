@@ -2,6 +2,8 @@ package aoc.aoc2019;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
+import static aoc.utils.Utils.readAnswerAsInt;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,29 +22,31 @@ public class Dec20 {
     task2();
   }
 
-  public static void test1() throws Exception {
-    check(doit("aoc2019/dec20_test1.txt", 0).d - 1, 23);
-    check(doit("aoc2019/dec20_test2.txt", 0).d - 1, 58);
+  public static void test1() {
+    check(doit(getTestLines(1), 0).d - 1, 23);
+    check(doit(getTestLines(2), 0).d - 1, 58);
   }
 
-  public static void test2() throws Exception {
-    check(doit("aoc2019/dec20_test1.txt", 1).d - 1, 26);
-    check(doit("aoc2019/dec20_test3.txt", 1).d - 1, 396);
+  public static void test2() {
+    check(doit(getTestLines(1), 1).d - 1, 26);
+    check(doit(getTestLines(3), 1).d - 1, 396);
   }
 
-  public static void task1() throws Exception {
-    Pos result = doit("aoc2019/dec20.txt", 0);
+  public static void task1() {
+    Pos result = doit(getLines(), 0);
     System.out.println("Result 1: " + (result.d - 1)); // -1, since step into portal doesn't count
+    check(result.d - 1, readAnswerAsInt(1));
   }
 
-  public static void task2() throws Exception {
-    Pos result = doit("aoc2019/dec20.txt", 1);
+  public static void task2() {
+    Pos result = doit(getLines(), 1);
     System.out.println("Result 2: " + (result.d - 1)); // -1, since step into portal doesn't count
+    check(result.d - 1, readAnswerAsInt(2));
   }
 
-  public static Pos doit(String input, int dl) throws Exception {
+  private static Pos doit(List<String> lines, int dl) {
 
-    Board board = Board.create(input, dl);
+    Board board = Board.create(lines, dl);
     // board.print();
     Queue<Pos> bfs = new LinkedList<>();
     Portal start = board.portals.byNames.get("AA");
@@ -117,8 +121,7 @@ public class Dec20 {
       return board[pos.y][pos.x];
     }
 
-    static Board create(String input, int dl) {
-      List<String> lines = getLines(input);
+    static Board create(List<String> lines, int dl) {
       int w = getWidth(lines);
       Board board = new Board(w, lines.size());
       for (int y = 0; y < lines.size(); y++) {

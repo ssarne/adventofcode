@@ -2,6 +2,9 @@ package aoc.aoc2019;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
+import static aoc.utils.Utils.ints;
+import static aoc.utils.Utils.readAnswerAsInt;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,21 +18,26 @@ public class Dec03 {
   }
 
   public static void test() throws Exception {
-    doit("aoc2019/dec03_test1.txt");
-    doit("aoc2019/dec03_test2.txt");
-    doit("aoc2019/dec03_test3.txt");
-    doit("aoc2019/dec03_test4.txt");
+    check(doit(getTestLines(1))[0], 6);
+    check(doit(getTestLines(2))[0], 159);
+    check(doit(getTestLines(3))[0], 135);
+    check(doit(getTestLines(4))[0], 6);
+    check(doit(getTestLines(1))[1], 30);
+    check(doit(getTestLines(2))[1], 610);
+    check(doit(getTestLines(3))[1], 410);
+    check(doit(getTestLines(4))[1], 30);
   }
 
   public static void tasks() throws Exception {
-    doit("aoc2019/dec03.txt");
+    var res = doit(getLines());
+    System.out.println(res[0]);
+    check(res[0], readAnswerAsInt(1));
+    System.out.println(res[1]);
+    check(res[1], readAnswerAsInt(2));
   }
 
-  public static void doit(String input) throws Exception {
+  public static int [] doit(List<String> lines) throws Exception {
 
-    System.out.println("Input = " + input);
-
-    List<String> lines = getLines(input);
     HashMap<String, Point> path1 = buildPath(lines.get(0));
     HashMap<String, Point> path2 = buildPath(lines.get(1));
     // print(path1, path2);
@@ -42,7 +50,6 @@ public class Dec03 {
         mh = Math.min(mh, ddd);
       }
     }
-    System.out.println("Result 1 = " + mh);
 
     // Calc cable distance to first intersection
     int min = Integer.MAX_VALUE;
@@ -52,7 +59,7 @@ public class Dec03 {
         min = Math.min(min, ddd);
       }
     }
-    System.out.println("Result 2 = " + min);
+    return ints(mh, min);
   }
 
   private static void print(HashMap<String, Point> path1, HashMap<String, Point> path2) {

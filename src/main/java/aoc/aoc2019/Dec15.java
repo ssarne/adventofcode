@@ -2,6 +2,7 @@ package aoc.aoc2019;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.readAnswerAsInt;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -29,10 +30,11 @@ public class Dec15 {
 
     Pos pos = findOxygen(board);
     System.out.println("Result: " + pos.d);
+    check(pos.d, readAnswerAsInt(1));
 
     int max = fillOxygen(board, pos);
     System.out.println("Result: " + max);
-
+    check(max, readAnswerAsInt(2));
   }
 
   private static int fillOxygen(HashMap<String, Character> board, Pos pos) {

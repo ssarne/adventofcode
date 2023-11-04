@@ -2,6 +2,9 @@ package aoc.aoc2019;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
+import static aoc.utils.Utils.readAnswerAsInt;
+import static aoc.utils.Utils.readAnswerAsLong;
 
 import java.util.HashSet;
 import java.util.List;
@@ -16,25 +19,26 @@ public class Dec24 {
   }
 
   public static void test1() throws Exception {
-    Board board = doit1("aoc2019/dec24_test1.txt");
+    Board board = doit1(getTestLines(1));
     // board.print();
-    System.out.println("Result test1: " + board.board);
+    check(board.board, 2129920);
   }
 
 
   public static void task1() throws Exception {
-    Board board = doit1("aoc2019/dec24.txt");
+    Board board = doit1(getLines());
     // board.print();
     System.out.println("Result 1: " + board.board);
+    check(board.board, readAnswerAsInt(1));
   }
 
-  public static Board doit1(String input) throws Exception {
+  public static Board doit1(List<String> input) throws Exception {
 
     Board board = Board.create(input);
     HashSet<Board> history = new HashSet<>();
     for (int i = 0; true; i++) {
       if (history.contains(board)) {
-        System.out.println("Match after: " + i);
+        // System.out.println("Match after: " + i);
         return board;
       }
       history.add(board);
@@ -44,18 +48,19 @@ public class Dec24 {
 
 
   public static void test2() throws Exception {
-    Board3D board = doit2("aoc2019/dec24_test1.txt", 10);
+    Board3D board = doit2(getLines(), 10);
     int result = board.count();
-    System.out.println("Result test 2: " + result);
+    check(result, 107);
   }
 
   public static void task2() throws Exception {
-    Board3D board = doit2("aoc2019/dec24.txt", 200);
+    Board3D board = doit2(getLines(), 200);
     int result = board.count();
     System.out.println("Result 2: " + result);
+    check(result, readAnswerAsInt(2));
   }
 
-  public static Board3D doit2(String input, int reps) throws Exception {
+  public static Board3D doit2(List<String> input, int reps) throws Exception {
 
     Board3D board = Board3D.create(input);
     for (int i = 0; i < reps; i++) {
@@ -123,12 +128,11 @@ public class Dec24 {
       return next;
     }
 
-    static Board create(String input) {
-      List<String> lines = getLines(input);
+    static Board create(List<String> input) {
       // Board board = new Board(w, lines.size());
       Board board = new Board();
       for (int y = 0; y < Board.height; y++) {
-        String line = lines.get(y);
+        String line = input.get(y);
         for (int x = 0; x < Board.width; x++) {
           char c = (x < line.length() ? line.charAt(x) : ' ');
           board.set(x, y, c);
@@ -297,11 +301,10 @@ public class Dec24 {
       return next;
     }
 
-    static Board3D create(String input) {
-      List<String> lines = getLines(input);
+    static Board3D create(List<String> input) {
       Board3D board = new Board3D();
       for (int y = 0; y < Board.height; y++) {
-        String line = lines.get(y);
+        String line = input.get(y);
         for (int x = 0; x < Board.width; x++) {
           char c = (x < line.length() ? line.charAt(x) : ' ');
           board.set(x, y, 0, c);

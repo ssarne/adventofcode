@@ -2,6 +2,7 @@ package aoc.aoc2019;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -11,7 +12,7 @@ public class Dec10 {
 
   public static void main(String[] args) throws Exception {
     //test();
-    doit(null);
+    doit(getLines());
   }
 
   public static void test() throws Exception {
@@ -30,12 +31,10 @@ public class Dec10 {
     //check(doit("aoc2019/dec10_test4.txt"), 41);
     //check(doit("aoc2019/dec10_test5.txt"), 210);
     // doit("aoc2019/dec10_test6.txt");
-    doit("aoc2019/dec10_test5.txt");
+    doit(getTestLines());
   }
 
-  public static int doit(String input) throws Exception {
-
-    List<String> lines = getLines(input);
+  public static int doit(List<String> lines) throws Exception {
 
     int m = 0, a = 0, b = 0;
     int ytot = lines.size();

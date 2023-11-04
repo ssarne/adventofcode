@@ -2,6 +2,7 @@ package aoc.aoc2019;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.readAnswerAsInt;
 
 import java.util.List;
 import java.util.function.Function;
@@ -25,20 +26,18 @@ public class Dec01 {
   }
 
   public static void task1() throws Exception {
-    int result = doit(Dec01::calc);
-    check(result, 3576689);
+    int result = doit(Dec01::calc, getLines());
+    check(result, readAnswerAsInt(1));
     System.out.println("Result: " + result);
   }
 
   public static void task2() throws Exception {
-    int result = doit(Dec01::calc2);
-    check(result, 5362136);
+    int result = doit(Dec01::calc2, getLines());
+    check(result, readAnswerAsInt(2));
     System.out.println("Result: " + result);
   }
 
-  public static int doit(Function<Integer, Integer> fn) throws Exception {
-
-    List<String> lines = getLines("aoc2019/dec01.txt");
+  public static int doit(Function<Integer, Integer> fn, List<String> lines) throws Exception {
 
     int sum = 0;
     for (String line : lines) {

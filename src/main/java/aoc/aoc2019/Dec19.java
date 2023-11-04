@@ -2,6 +2,8 @@ package aoc.aoc2019;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.readAnswerAsInt;
+import static aoc.utils.Utils.readAnswerAsLong;
 
 import java.util.HashMap;
 
@@ -27,6 +29,7 @@ public class Dec19 {
     }
     // Result 1: 213
     System.out.println("Result 1: " + count);
+    check(count, readAnswerAsInt(1));
   }
 
   public static void task2() throws Exception {
@@ -48,6 +51,7 @@ public class Dec19 {
     long count = 10000 * x + (y - 99);
     // Result 2: 7830987
     System.out.println("Result 2: " + count);
+    check(count, readAnswerAsLong(2));
   }
 
   private static long inBeam(String input, long x, long y) {

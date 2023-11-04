@@ -1,6 +1,7 @@
 package aoc.aoc2019;
 
 import static aoc.utils.Utils.check;
+import static aoc.utils.Utils.readAnswerAsInt;
 
 public class Dec04 {
 
@@ -16,26 +17,30 @@ public class Dec04 {
     check(true, match(test, test, test, true));
 
     int[] start = {2, 6, 4};
-    int[] end = {8, 0, 3}; // {8, 0, 3, 9, 3, 5};
-    String result = doit(start, end, true);
-    System.out.println("Test result: " + result);
+    int[] end = {8, 0, 3};
+    int result = doit(start, end, true);
+    check(result, 44);
   }
 
   public static void task1() throws Exception {
-    int[] start = {2, 6, 4, 7, 9, 3};
-    int[] end = {8, 0, 3, 9, 3, 5};
-    String result = doit(start, end, false);
+    // Your puzzle input is 356261-846303.
+    int[] start = {3,5,6,2,6,1};
+    int[] end = {8,4,6,3,0,3};
+    int result = doit(start, end, false);
     System.out.println("Result: " + result);
+    check(result, readAnswerAsInt(1));
   }
 
   public static void task2() throws Exception {
-    int[] start = {2, 6, 4, 7, 9, 3};
-    int[] end = {8, 0, 3, 9, 3, 5};
-    String result = doit(start, end, true);
+    // Your puzzle input is 356261-846303.
+    int[] start = {3,5,6,2,6,1};
+    int[] end = {8,4,6,3,0,3};
+    int result = doit(start, end, true);
     System.out.println("Result: " + result);
+    check(result, readAnswerAsInt(2));
   }
 
-  public static String doit(int[] start, int[] end, boolean strict) throws Exception {
+  public static int doit(int[] start, int[] end, boolean strict) throws Exception {
 
     int[] num = new int[start.length];
     int count = 0;
@@ -44,8 +49,7 @@ public class Dec04 {
       num[0] = i;
       count += count(num, start, end, 1, strict);
     }
-    String result = "" + count;
-    return result;
+    return count;
   }
 
   public static int count(int[] num, int[] start, int[] end, int pos, boolean strict) {

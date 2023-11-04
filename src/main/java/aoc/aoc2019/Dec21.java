@@ -1,6 +1,8 @@
 package aoc.aoc2019;
 
+import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.readAnswerAsLong;
 
 public class Dec21 {
 
@@ -43,11 +45,15 @@ public class Dec21 {
   }
 
   public static void task1() throws Exception {
-    System.out.println("Result 1: " + doit(program1, false));
+    var result = doit(program1, false);
+    System.out.println("Result 1: " + result);
+    check(result, readAnswerAsLong(1));
   }
 
   public static void task2() throws Exception {
-    System.out.println("Result 2: " + doit(program2, false));
+    var result = doit(program2, false);
+    System.out.println("Result 2: " +result);
+    check(result, readAnswerAsLong(2));
   }
 
   public static long doit(String[] springscript, boolean print) {
@@ -65,7 +71,7 @@ public class Dec21 {
     long overflow = 0;
     StringBuilder sb = new StringBuilder();
     while (!program.output.isEmpty()) {
-      long l = program.output.poll().longValue();
+      long l = program.output.poll();
       if (l <= 0xFF) {
         sb.append((char) l);
       } else {

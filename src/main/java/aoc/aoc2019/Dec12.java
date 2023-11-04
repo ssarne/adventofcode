@@ -1,11 +1,16 @@
 package aoc.aoc2019;
 
+import static aoc.utils.Utils.asInt;
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
+import static aoc.utils.Utils.readAnswerAsInt;
+import static aoc.utils.Utils.readAnswerAsLong;
 import static java.lang.System.out;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 public class Dec12 {
 
@@ -25,43 +30,49 @@ public class Dec12 {
 
   public static void test11() throws Exception {
     // Task 1, example 1
-    Moon[] moons = new Moon[4];
-    moons[0] = new Moon(-1, 0, 2);
-    moons[1] = new Moon(2, -10, -7);
-    moons[2] = new Moon(4, -8, 8);
-    moons[3] = new Moon(3, 5, -1);
-
+    Moon[] moons = parse(getTestLines(1));
     steps(moons, 10);
 
     long e = energy(moons);
-    System.out.println("Test: " + e);
+    check(e, 179);
   }
 
   public static void test12() throws Exception {
-    Moon[] moons = new Moon[4];
-    moons[0] = new Moon(-8, -10, 0);
-    moons[1] = new Moon(5, 5, 10);
-    moons[2] = new Moon(2, -7, 3);
-    moons[3] = new Moon(9, -8, -3);
 
+    Moon[] moons = parse(getTestLines(2));
     steps(moons, 100);
 
     long e = energy(moons);
-    System.out.println("Test: " + e);
+    check(e, 1940);
   }
 
   public static void task1() throws Exception {
 
-    Moon[] moons = new Moon[4];
-    moons[0] = new Moon(12, 0, -15);
-    moons[1] = new Moon(-8, -5, -10);
-    moons[2] = new Moon(7, -17, 1);
-    moons[3] = new Moon(2, -11, -6);
-
+    var lines = getLines();
+    Moon[] moons = parse(lines);
     steps(moons, 1000);
 
     long e = energy(moons);
     System.out.println("Result: " + e);
+    check(e, readAnswerAsInt(1));
+  }
+
+  private static Moon[] parse(List<String> lines) {
+    Moon[] moons = new Moon[lines.size()];
+    for (int i = 0; i < lines.size(); i++) {
+      var line = lines.get(i);
+      var parts = line.strip()
+          .replace("<", "")
+          .replace(">", "")
+          .replace("x", "")
+          .replace("y", "")
+          .replace("z", "")
+          .replace("=", "")
+          .replace(" ", "")
+          .split(",");
+      moons[i] = new Moon(asInt(parts[0]), asInt(parts[1]), asInt(parts[2]));
+    }
+    return moons;
   }
 
   private static void steps(Moon[] moons, int steps) {
@@ -101,26 +112,19 @@ public class Dec12 {
 
   public static void test21() throws Exception {
     // Task 2, example 1
-    Moon[] moons = new Moon[4];
-    moons[0] = new Moon(-1, 0, 2);
-    moons[1] = new Moon(2, -10, -7);
-    moons[2] = new Moon(4, -8, 8);
-    moons[3] = new Moon(3, 5, -1);
-
+    Moon[] moons = parse(getTestLines(1));
     long n = circle(moons);
-    System.out.println("Test: " + n);
+    check(n, 2772);
   }
 
   public static void task2() throws Exception {
 
-    Moon[] moons = new Moon[4];
-    moons[0] = new Moon(12, 0, -15);
-    moons[1] = new Moon(-8, -5, -10);
-    moons[2] = new Moon(7, -17, 1);
-    moons[3] = new Moon(2, -11, -6);
+    var lines = getLines();
+    Moon[] moons = parse(lines);
+
     long n = circle(moons);
     System.out.println("Result: " + n);
-
+    check(n, readAnswerAsLong(2));
   }
 
   private static long circle(Moon[] moons) {

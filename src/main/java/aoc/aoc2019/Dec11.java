@@ -1,6 +1,8 @@
 package aoc.aoc2019;
 
+import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.readAnswerAsInt;
 
 import java.util.HashMap;
 
@@ -14,6 +16,7 @@ public class Dec11 {
   public static void task1() throws Exception {
     HashMap<String, Long> panels = drawPanels(0L);
     System.out.println("Result: " + panels.size());
+    check(panels.size(), readAnswerAsInt(1));
   }
 
   public static void task2() throws Exception {

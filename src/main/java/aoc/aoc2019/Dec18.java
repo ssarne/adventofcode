@@ -2,6 +2,8 @@ package aoc.aoc2019;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
+import static aoc.utils.Utils.readAnswerAsInt;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,56 +28,58 @@ public class Dec18 {
 
   static void test1() throws Exception {
     keyTest();
-    check(doit("aoc2019/dec18_test1.txt"), 8);
-    check(doit("aoc2019/dec18_test2.txt"), 86);
-    check(doit("aoc2019/dec18_test3.txt"), 132);
-    check(doit("aoc2019/dec18_test4.txt"), 136);
-    check(doit("aoc2019/dec18_test5.txt"), 81);
+    check(doit(getTestLines(1)), 8);
+    check(doit(getTestLines(2)), 86);
+    check(doit(getTestLines(3)), 132);
+    check(doit(getTestLines(4)), 136);
+    check(doit(getTestLines(5)), 81);
   }
 
   static void task1() throws Exception {
-    int result = doit("aoc2019/dec18.txt");
+    int result = doit(getLines());
     System.out.println("Result: " + result);
+    check(result, readAnswerAsInt(1));
   }
 
   static void test2() throws Exception {
-    check(doit2("aoc2019/dec18_test6.txt"), 24);
-    check(doit2("aoc2019/dec18_test7.txt"), 32);
-    check(doit2("aoc2019/dec18_test8.txt"), 74);
+    check(doit2(getTestLines(6)), 24);
+    check(doit2(getTestLines(7)), 32);
+    check(doit2(getTestLines(8)), 74);
   }
 
   static void task2() throws Exception {
-    int result = doit2("aoc2019/dec18.txt");
+    int result = doit2(getLines());
     System.out.println("Result: " + result);
+    check(result, readAnswerAsInt(2));
   }
 
-  static int doit(String input) throws Exception {
+  static int doit(List<String> input) throws Exception {
 
     Board board = Board.create(input);
-    board.print();
+    if (debug) board.print();
 
     Graph graph = board.createGraph();
-    graph.print();
+    if (debug) graph.print();
 
     Path path = graph.djikstra(addKey(board.keys, '@'));
-    System.out.println("Path: " + path);
+    if (debug) System.out.println("Path: " + path);
 
-    return path.length;// last.d;
+    return path.length;
   }
 
-  static int doit2(String input) throws Exception {
+  static int doit2(List<String> input) throws Exception {
 
     Board board = Board.create(input);
     board.split();
-    board.print();
+    if (debug) board.print();
 
     Graph graph = board.createGraph();
-    graph.print();
+    if (debug) graph.print();
 
     QPath path = graph.qdjikstra(addKeys(board.keys, '@', '£', '$', '&'));
-    System.out.println("Path: " + path);
+    if (debug) System.out.println("Path: " + path);
 
-    return path.length;// last.d;
+    return path.length;
   }
 
   private static int getShift(char key) {
@@ -476,8 +480,7 @@ public class Dec18 {
       return null;
     }
 
-    static Board create(String input) {
-      List<String> lines = getLines(input);
+    static Board create(List<String> lines) {
       Board board = new Board(lines.get(0).length(), lines.size());
       for (int y = 0; y < lines.size(); y++) {
         String line = lines.get(y);

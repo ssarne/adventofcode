@@ -1,6 +1,9 @@
 package aoc.aoc2019;
 
+import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.readAnswerAsInt;
+import static aoc.utils.Utils.readAnswerAsLong;
 
 import aoc.utils.Utils;
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ public class Dec17 {
 
     int sum = calcIntersections(board);
     System.out.println("Result 1: " + sum);
+    check(sum, readAnswerAsInt(1));
   }
 
   public static void task2() throws Exception {
@@ -31,7 +35,6 @@ public class Dec17 {
     IntCode.Program program1 = IntCode.Program.create(program);
     IntCode.execute(program1);
     HashMap<Pos, Character> board = buildBoard(program1);
-
     // print(board);
 
     Pos start = find(board, '^');
@@ -52,7 +55,9 @@ public class Dec17 {
     IntCode.restart(program1);
     Result result = Result.parse(program1.output);
     // System.out.println("Output: \n" + result.output);
+
     System.out.println("Result 2: " + result.value);
+    check(result.value, readAnswerAsLong(2));
   }
 
   private static String ascii(String ascii) {

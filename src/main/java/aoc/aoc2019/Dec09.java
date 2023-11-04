@@ -2,6 +2,8 @@ package aoc.aoc2019;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.readAnswer;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Queue;
@@ -34,7 +36,9 @@ public class Dec09 {
     Program p = Program.create(getLines().get(0));
     p.input.add(1L);
     IntCode.execute(p);
-    System.out.println("Result: " + p.getOutputAsString());
+    String result = p.getOutputAsString();
+    System.out.println("Result: " + result);
+    check(result, readAnswer(1));
   }
 
   public static void task2() throws Exception {
@@ -42,7 +46,9 @@ public class Dec09 {
     Program p = Program.create(getLines().get(0));
     p.input.add(2L);
     IntCode.execute(p);
-    System.out.println("Result: " + p.getOutputAsString());
+    String result = p.getOutputAsString();
+    System.out.println("Result: " + result);
+    check(result, readAnswer(2));
   }
 
   private static class Program {

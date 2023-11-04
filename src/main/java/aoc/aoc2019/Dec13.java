@@ -1,6 +1,9 @@
 package aoc.aoc2019;
 
+import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.readAnswerAsInt;
+import static aoc.utils.Utils.readAnswerAsLong;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +25,7 @@ public class Dec13 {
     // print(board);
 
     System.out.println("Result: " + blocks);
+    check(blocks, readAnswerAsInt(1));
   }
 
   public static void task2() throws Exception {
@@ -48,7 +52,9 @@ public class Dec13 {
     }
 
     // print(board, 0, new Pos(0,0));
-    System.out.println("Result: " + getScore(board));
+    var result = getScore(board);
+    System.out.println("Result: " + result);
+    check(result, readAnswerAsLong(2));
   }
 
   private static long joystick(HashMap<String, Long> board, Pos pad, Pos next) {

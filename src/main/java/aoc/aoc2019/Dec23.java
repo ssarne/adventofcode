@@ -1,7 +1,9 @@
 package aoc.aoc2019;
 
+import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
 import static aoc.utils.Utils.longs;
+import static aoc.utils.Utils.readAnswerAsLong;
 
 public class Dec23 {
 
@@ -34,7 +36,9 @@ public class Dec23 {
     }
 
     System.out.println("Result 1: " + result1);
+    check(result1, readAnswerAsLong(1));
     System.out.println("Result 2: " + result2);
+    check(result2, readAnswerAsLong(2));
   }
 
   private static boolean idle() {

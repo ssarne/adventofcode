@@ -2,30 +2,32 @@ package aoc.aoc2019;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.readAnswer;
+import static aoc.utils.Utils.readAnswerAsInt;
 
 import java.util.Arrays;
 
 public class Dec02 {
 
   public static void main(String[] args) throws Exception {
-    task1();
-    task2();
+    task1(getLines().get(0));
+    task2(getLines().get(0));
   }
 
-  public static void task1() throws Exception {
-    Program p = doit("aoc2019/dec02.txt", 12, 2);
+  public static void task1(String input) throws Exception {
+    Program p = doit(input, 12, 2);
     int result = p.mem[0];
-    check(result, 5482655);
+    check(result, readAnswerAsInt(1));
     System.out.println("Result: " + result);
   }
 
-  public static void task2() throws Exception {
+  public static void task2(String input) throws Exception {
     for (int i = 0; i < 100; i++) {
       for (int j = 0; j < 100; j++) {
-        Program p = doit("aoc2019/dec02.txt", i, j);
+        Program p = doit(input, i, j);
         if (p.mem[0] == 19690720) {
           String output = i + "" + j;
-          check(output, "4967");
+          check(output, readAnswer(2));
           System.out.println("Result: " + output);
           return;
         }
@@ -100,8 +102,7 @@ public class Dec02 {
     }
 
     static Program read(String input) {
-      String line = getLines(input).get(0);
-      int[] memory = Arrays.stream(line.split(",")).mapToInt(Integer::parseInt).toArray();
+      int[] memory = Arrays.stream(input.split(",")).mapToInt(Integer::parseInt).toArray();
       return new Program(0, memory);
     }
   }

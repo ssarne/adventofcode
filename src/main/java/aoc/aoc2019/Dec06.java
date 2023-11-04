@@ -2,6 +2,8 @@ package aoc.aoc2019;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
+import static aoc.utils.Utils.readAnswerAsInt;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,30 +17,29 @@ public class Dec06 {
   }
 
   public static void test() throws Exception {
-    HashMap<String, SpaceObject> space = buildSpace("aoc2019/dec06_test.txt");
+    HashMap<String, SpaceObject> space = buildSpace(getTestLines());
     int count = count(space.get("COM"), 0);
     check(count, 42);
   }
 
   public static void task1() throws Exception {
-    HashMap<String, SpaceObject> space = buildSpace("aoc2019/dec06.txt");
+    HashMap<String, SpaceObject> space = buildSpace(getLines());
     int count = count(space.get("COM"), 0);
-    check(count, 344238);
+    check(count, readAnswerAsInt(1));
     System.out.println("Result: " + count);
   }
 
   public static void task2() throws Exception {
-    HashMap<String, SpaceObject> space = buildSpace("aoc2019/dec06.txt");
+    HashMap<String, SpaceObject> space = buildSpace(getLines());
     // print(space);
 
     int distance = distance("YOU", "SAN", space.get("COM"));
-    check(distance, 436);
+    check(distance, readAnswerAsInt(2));
     System.out.println("Result: " + distance);
   }
 
-  public static HashMap<String, SpaceObject> buildSpace(String input) throws Exception {
+  public static HashMap<String, SpaceObject> buildSpace(List<String> lines) throws Exception {
 
-    List<String> lines = getLines(input);
     HashMap<String, SpaceObject> space = new HashMap<>();
 
     for (String line : lines) {

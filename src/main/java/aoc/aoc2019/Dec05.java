@@ -2,7 +2,9 @@ package aoc.aoc2019;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
 import static aoc.utils.Utils.ints;
+import static aoc.utils.Utils.readAnswerAsInt;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,29 +64,31 @@ public class Dec05 {
     check(p.output.get(0), 0);
 
     // 8 check
-    p = Program.read("aoc2019/dec05_test.txt", ints(0)).execute();
+    p = Program.read(getTestLines(), ints(0)).execute();
     check(p.output.get(0), 999);
 
-    p = Program.read("aoc2019/dec05_test.txt", ints(1)).execute();
+    p = Program.read(getTestLines(), ints(1)).execute();
     check(p.output.get(0), 999);
 
-    p = Program.read("aoc2019/dec05_test.txt", ints(8)).execute();
+    p = Program.read(getTestLines(), ints(8)).execute();
     check(p.output.get(0), 1000);
 
-    p = Program.read("aoc2019/dec05_test.txt", ints(9)).execute();
+    p = Program.read(getTestLines(), ints(9)).execute();
     check(p.output.get(0), 1001);
   }
 
   public static void task1() throws Exception {
-    Program p = Program.read("aoc2019/dec05.txt", ints(1)).execute();
-    // System.out.println(Arrays.toString(p.output.toArray()));
+    Program p = Program.read(getLines(), ints(1)).execute();
     int result = p.output.get(p.output.size() - 1);
+    check (result, readAnswerAsInt(1));
     System.out.println("Result: " + result);
   }
 
   public static void task2() throws Exception {
-    Program p = Program.read("aoc2019/dec05.txt", ints(5)).execute();
-    System.out.println("Result: " + Arrays.toString(p.output.toArray()));
+    Program p = Program.read(getLines(), ints(5)).execute();
+    int result = p.output.get(p.output.size() - 1);
+    check (result, readAnswerAsInt(2));
+    System.out.println("Result: " + result);
   }
 
   private static class Program {
@@ -114,7 +118,7 @@ public class Dec05 {
 
     Program execute() {
 
-      printProgram();
+      // printProgram();
 
       while (true) {
 
@@ -130,7 +134,7 @@ public class Dec05 {
           op = op % 100;
         }
 
-        printOp();
+        // printOp();
 
         switch (op) {
           // Opcode 1 adds together numbers read from two positions and stores the result in a third position.
@@ -253,8 +257,8 @@ public class Dec05 {
       System.out.println("======================= memory=" + Arrays.toString(mem));
     }
 
-    static Program read(String program, int[] input) {
-      String line = getLines(program).get(0);
+    static Program read(List<String> program, int[] input) {
+      String line = program.get(0);
       int[] memory = Arrays.stream(line.split(",")).mapToInt(Integer::parseInt).toArray();
       return new Program(0, memory, input);
     }
