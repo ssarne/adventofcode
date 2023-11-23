@@ -13,25 +13,24 @@ public class Dec20 {
     }
 
     public static void test() {
-        check(solve1("aoc2020/dec20_test.txt"), 20899048083289L);
-        check(solve2("aoc2020/dec20_test.txt"), 273);
+        check(solve1(getTestLines()), 20899048083289L);
+        check(solve2(getTestLines()), 273);
     }
 
     public static void task1() {
-        var result = solve1("aoc2020/dec20.txt");
-        check(result, 22878471088273L);
+        var result = solve1(getLines());
         System.out.println("Result: " + result);
+        check(result, readAnswerAsLong(1));
     }
 
     public static void task2() {
-        var result = solve2("aoc2020/dec20.txt");
-        check(result, 1680);
+        var result = solve2(getLines());
         System.out.println("Result: " + result);
+        check(result, readAnswerAsLong(2));
     }
 
-    public static long solve1(String input) {
-        var lines = getLines(input);
-        List<Image> tiles = parseTiles(lines);
+    public static long solve1(List<String> input) {
+        List<Image> tiles = parseTiles(input);
         var puzzle = solvePuzzle(tiles);
         return puzzle.tiles[0][0].id
                 * puzzle.tiles[0][puzzle.size - 1].id
@@ -39,15 +38,14 @@ public class Dec20 {
                 * puzzle.tiles[puzzle.size - 1][puzzle.size - 1].id;
     }
 
-    public static long solve2(String input) {
-        var lines = getLines(input);
-        var tiles = parseTiles(lines);
+    public static long solve2(List<String> input) {
+        var tiles = parseTiles(input);
         var puzzle = solvePuzzle(tiles);
         var image = puzzle.crop();
 
-        //puzzle.printIds();
-        //puzzle.print();
-        //image.print();
+        // puzzle.printIds();
+        // puzzle.print();
+        // image.print();
 
         String[] nessie = {
                 "                  # ",
@@ -121,10 +119,16 @@ public class Dec20 {
         int size = (int) Math.sqrt(tiles.size());
         var puzzle = new Puzzle(size);
         solvePuzzleRecurse(puzzle, tiles, 0);
+        // findCorners(puzzle, tiles);
         return puzzle;
     }
 
+//    private static boolean findCorners(Puzzle puzzle, List<Image> tiles) {
+//
+//    }
+
     private static boolean solvePuzzleRecurse(Puzzle puzzle, List<Image> tiles, int n) {
+
         if (n == tiles.size()) {
             return true;
         }
@@ -143,7 +147,14 @@ public class Dec20 {
                     }
                 }
             }
+
             puzzle.set(x, y, null, null);
+
+//            if (x < puzzle.tiles.length && y < puzzle.tiles[0].length) {
+//                puzzle.set(x, y, null, null);
+//            } else {
+//                System.out.println("solvePuzzleRecurse n=" + n + " x=" + x + " y=" + y);
+//            }
         }
 
         return false;
@@ -158,13 +169,17 @@ public class Dec20 {
                 tile = new Image(id);
                 continue;
             }
-            if (line.equals("")) {
+            if (line.trim().equals("")) {
                 tiles.add(tile);
+                tile = null;
                 continue;
             }
             tile.canvas.add(line);
         }
-        tiles.add(tile);
+
+        if (tile != null) {
+          tiles.add(tile);
+        }
 
         return tiles;
     }

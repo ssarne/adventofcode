@@ -1,7 +1,10 @@
 package aoc.aoc2020;
 
+import static aoc.utils.Utils.asInt;
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
+import static aoc.utils.Utils.readAnswerAsInt;
 
 import java.util.List;
 
@@ -14,38 +17,35 @@ public class Dec02 {
   }
 
   public static void test() throws Exception {
-    check(doit1("aoc2020/dec02_test.txt"), 1);
-    check(doit2("aoc2020/dec02_test.txt"), 1);
+    check(doit1(getTestLines()), 2);
+    check(doit2(getTestLines()), 1);
   }
 
   public static void task1() throws Exception {
-    int result = doit1("aoc2020/dec02.txt");
-    check(result, 465);
+    int result = doit1(getLines());
     System.out.println("Result: " + result);
+    check(result, readAnswerAsInt(1));
+
   }
 
   public static void task2() throws Exception {
-    int result = doit2("aoc2020/dec02.txt");
-    check(result, 294);
+    int result = doit2(getLines());
     System.out.println("Result: " + result);
+    check(result, readAnswerAsInt(2));
+
   }
 
 
-  public static int doit1(String input) {
-
-    List<String> lines = getLines(input);
+  public static int doit1(List<String> lines) {
 
     int valid = 0;
-    for (int i = 0; i < lines.size() - 1; i++) {
+    for (String line : lines) {
       //  3-9 r: pplzctdrc
-      String s = lines.get(i);
-      int p1 = s.indexOf('-');
-      int p2 = s.indexOf(' ');
-      int p3 = s.indexOf(':');
-      int low = Integer.parseInt(s.substring(0, p1));
-      int high = Integer.parseInt(s.substring(p1 + 1, p2));
-      char c = s.charAt(p3 - 1);
-      String pwd = s.substring(p3 + 2);
+      var tokens = line.replace("-", " ").replace(":", "").split(" ");
+      int low = asInt(tokens[0]);
+      int high = asInt(tokens[1]);
+      char c = tokens[2].charAt(0);
+      String pwd = tokens[3];
 
       int count = 0;
       for (int j = 0; j < pwd.length(); j++) {
@@ -62,20 +62,16 @@ public class Dec02 {
   }
 
 
-  public static int doit2(String input) throws Exception {
+  public static int doit2(List<String> lines) throws Exception {
 
-    List<String> lines = getLines(input);
     int valid = 0;
-    for (int i = 0; i < lines.size() - 1; i++) {
+    for (String line : lines) {
       //  3-9 r: pplzctdrc
-      String s = lines.get(i);
-      int p1 = s.indexOf('-');
-      int p2 = s.indexOf(' ');
-      int p3 = s.indexOf(':');
-      int low = Integer.parseInt(s.substring(0, p1));
-      int high = Integer.parseInt(s.substring(p1 + 1, p2));
-      char c = s.charAt(p3 - 1);
-      String pwd = s.substring(p3 + 2);
+      var tokens = line.replace("-", " ").replace(":", "").split(" ");
+      int low = asInt(tokens[0]);
+      int high = asInt(tokens[1]);
+      char c = tokens[2].charAt(0);
+      String pwd = tokens[3];
 
       if (pwd.charAt(low - 1) == c && pwd.charAt(high - 1) != c) {
         valid++;
@@ -84,7 +80,6 @@ public class Dec02 {
       if (pwd.charAt(low - 1) != c && pwd.charAt(high - 1) == c) {
         valid++;
       }
-
     }
 
     return valid;

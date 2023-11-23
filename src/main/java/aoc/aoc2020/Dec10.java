@@ -13,30 +13,30 @@ public class Dec10 {
   }
 
   public static void test() {
-    check(solve1("aoc2020/dec10_test1.txt"), 35);
-    check(solve1("aoc2020/dec10_test2.txt"), 220);
-    check(solve2("aoc2020/dec10_test1.txt"), 8);
-    check(solve2("aoc2020/dec10_test2.txt"), 19208);
+    check(solve1(getTestLines(1)), 35);
+    check(solve1(getTestLines(2)), 220);
+    check(solve2(getTestLines(1)), 8);
+    check(solve2(getTestLines(2)), 19208);
   }
 
   public static void task1() {
-    int result = solve1("aoc2020/dec10.txt");
-    check(result, 1904);
+    int result = solve1(getLines());
     System.out.println("Result: " + result);
+    check(result, readAnswerAsInt(1));
   }
 
   public static void task2() {
-    long result = solve2("aoc2020/dec10.txt");
-    check(result, 10578455953408L);
+    long result = solve2(getLines());
     System.out.println("Result: " + result);
+    check(result, readAnswerAsLong(2));
   }
 
-  public static int solve1(String input) {
+  public static int solve1(List<String> input) {
     int[] numbers = getPaddedInput(input);
     return adapt(numbers, 1, 0, 0, 0, 0, 0);
   }
 
-  private static int[] getPaddedInput(String input) {
+  private static int[] getPaddedInput(List<String> input) {
     int[] n1 = getInts(input);
     int[] n2 = new int[n1.length + 2];
     Arrays.sort(n1);
@@ -57,7 +57,7 @@ public class Dec10 {
     return adapt(numbers, n + 1, numbers[n], usage);
   }
 
-  public static long solve2(String input) {
+  public static long solve2(List<String> input) {
 
     int[] numbers = getPaddedInput(input);
     long[] perms = new long[numbers.length];

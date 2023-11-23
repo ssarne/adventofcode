@@ -15,28 +15,28 @@ public class Dec14 {
     }
 
     public static void test() {
-        check(solve1("aoc2020/dec14_test.txt"), 165);
+        check(solve1(getTestLines()), 165);
         // check(solve2("aoc2020/dec14_test.txt"), 1);
     }
 
     public static void task1() {
-        var result = solve1("aoc2020/dec14.txt");
-        check(result, 7477696999511L);
+        var result = solve1(getLines());
         System.out.println("Result: " + result);
+        check(result, readAnswerAsLong(1));
     }
 
     public static void task2() {
-        var result = solve2("aoc2020/dec14.txt");
-        check(result, 3687727854171L);
+        var result = solve2(getLines());
         System.out.println("Result: " + result);
+        check(result, readAnswerAsLong(2));
     }
 
-    public static long solve1(String input) {
-        var lines = getLines(input);
+    public static long solve1(List<String> input) {
+
         var mem = new HashMap<Long, Long>();
         String mask = "";
 
-        for (String line : lines) {
+        for (String line : input) {
             if (line.startsWith("mask = ")) {
                 mask = line.substring("mask = ".length());
                 ensure (mask.length() == 36);
@@ -64,11 +64,11 @@ public class Dec14 {
         return sum;
     }
 
-    public static long solve2(String input) {
-        var lines = getLines(input);
+    public static long solve2(List<String> input) {
+
         HashMap<Long, Long> mem = new HashMap<>();
         String mask = "";
-        for (String line : lines) {
+        for (String line : input) {
             if (line.startsWith("mask = ")) {
                 mask = line.substring("mask = ".length());
             }

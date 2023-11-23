@@ -13,24 +13,24 @@ public class Dec07 {
   }
 
   public static void test() {
-    check(solve1("aoc2020/dec07_test.txt"), 4);
-    check(solve2("aoc2020/dec07_test.txt"), 32);
-    check(solve2("aoc2020/dec07_test2.txt"), 126);
+    check(solve1(getTestLines(1)), 4);
+    check(solve2(getTestLines(1)), 32);
+    check(solve2(getTestLines(2)), 126);
   }
 
   public static void task1() {
-    int result = solve1("aoc2020/dec07.txt");
-    check(result, 257);
+    int result = solve1(getLines());
     System.out.println("Result: " + result);
+    check(result, readAnswerAsInt(1));
   }
 
   public static void task2() {
-    int result = solve2("aoc2020/dec07.txt");
-    check(result, 1038);
+    int result = solve2(getLines());
     System.out.println("Result: " + result);
+    check(result, readAnswerAsInt(2));
   }
 
-  public static int solve1(String input) {
+  public static int solve1(List<String> input) {
     HashMap<String, Bag> bags = readBags(input);
     Set<String> goldies = new HashSet<>();
     for (Bag bag : bags.values()) {
@@ -41,15 +41,15 @@ public class Dec07 {
     return goldies.size();
   }
 
-  public static int solve2(String input) {
+  public static int solve2(List<String> input) {
     HashMap<String, Bag> bags = readBags(input);
     Bag bag = bags.get("shiny gold");
     return count(bags, bag) - 1;
   }
 
-  private static HashMap<String, Bag> readBags(String input) {
+  private static HashMap<String, Bag> readBags(List<String> input) {
     HashMap<String, Bag> bags = new HashMap<>();
-    for (String line : getLines(input)) {
+    for (String line : input) {
       Bag bag = new Bag(line);
       bags.put(bag.color, bag);
     }

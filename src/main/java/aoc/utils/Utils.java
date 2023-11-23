@@ -128,17 +128,22 @@ public class Utils {
   }
 
   public static long[] getNumbers(String input) {
-    List<String> lines = getLines(input);
-    long [] numbers = new long[lines.size()];
-    for (int i = 0; i < lines.size(); i++) {
-      numbers[i] = Long.parseLong(lines.get(i));
+    return getNumbers(getLines(input));
+  }
+
+  public static long[] getNumbers(List<String> input) {
+    long [] numbers = new long[input.size()];
+    for (int i = 0; i < input.size(); i++) {
+      numbers[i] = Long.parseLong(input.get(i));
     }
     return numbers;
   }
 
-
   public static int[] getInts(String input) {
-    List<String> lines = getLines(input);
+    return getInts(getLines(input));
+  }
+
+  public static int[] getInts(List<String> lines) {
     int [] numbers = new int[lines.size()];
     for (int i = 0; i < lines.size(); i++) {
       numbers[i] = Integer.parseInt(lines.get(i));

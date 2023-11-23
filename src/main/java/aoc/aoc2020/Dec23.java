@@ -38,14 +38,14 @@ public class Dec23 {
     }
 
     public static void task1() {
-        var result = solve1("538914762", 100, Implementation.IA_LINKED_LIST);
-        check(result, "54327968");
+        var result = solve1(getLines().get(0), 100, Implementation.IA_LINKED_LIST);
+        check(result, readAnswer(1));
         System.out.println("Result: " + result);
     }
 
     public static void task2() {
-        var result = solve2("538914762", 1000000, 10000000, Implementation.IA_LINKED_LIST);
-        check(result, 157410423276L);
+        var result = solve2(getLines().get(0), 1000000, 10000000, Implementation.IA_LINKED_LIST);
+        check(result, readAnswerAsLong(2));
         System.out.println("Result: " + result);
     }
 

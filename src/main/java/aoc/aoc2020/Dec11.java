@@ -4,6 +4,8 @@ import java.util.*;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
+import static aoc.utils.Utils.readAnswerAsInt;
 
 public class Dec11 {
 
@@ -14,24 +16,24 @@ public class Dec11 {
     }
 
     public static void test() {
-        check(solve("aoc2020/dec11_test1.txt", 4, false), 37);
-        check(solve("aoc2020/dec11_test1.txt", 5, true), 26);
+        check(solve(getTestLines(1), 4, false), 37);
+        check(solve(getTestLines(1), 5, true), 26);
     }
 
     public static void task1() {
-        long result = solve("aoc2020/dec11.txt", 4, false);
-        check(result, 2334);
+        long result = solve(getLines(), 4, false);
         System.out.println("Result: " + result);
+        check(result, readAnswerAsInt(1));
     }
 
     public static void task2() {
-        long result = solve("aoc2020/dec11.txt", 5, true);
-        check(result, 2100);
+        long result = solve(getLines(), 5, true);
         System.out.println("Result: " + result);
+        check(result, readAnswerAsInt(2));
     }
 
-    public static int solve(String input, int limit, boolean look) {
-        Floor floor = new Floor(getLines(input));
+    public static int solve(List<String> input, int limit, boolean look) {
+        Floor floor = new Floor(input);
         for (int i = 0; true; i++) {
             // floor.print(i);
             if (!floor.evolve(limit, look)) {

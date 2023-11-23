@@ -2,9 +2,12 @@ package aoc.aoc2020;
 
 import aoc.utils.Utils;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import static aoc.utils.Utils.check;
+import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.readAnswerAsInt;
 
 public class Dec15 {
 
@@ -28,19 +31,20 @@ public class Dec15 {
     }
 
     public static void task1() {
-        int[] input = {19, 20, 14, 0, 9, 1};
+        int[] input = Arrays.stream(getLines().get(0).split(",")).mapToInt(Integer::parseInt).toArray();
         var result = solve1(input, 2020);
-        check(result, 1325);
+        check(result, readAnswerAsInt(1));
         result = solve2(input, 2020);
-        check(result, 1325);
+        check(result, readAnswerAsInt(1));
         System.out.println("Result: " + result);
     }
 
     public static void task2() {
-        int[] input = {19, 20, 14, 0, 9, 1};
+        int[] input = Arrays.stream(getLines().get(0).split(",")).mapToInt(Integer::parseInt).toArray();
         var result = solve2(input, 30000000);
-        check(result, 59006);
         System.out.println("Result: " + result);
+        check(result, readAnswerAsInt(2));
+
     }
 
     public static long solve1(int[] input, int end) {

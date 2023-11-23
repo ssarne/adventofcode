@@ -16,25 +16,24 @@ public class Dec05 {
 
 
   public static void test() {
-    // check(doit("aoc2020/dec05_test.txt", Dec05::calc1), 820);
-    // check(doit("aoc2020/dec05_test.txt", Dec05::calc2), 1);
+    check(doit(getTestLines(), Dec05::calc1), 820);
+    check(doit(getTestLines(), Dec05::calc2), 1);
   }
 
   public static void task1() {
-    var result = doit("aoc2020/dec05.txt", Dec05::calc1);
-    check(result, 801);
+    var result = doit(getLines(), Dec05::calc1);
     System.out.println("Result: " + result);
+    check(result, readAnswerAsInt(1));
   }
 
   public static void task2() {
-    int result = doit("aoc2020/dec05.txt", Dec05::calc2);
-    check(result, 597);
+    int result = doit(getLines(), Dec05::calc2);
     System.out.println("Result: " + result);
+    check(result, readAnswerAsInt(2));
   }
 
-  public static int doit(String input, Function<HashMap, Integer> calc) {
+  public static int doit(List<String> lines, Function<HashMap, Integer> calc) {
 
-    var lines = getLines(input);
     HashMap<Integer, String> seats = new HashMap<>();
     for (String line : lines) {
       int row = binary(line, 'F', 'B', 0, 127, 0, 7);

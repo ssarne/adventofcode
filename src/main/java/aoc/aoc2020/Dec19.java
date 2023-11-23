@@ -1,11 +1,13 @@
 package aoc.aoc2020;
 
+import aoc.utils.Pair;
 import aoc.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static aoc.utils.Utils.*;
 
@@ -18,31 +20,41 @@ public class Dec19 {
     }
 
     public static void test() {
-        check(solve("aoc2020/dec19_test1.txt"), 1);
-        check(solve("aoc2020/dec19_test2.txt"), 2);
-        check(solve("aoc2020/dec19_test3.txt"), 3);
-        check(solve("aoc2020/dec19_test4.txt"), 12);
+        check(solve(getTestLines(1)), 1);
+        check(solve(getTestLines(2)), 2);
+        check(solve(getTestLines(3)), 3);
+        check(solve(getTestLines(4)), 12);
     }
 
     public static void task1() {
-        var result = solve("aoc2020/dec19.txt");
-        check(result, 285);
+        var result = solve(getLines());
         System.out.println("Result: " + result);
+        check(result, readAnswerAsInt(1));
     }
 
     public static void task2() {
-        var result = solve("aoc2020/dec19_2.txt");
-        check(result, 412);
+        var parsed = parse(getLines());
+        parsed.left.put("8", Rule.parse("8: 42 | 42 8"));
+        parsed.left.put("11", Rule.parse("11: 42 31 | 42 11 31"));
+        var result = matches(parsed.left, parsed.right);
+
         System.out.println("Result: " + result);
+        check(result, readAnswerAsInt(2));
     }
 
-    public static long solve(String input) {
-        var lines = getLines(input);
+    private static long solve(List<String> input) {
+        var parsed = parse(input);
+        var count = matches(parsed.left, parsed.right);
+        return count;
+    }
+
+    private static Pair<HashMap<String, Rule>, List<String>> parse(List<String> input) {
+
         HashMap<String, Rule> rules = new HashMap<>();
         List<String> messages = new ArrayList<>();
 
-        for (String line : lines) {
-            if (line.length() == 0 || line.startsWith("#")) {
+        for (String line : input) {
+            if (line.isEmpty() || line.startsWith("#")) {
                 continue;
             }
 
@@ -54,13 +66,16 @@ public class Dec19 {
 
             messages.add(line);
         }
+        return new Pair(rules, messages);
+    }
+
+    private static long matches(HashMap<String, Rule> rules, List<String> messages) {
 
         Rule zero = rules.get("0");
-        int matches = 0;
-        for (String msg : messages) {
-            matches += zero.match(msg, rules) ? 1 : 0;
-        }
-        return matches;
+        var matches = messages.stream()
+            .filter(msg -> zero.match(msg, rules))
+            .collect(Collectors.toList());
+        return matches.size();
     }
 
     private static class Rule {
@@ -118,8 +133,7 @@ public class Dec19 {
                     var rule = rules.get(ruleId);
                     for (int n : current) {
                         rule.submatch(line.substring(n), rules, indent + 1)
-                                .stream()
-                                .map(i -> next.add(n + i));
+                            .forEach(i -> next.add(n + i));
                     }
                     current = next;
                 }

@@ -14,27 +14,27 @@ public class Dec06 {
   }
 
   public static void test() {
-    check(doit("aoc2020/dec06_test.txt", Dec06::calc1), 11);
-    check(doit("aoc2020/dec06_test.txt", Dec06::calc2), 6);
+    check(doit(getTestLines(), Dec06::calc1), 11);
+    check(doit(getTestLines(), Dec06::calc2), 6);
   }
 
   public static void task1() {
-    var result = doit("aoc2020/dec06.txt", Dec06::calc1);
-    check(result, 6768);
+    var result = doit(getLines(), Dec06::calc1);
     System.out.println("Result: " + result);
+    check(result, readAnswerAsInt(1));
   }
 
   public static void task2() {
-    int result = doit("aoc2020/dec06.txt", Dec06::calc2);
-    check(result, 3489);
+    int result = doit(getLines(), Dec06::calc2);
     System.out.println("Result: " + result);
+    check(result, readAnswerAsInt(2));
   }
 
-  public static int doit(String input, Function<List, Integer> calc) {
+  public static int doit(List<String> input, Function<List, Integer> calc) {
 
     List<Group> groups = new ArrayList<>();
     Group group = new Group();
-    for (String line : getLines(input)) {
+    for (String line : input) {
       if (line.trim().length() == 0) {
         groups.add(group);
         group = new Group();

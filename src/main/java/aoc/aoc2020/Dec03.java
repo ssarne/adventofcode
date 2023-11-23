@@ -2,6 +2,9 @@ package aoc.aoc2020;
 
 import static aoc.utils.Utils.check;
 import static aoc.utils.Utils.getLines;
+import static aoc.utils.Utils.getTestLines;
+import static aoc.utils.Utils.readAnswerAsInt;
+import static aoc.utils.Utils.readAnswerAsLong;
 
 import java.util.List;
 
@@ -14,27 +17,27 @@ public class Dec03 {
   }
 
   public static void test() {
-    check(doit1("aoc2020/dec03_test.txt"), 7);
-    check(doit2("aoc2020/dec03_test.txt"), 336);
+    check(doit1(getTestLines()), 7);
+    check(doit2(getTestLines()), 336);
   }
 
   public static void task1() {
-    int result = doit1("aoc2020/dec03.txt");
-    check(result, 148);
+    long result = doit1(getLines());
     System.out.println("Result: " + result);
+    check(result, readAnswerAsLong(1));
   }
 
   public static void task2() {
-    int result = doit2("aoc2020/dec03.txt");
-    check(result, 727923200);
+    long result = doit2(getLines());
     System.out.println("Result: " + result);
+    check(result, readAnswerAsLong(2));
   }
 
-  public static int doit1(String input) {
+  public static long doit1(List<String> input) {
     return doit(input, 1, 3);
   }
 
-  public static int doit2(String input) {
+  public static long doit2(List<String> input) {
     return doit(input, 1, 1)
            * doit(input, 1, 3)
            * doit(input, 1, 5)
@@ -42,9 +45,8 @@ public class Dec03 {
            * doit(input, 2, 1);
   }
 
-  public static int doit(String input, int dy, int dx) {
+  public static long doit(List<String> lines, int dy, int dx) {
 
-    List<String> lines = getLines(input);
     int width = lines.get(0).length();
     int trees = 0;
 

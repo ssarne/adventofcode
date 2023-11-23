@@ -13,26 +13,25 @@ public class Dec08 {
   }
 
   public static void test() {
-    check(solve1("aoc2020/dec08_test.txt"), 5);
-    check(solve2("aoc2020/dec08_test.txt"), 8);
+    check(solve1(getTestLines()), 5);
+    check(solve2(getTestLines()), 8);
   }
 
   public static void task1() {
-    int result = solve1("aoc2020/dec08.txt");
-    check(result, 1563);
+    int result = solve1(getLines());
     System.out.println("Result: " + result);
+    check(result, readAnswerAsLong(1));
   }
 
   public static void task2() {
-    int result = solve2("aoc2020/dec08.txt");
-    check(result, 767);
+    int result = solve2(getLines());
     System.out.println("Result: " + result);
+    check(result, readAnswerAsLong(2));
   }
 
-  public static int solve1(String input) {
+  public static int solve1(List<String> input) {
 
-    List<String> lines = getLines(input);
-    VM vm = new VM(lines);
+    VM vm = new VM(input);
     try {
       vm.execute();
     } catch(IllegalStateException e) {
@@ -41,21 +40,20 @@ public class Dec08 {
     return -1;
   }
 
-  public static int solve2(String input) {
+  public static int solve2(List<String> input) {
 
-    List<String> lines = getLines(input);
-    for (int i = 0; i < lines.size(); i++) {
-      String backup = lines.get(i);
+    for (int i = 0; i < input.size(); i++) {
+      String backup = input.get(i);
       if (backup.contains("nop")) {
-        lines.set(i, backup.replace("nop", "jmp"));
+        input.set(i, backup.replace("nop", "jmp"));
       } else if (backup.contains("jmp")) {
-        lines.set(i, backup.replace("jmp", "nop"));
+        input.set(i, backup.replace("jmp", "nop"));
       }
 
       try {
-        return new VM(lines).execute();
+        return new VM(input).execute();
       } catch (IllegalStateException e) {
-        lines.set(i, backup);
+        input.set(i, backup);
       }
     }
     return -1;

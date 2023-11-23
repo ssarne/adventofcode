@@ -1,6 +1,8 @@
 package aoc.aoc2020;
 
 import aoc.utils.GridSparse;
+import java.util.List;
+
 import static aoc.utils.Utils.*;
 
 public class Dec17 {
@@ -12,25 +14,25 @@ public class Dec17 {
     }
 
     public static void test() {
-        check(solve1("aoc2020/dec17_test.txt"), 112);
-        check(solve2("aoc2020/dec17_test.txt"), 848);
+        check(solve1(getTestLines()), 112);
+        check(solve2(getTestLines()), 848);
     }
 
     public static void task1() {
-        var result = solve1("aoc2020/dec17.txt");
-        check(result, 386);
+        var result = solve1(getLines());
         System.out.println("Result: " + result);
+        check(result, readAnswerAsInt(1));
     }
 
     public static void task2() {
-        var result = solve2("aoc2020/dec17.txt");
-        check(result, 2276);
+        var result = solve2(getLines());
         System.out.println("Result: " + result);
+        check(result, readAnswerAsInt(2));
     }
 
-    public static int solve1(String input) {
-        var lines = getLines(input);
-        var grid = GridSparse.parse2D(3, lines);
+    public static int solve1(List<String> input) {
+
+        var grid = GridSparse.parse2D(3, input);
 
         for (int i = 0; i < 6; i++) {
             // grid.print(i);
@@ -55,9 +57,9 @@ public class Dec17 {
         return grid.count('#');
     }
 
-    public static int solve2(String input) {
-        var lines = getLines(input);
-        var grid = GridSparse.parse2D(4, lines);
+    public static int solve2(List<String> input) {
+
+        var grid = GridSparse.parse2D(4, input);
 
         for (int i = 0; i < 6; i++) {
             // grid.print(i);

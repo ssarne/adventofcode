@@ -2,6 +2,8 @@ package aoc.aoc2020;
 
 import static aoc.utils.Utils.*;
 
+import java.util.List;
+
 public class Dec18 {
 
     public static void main(String[] args) throws Exception {
@@ -11,33 +13,33 @@ public class Dec18 {
     }
 
     public static void test() {
-        check(solve1("aoc2020/dec18_test.txt"), 71 + 51 + 26 + 437 + 12240 + 13632);
-        check(solve2("aoc2020/dec18_test.txt"), 231 + 51 + 46 + 1445 + 669060 + 23340);
+        check(solve1(getTestLines()), 71 + 51 + 26 + 437 + 12240 + 13632);
+        check(solve2(getTestLines()), 231 + 51 + 46 + 1445 + 669060 + 23340);
     }
 
     public static void task1() {
-        var result = solve1("aoc2020/dec18.txt");
-        check(result, 3159145843816L);
+        var result = solve1(getLines());
         System.out.println("Result: " + result);
+        check(result, readAnswerAsLong(1));
     }
 
     public static void task2() {
-        var result = solve2("aoc2020/dec18.txt");
-        check(result, 55699621957369L);
+        var result = solve2(getLines());
         System.out.println("Result: " + result);
+        check(result, readAnswerAsLong(2));
     }
 
-    public static long solve1(String input) {
-        var lines = getLines(input);
+    public static long solve1(List<String> input) {
+
         long sum = 0;
-        for (String line : lines) {
+        for (String line : input) {
             sum += eval(Precedence.LR, line);
         }
         return sum;
     }
 
-    public static long solve2(String input) {
-        return getLines(input).stream()
+    public static long solve2(List<String> input) {
+        return input.stream()
                 .mapToLong(s -> eval(Precedence.PLUS, s))
                 .sum();
     }

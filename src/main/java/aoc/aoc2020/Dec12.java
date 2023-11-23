@@ -1,6 +1,7 @@
 package aoc.aoc2020;
 
 import aoc.utils.Point;
+import java.util.List;
 
 import static aoc.utils.Utils.*;
 
@@ -14,28 +15,28 @@ public class Dec12 {
 
     public static void test() {
         testRotate();
-        check(solve1("aoc2020/dec12_test.txt"), 25);
-        check(solve2("aoc2020/dec12_test.txt"), 286);
+        check(solve1(getTestLines()), 25);
+        check(solve2(getTestLines()), 286);
     }
 
     public static void task1() {
-        var result = solve1("aoc2020/dec12.txt");
-        check(result, 1186);
+        var result = solve1(getLines());
         System.out.println("Result: " + result);
+        check(result, readAnswerAsInt(1));
     }
 
     public static void task2() {
-        var result = solve2("aoc2020/dec12.txt");
-        check(result, 47806);
+        var result = solve2(getLines());
         System.out.println("Result: " + result);
+        check(result, readAnswerAsInt(2));
     }
 
-    public static int solve1(String input) {
-        var lines = getLines(input);
+    public static int solve1(List<String> input) {
+
         char direction = 'E';
         int x = 0, y = 0;
 
-        for (String line : lines) {
+        for (String line : input) {
             char instr = line.charAt(0);
             int value = Integer.parseInt(line.substring(1));
 
@@ -69,13 +70,12 @@ public class Dec12 {
         return Math.abs(x) + Math.abs(y);
     }
 
-    public static int solve2(String input) {
+    public static int solve2(List<String> input) {
 
-        var lines = getLines(input);
         var p = new Point(0, 0);
         var wp = new Point(10, 1);
 
-        for (String line : lines) {
+        for (String line : input) {
             var instr = line.charAt(0);
             var value = Integer.parseInt(line.substring(1));
 

@@ -2,6 +2,8 @@ package aoc.aoc2020;
 
 import static aoc.utils.Utils.*;
 
+import java.util.List;
+
 public class Dec09 {
 
   public static void main(String[] args) throws Exception {
@@ -11,23 +13,23 @@ public class Dec09 {
   }
 
   public static void test() {
-    check(solve1("aoc2020/dec09_test.txt", 5), 127);
-    check(solve2("aoc2020/dec09_test.txt", 5), 62);
+    check(solve1(getTestLines(), 5), 127);
+    check(solve2(getTestLines(), 5), 62);
   }
 
   public static void task1() {
-    long result = solve1("aoc2020/dec09.txt", 25);
-    check(result, 507622668);
+    long result = solve1(getLines(), 25);
     System.out.println("Result: " + result);
+    check(result, readAnswerAsLong(1));
   }
 
   public static void task2() {
-    long result = solve2("aoc2020/dec09.txt", 25);
-    check(result, 76688505);
+    long result = solve2(getLines(), 25);
     System.out.println("Result: " + result);
+    check(result, readAnswerAsLong(2));
   }
 
-  public static long solve1(String input, int n) {
+  public static long solve1(List<String> input, int n) {
 
     long[] numbers = getNumbers(input);
     return findFirstNonSum(n, numbers);
@@ -51,7 +53,7 @@ public class Dec09 {
     return -1;
   }
 
-  public static long solve2(String input, int n) {
+  public static long solve2(List<String> input, int n) {
     long[] numbers = getNumbers(input);
     long target = findFirstNonSum(n, numbers);
 

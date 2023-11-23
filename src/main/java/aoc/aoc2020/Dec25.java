@@ -16,8 +16,9 @@ public class Dec25 {
     }
 
     public static void task1() {
-        var result = solve1(14012298, 74241);
-        check(result, 18608573);
+        var input = getInts(getLines());
+        var result = solve1(input[0], input[1]);
+        check(result, readAnswerAsLong(1));
         System.out.println("Result: " + result);
     }
 

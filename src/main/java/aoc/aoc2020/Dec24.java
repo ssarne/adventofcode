@@ -25,23 +25,23 @@ public class Dec24 {
     }
 
     public static void test() {
-        check(solve1("aoc2020/dec24_test.txt"), 10);
-        check(solve2("aoc2020/dec24_test.txt", 100), 2208);
+        check(solve1(getTestLines()), 10);
+        check(solve2(getTestLines(), 100), 2208);
     }
 
     public static void task1() {
-        var result = solve1("aoc2020/dec24.txt");
+        var result = solve1(getLines());
         check(result, 330);
         System.out.println("Result: " + result);
     }
 
     public static void task2() {
-        var result = solve2("aoc2020/dec24.txt", 100);
+        var result = solve2(getLines(), 100);
         check(result, 3711);
         System.out.println("Result: " + result);
     }
 
-    public static int solve1(String input) {
+    public static int solve1(List<String> input) {
         HashMap<String, Character> tiles = parseTiles(input);
         return count(tiles, 'B');
     }
@@ -57,7 +57,7 @@ public class Dec24 {
     }
 
 
-    public static int solve2(String input, int n) {
+    public static int solve2(List<String> input, int n) {
 
         var tiles = parseTiles(input);
         for (int i = 1; i <= n; i++) {
@@ -115,11 +115,11 @@ public class Dec24 {
         return tiles.containsKey(x + "," + y) && tiles.get(x + "," + y).charValue() == color;
     }
 
-    private static HashMap<String, Character> parseTiles(String input) {
-        var lines = getLines(input);
+    private static HashMap<String, Character> parseTiles(List<String> input) {
+
         var tiles = new HashMap<String, Character>(); // tile -> color
 
-        for (String line : lines) {
+        for (String line : input) {
             int x = 0, y = 0;
             while (line != "") {
                 if (line.startsWith("e")) {

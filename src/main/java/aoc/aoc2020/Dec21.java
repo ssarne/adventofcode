@@ -2,6 +2,7 @@ package aoc.aoc2020;
 
 import java.util.*;
 import static aoc.utils.Utils.*;
+import static aoc.utils.Utils.getTestLines;
 
 public class Dec21 {
 
@@ -12,27 +13,26 @@ public class Dec21 {
     }
 
     public static void test() {
-        check(solve1("aoc2020/dec21_test.txt"), 5);
-        check(solve2("aoc2020/dec21_test.txt"), "mxmxvkd,sqjhc,fvjkl");
+        check(solve1(getTestLines()), 5);
+        check(solve2(getTestLines()), "mxmxvkd,sqjhc,fvjkl");
     }
 
     public static void task1() {
-        var result = solve1("aoc2020/dec21.txt");
-        check(result, 2265);
+        var result = solve1(getLines());
+        check(result, readAnswerAsInt(1));
         System.out.println("Result: " + result);
     }
 
     public static void task2() {
-        var result = solve2("aoc2020/dec21.txt");
-        check(result, "dtb,zgk,pxr,cqnl,xkclg,xtzh,jpnv,lsvlx");
+        var result = solve2(getLines());
+        check(result, readAnswer(2));
         System.out.println("Result: " + result);
     }
 
-    public static long solve1(String input) {
+    public static long solve1(List<String> input) {
 
-        var lines = getLines(input);
         var ingredientsCount = new HashMap<String, Integer>(); // map of all ingredients and their occurrences
-        var allergensToIngredientLists = parseFoodList(lines, ingredientsCount); // allergen to (multiple) list of ingredients
+        var allergensToIngredientLists = parseFoodList(input, ingredientsCount); // allergen to (multiple) list of ingredients
         var allergensMap = mergeAllergens(allergensToIngredientLists);
 
         reduceAllergens(allergensMap);
@@ -41,11 +41,10 @@ public class Dec21 {
         return countNonallergenicIngredients(ingredientsCount, allergenicIngredients);
     }
 
-    public static String solve2(String input) {
+    public static String solve2(List<String> input) {
 
-        var lines = getLines(input);
         var ingredientsCount = new HashMap<String, Integer>(); // map of all ingredients and their occurrences
-        var allergensToIngredientLists = parseFoodList(lines, ingredientsCount); // allergen to (multiple) list of ingredients
+        var allergensToIngredientLists = parseFoodList(input, ingredientsCount); // allergen to (multiple) list of ingredients
         var allergensMap = mergeAllergens(allergensToIngredientLists);
 
         reduceAllergens(allergensMap);

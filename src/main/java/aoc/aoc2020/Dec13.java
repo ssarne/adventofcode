@@ -2,6 +2,7 @@ package aoc.aoc2020;
 
 import aoc.utils.MathAlgos;
 
+import static aoc.utils.Utils.getTestLines;
 import static java.util.Arrays.stream;
 
 import static aoc.utils.Utils.*;
@@ -17,27 +18,27 @@ public class Dec13 {
     }
 
     public static void test() {
-        check(solve1("aoc2020/dec13_test.txt"), 295);
-        check(solve2a("aoc2020/dec13_test.txt"), 1068781);
-        check(solve2b("aoc2020/dec13_test.txt"), 1068781);
+        check(solve1(getTestLines()), 295);
+        check(solve2a(getTestLines()), 1068781);
+        check(solve2b(getTestLines()), 1068781);
     }
 
     public static void task1() {
-        var result = solve1("aoc2020/dec13.txt");
-        check(result, 3385);
+        var result = solve1(getLines());
         System.out.println("Result: " + result);
+        check(result, readAnswerAsInt(1));
     }
 
     public static void task2() {
-        var result = solve2b("aoc2020/dec13.txt");
-        check(result, 600689120448303L);
+        var result = solve2b(getLines());
         System.out.println("Result: " + result);
+        check(result, readAnswerAsLong(2));
     }
 
-    public static long solve1(String input) {
-        var lines = getLines(input);
-        long time = Long.parseLong(lines.get(0));
-        String busses = lines.get(1);
+    public static long solve1(List<String> input) {
+
+        long time = Long.parseLong(input.get(0));
+        String busses = input.get(1);
         String[] bb = busses.split(",");
         long best = Long.MAX_VALUE;
         long bestId = Long.MAX_VALUE;
@@ -57,9 +58,9 @@ public class Dec13 {
         return (best - time) * bestId;
     }
 
-    public static long solve2a(String input) {
-        var lines = getLines(input);
-        String busses = lines.get(1);
+    public static long solve2a(List<String> input) {
+
+        String busses = input.get(1);
         String[] bb = busses.split(",");
         long[] bbs = new long[bb.length];
         long[] tts = new long[bb.length];
@@ -88,9 +89,9 @@ public class Dec13 {
         }
     }
 
-    public static long solve2b(String input) {
+    public static long solve2b(List<String> input) {
 
-        String[] bb = getLines(input).get(1).split(",");
+        String[] bb = input.get(1).split(",");
 
         List<Long> bbs = new ArrayList<>();
         List<Long> tts = new ArrayList<>();

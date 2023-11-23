@@ -3,6 +3,7 @@ package aoc.aoc2020;
 import java.util.*;
 
 import static aoc.utils.Utils.*;
+import static aoc.utils.Utils.getTestLines;
 
 public class Dec16 {
 
@@ -13,28 +14,27 @@ public class Dec16 {
     }
 
     public static void test() {
-        check(solve1("aoc2020/dec16_test.txt"), 71);
-        check(solve2("aoc2020/dec16_test.txt", "seat"), 14);
+        check(solve1(getTestLines()), 71);
+        check(solve2(getTestLines(), "seat"), 14);
     }
 
     public static void task1() {
-        var result = solve1("aoc2020/dec16.txt");
-        check(result, 25916);
+        var result = solve1(getLines());
         System.out.println("Result: " + result);
+        check(result, readAnswerAsInt(1));
     }
 
     public static void task2() {
-        var result = solve2("aoc2020/dec16.txt", "departure");
-        check(result, 2564529489989L);
+        var result = solve2(getLines(), "departure");
         System.out.println("Result: " + result);
+        check(result, readAnswerAsLong(2));
     }
 
-    public static int solve1(String input) {
+    public static int solve1(List<String> input) {
 
-        var lines = getLines(input);
-        var rules = parseRules(lines);
-        var myTicket = parseMyTicket(lines);
-        var tickets = parseTickets(lines);
+        var rules = parseRules(input);
+        var myTicket = parseMyTicket(input);
+        var tickets = parseTickets(input);
 
         int sum = 0;
         for (Ticket ticket : tickets) {
@@ -43,11 +43,11 @@ public class Dec16 {
         return sum;
     }
 
-    public static long solve2(String input, String tag) {
-        var lines = getLines(input);
-        var rules = parseRules(lines);
-        var myTicket = parseMyTicket(lines);
-        var tickets = parseTickets(lines);
+    public static long solve2(List<String> input, String tag) {
+
+        var rules = parseRules(input);
+        var myTicket = parseMyTicket(input);
+        var tickets = parseTickets(input);
         var valids = getValidTickets(tickets, myTicket, rules);
 
         resolve(rules, valids);

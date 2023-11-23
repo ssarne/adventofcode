@@ -19,25 +19,24 @@ public class Dec04 {
   }
 
   public static void test() {
-    check(doit("aoc2020/dec04_test.txt", Dec04::isValid1), 2);
-    check(doit("aoc2020/dec04_test2.txt", Dec04::isValid2), 4);
+    check(doit(getTestLines(1), Dec04::isValid1), 2);
+    check(doit(getTestLines(2), Dec04::isValid2), 4);
   }
 
   public static void task1() {
-    int result = doit("aoc2020/dec04.txt", Dec04::isValid1);
-    check(result, 247);
+    int result = doit(getLines(), Dec04::isValid1);
     System.out.println("Result: " + result);
+    check(result, readAnswerAsInt(1));
   }
 
   public static void task2() {
-    int result = doit("aoc2020/dec04.txt", Dec04::isValid2);
-    check(result, 145);
+    int result = doit(getLines(), Dec04::isValid2);
     System.out.println("Result: " + result);
+    check(result, readAnswerAsInt(2));
   }
 
-  public static int doit(String input, Function<HashMap, Boolean> f) {
+  public static int doit(List<String> lines, Function<HashMap, Boolean> f) {
 
-    List<String> lines = getLines(input);
     int valid = 0;
 
     HashMap<String, String> pass = new HashMap<>();

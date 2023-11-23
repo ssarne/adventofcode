@@ -3,6 +3,7 @@ package aoc.aoc2020;
 import java.util.*;
 
 import static aoc.utils.Utils.*;
+import static aoc.utils.Utils.readAnswerAsInt;
 
 public class Dec22 {
 
@@ -13,30 +14,29 @@ public class Dec22 {
     }
 
     public static void test() {
-        check(solve1("aoc2020/dec22_test.txt"), 306);
-        check(solve2("aoc2020/dec22_test2.txt"), 105);
-        check(solve2("aoc2020/dec22_test.txt"), 291);
+        check(solve1(getTestLines(1)), 306);
+        check(solve2(getTestLines(2)), 105);
+        check(solve2(getTestLines(1)), 291);
 
     }
 
     public static void task1() {
-        var result = solve1("aoc2020/dec22.txt");
-        check(result, 32199);
+        var result = solve1(getLines());
+        check(result, readAnswerAsInt(1));
         System.out.println("Result: " + result);
     }
 
     public static void task2() {
-        var result = solve2("aoc2020/dec22.txt");
-        check(result, 33780);
+        var result = solve2(getLines());
+        check(result, readAnswerAsInt(2));
         System.out.println("Result: " + result);
     }
 
-    public static long solve1(String input) {
+    public static long solve1(List<String> input) {
 
-        var lines = getLines(input);
         Queue<Integer> p1 = new LinkedList<>();
         Queue<Integer> p2 = new LinkedList<>();
-        parseDecks(lines, p1, p2);
+        parseDecks(input, p1, p2);
 
         for (int round = 0; !(p1.isEmpty() || p2.isEmpty()); round++) {
             dbg("-- Round " + round + " --");
@@ -66,12 +66,11 @@ public class Dec22 {
         return (p1.size() > 0 ? score(p1) : score(p2));
     }
 
-    public static long solve2(String input) {
-        var lines = getLines(input);
+    public static long solve2(List<String> input) {
         Queue<Integer> p1 = new LinkedList<>();
         Queue<Integer> p2 = new LinkedList<>();
 
-        parseDecks(lines, p1, p2);
+        parseDecks(input, p1, p2);
         Win winner = playRecursiveCombat(copy(p1, p1.size()), copy(p2, p2.size()), 0, new Counter());
 
         dbg("== Post-game results ==");
