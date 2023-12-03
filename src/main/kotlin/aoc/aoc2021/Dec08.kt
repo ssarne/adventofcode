@@ -5,12 +5,12 @@ import java.lang.RuntimeException
 
 fun main() {
     check(execute1(readTestLines()), 26)
-    execute1(readLines()).let { println(it); check(it, 397) }
+    execute1(readLines()).let { println(it); check(it, readAnswerAsInt(1)) }
 
     check(readEntry("acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf"), 5353)
 
     check(execute2(readTestLines()), 61229)
-    execute2(readLines()).let { println(it); check(it, 1027422) }
+    execute2(readLines()).let { println(it); check(it, readAnswerAsInt(2)) }
 }
 
 private fun execute1(lines: List<String>): Int {

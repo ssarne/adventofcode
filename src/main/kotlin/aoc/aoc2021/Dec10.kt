@@ -5,9 +5,9 @@ import java.util.*
 
 fun main() {
     check(execute1(readTestLines()), 26397)
-    execute1(readLines()).let { println(it); check(it, 265527) }
+    execute1(readLines()).let { println(it); check(it, readAnswerAsInt(1)) }
     check(execute2(readTestLines()), 288957)
-    execute2(readLines()).let { println(it); check(it, 3969823589) }
+    execute2(readLines()).let { println(it); check(it, readAnswerAsLong(2)) }
 }
 
 private fun execute1(input: List<String>): Int {

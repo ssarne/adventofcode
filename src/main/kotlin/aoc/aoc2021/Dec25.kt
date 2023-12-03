@@ -4,7 +4,7 @@ import aoc.ktutils.*
 
 fun main() {
     check(execute(readTestLines(1), 70), 58)
-    execute(readLines(), 10000).let { println(it); check(it, 565) }
+    execute(readLines(), 10000).let { println(it); check(it, readAnswerAsInt(1)) }
 }
 
 private fun execute(input: List<String>, max: Int = 100, print: Boolean = false): Int {

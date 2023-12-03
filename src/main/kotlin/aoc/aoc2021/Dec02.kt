@@ -1,16 +1,17 @@
 package aoc.aoc2021
 
 import aoc.ktutils.check
+import aoc.ktutils.readAnswerAsInt
 import aoc.ktutils.readLines
 import aoc.ktutils.readTestLines
 import kotlin.math.abs
 
 fun main() {
     check(execute1(readTestLines()), 150)
-    execute1(readLines()).let { println(it) ; check(it, 1507611) }
+    execute1(readLines()).let { println(it) ; check(it, readAnswerAsInt(1)) }
 
     check(execute2(readTestLines()), 900)
-    execute2(readLines()).let { println(it) ; check(it, 1880593125) }
+    execute2(readLines()).let { println(it) ; check(it, readAnswerAsInt(2)) }
 }
 
 private fun execute1(input: List<String>): Int {

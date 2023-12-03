@@ -4,9 +4,9 @@ import aoc.ktutils.*
 
 fun main() {
     check(execute(readTestLines(), 100).count, 1656)
-    execute(readLines(), 100).count.let { println(it); check(it, 1705) }
+    execute(readLines(), 100).count.let { println(it); check(it, readAnswerAsInt(1)) }
     check(execute(readTestLines(), Int.MAX_VALUE).step, 195)
-    execute(readLines(), Int.MAX_VALUE).step.let { println(it); check(it, 265) }
+    execute(readLines(), Int.MAX_VALUE).step.let { println(it); check(it, readAnswerAsInt(2)) }
 }
 
 private data class Res11(val count: Int, val step: Int)

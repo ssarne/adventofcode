@@ -22,10 +22,10 @@ fun main() {
     check(parseSNF("[[1,2],[[3,4],5]]").magnitude(), 143)
     check(parseAndResolve(readTestLines(15)).magnitude(), 4140)
 
-    execute1(readLines()).let { println(it); check(it, 2907) }
+    execute1(readLines()).let { println(it); check(it, readAnswerAsInt(1)) }
 
     check(execute2(readTestLines(15)), 3993)
-    execute2(readLines()).let { println(it); check(it, 4690) }
+    execute2(readLines()).let { println(it); check(it, readAnswerAsInt(2)) }
 }
 
 private fun execute1(input: List<String>): Int {

@@ -11,11 +11,14 @@ fun main() {
     check(execute(readTestLines(3), "6", 'y'), 1)  //0x0110
     check(execute(readTestLines(3), "6", 'z'), 0)  //0x0110
 
-    check(execute(readLines(), "17241911811915", 'z'), 0)
-    check(execute(readLines(), "59996912981939", 'z'), 0)
+    //check(execute(readLines(), "13579246899999", 'z'), 0)
+    //check(execute(readLines(), "59996912981939", 'z'), 0)
 
     val (divZs, addXs, addYs) = analyze(readLines(), false)
-    crack(divZs, addXs, addYs)
+    val result = crack(divZs, addXs, addYs)
+
+    result.second.let { println(it); check(it, readAnswerAsLong(1)) }
+    result.first.let { println(it); check(it, readAnswerAsLong(2)) }
 }
 
 // Look at the programs sections, there are 14 of them which are almost the same
@@ -41,15 +44,14 @@ fun analyze(program: List<String>, print: Boolean = false): Triple<IntArray, Int
     return Triple(args[4], args[5], args[15])
 }
 
-// Brute force the keys, validate using handwritten program snipplet
-private fun crack(divZs: IntArray, addXs: IntArray, addYs: IntArray) {
+// Brute force the keys, validate using handwritten program snippet
+private fun crack(divZs: IntArray, addXs: IntArray, addYs: IntArray): Pair<Long, Long> {
     val cache = HashMap<String, Pair<Long, Long>>()
     val hits = IntArray(14)
-    val res = cracker(LongArray(14), 0, 0L, divZs, addXs, addYs, cache, hits)
-    println(res)
+    return cracker(LongArray(14), 0, 0L, divZs, addXs, addYs, cache, hits)
 }
 
-// Brute force the keys, validate using handwritten program snipplet
+// Brute force the keys, validate using handwritten program snippet
 // Generate all digits in the 14 positions
 // Cache results based on z value and iteration
 // The z value is the only one that carries overall other regs are
@@ -72,7 +74,6 @@ fun cracker(
         for (j in 1..9) {
             input[iteration] = j.toLong() // 10L - j.toLong() // 10 - j
             val zz = program(j, iteration, z, divZs, addXs, addYs)
-            if (zz > 1000000L) return Long.MAX_VALUE to 0L // Speedup
             val key = "$iteration-$zz"
             var res = cache[key]
             if (res == null || res.second != 0L) {
@@ -97,17 +98,17 @@ fun cracker(
 }
 
 fun program(input: Int, iteration: Int, z: Long, divZs: IntArray, addXs: IntArray, addYs: IntArray): Long {
-    return snipplet(input, divZs[iteration], addXs[iteration], addYs[iteration], z)  // 14
+    return snippet(input, divZs[iteration], addXs[iteration], addYs[iteration], z)  // 14
 }
 
-// Run one snipplet with parameters for what differs between them
-fun snipplet(input: Int, zDiv1: Int, xAdd2: Int, yAdd3: Int, Z: Long): Long {
+// Run one snippet with parameters for what differs between them
+fun snippet(input: Int, zDiv1: Int, xAdd2: Int, yAdd3: Int, Z: Long): Long {
     var z = Z                 // from last round
     val w = input.toLong()    // int w             (w is reset, i.e. set to input each round)
     var x = z                 // mul x 0, add x z  (x is reset to 0 each round)
     x %= 26                   // mod x 26
     z /= zDiv1                // div z 1     zDiv1
-    x += xAdd2                // add x 14    xAdd2
+    x += xAdd2                // add x 11    xAdd2
     x = if (x == w) 1 else 0  // eql x w
     x = if (x == 0L) 1 else 0 // eql x 0
     var y = 25L               // mul y 0, y = 25   (y is reset to 25 each round)

@@ -5,10 +5,10 @@ import kotlin.math.*
 
 fun main() {
     check(execute1(readTestLines()), 739785)
-    execute1(readLines()).let { println(it); check(it, 503478) }
+    execute1(readLines()).let { println(it); check(it, readAnswerAsInt(1)) }
 
     check(execute2(readTestLines()), 444356092776315L)
-    execute2(readLines()).let { println(it); check(it, 716241959649754L) }
+    execute2(readLines()).let { println(it); check(it, readAnswerAsLong(2)) }
 }
 
 private class IncrementingDie(var rolls:Int = 0) {

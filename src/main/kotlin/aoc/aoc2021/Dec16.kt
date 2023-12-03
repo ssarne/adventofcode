@@ -11,7 +11,7 @@ fun main() {
     check(execute1("8A004A801A8002F478"), 16)
     check(execute1("620080001611562C8802118E34"), 12)
     check(execute1("C0015000016115A2E0802F182340"), 23)
-    execute1(readText()).let { println(it); check(it, 986) }
+    execute1(readText()).let { println(it); check(it, readAnswerAsInt(1)) }
 
     check(execute2("C200B40A82"), 3L)
     check(execute2("04005AC33890"), 54L)
@@ -21,7 +21,7 @@ fun main() {
     check(execute2("F600BC2D8F"), 0L)
     check(execute2("9C005AC2F8F0"), 0L)
     check(execute2("9C0141080250320F1802104A08"), 1L)
-    execute2(readText()).let { println(it); check(it, 18234816469452L) }
+    execute2(readText()).let { println(it); check(it, readAnswerAsLong(2)) }
 }
 
 private fun execute1(input: String): Int {

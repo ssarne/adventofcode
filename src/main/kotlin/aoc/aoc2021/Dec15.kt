@@ -7,10 +7,10 @@ import java.util.*
 
 fun main() {
     check(execute1(readTestLines()), 40)
-    execute1(readLines()).let { println(it); check(it, 717) }
+    execute1(readLines()).let { println(it); check(it, readAnswerAsInt(1)) }
 
     check(execute2(readTestLines()), 315)
-    execute2(readLines()).let { println(it); check(it, 2993) }
+    execute2(readLines()).let { println(it); check(it, readAnswerAsInt(2)) }
 }
 
 private data class PV(val x: Int, val y: Int, val v: Int) : Comparable<PV> {

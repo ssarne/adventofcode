@@ -5,11 +5,11 @@ import aoc.ktutils.*
 fun main() {
 
     check(simulate(readTestText(), 80), 5934)
-    simulate(readText(), 80).let { println(it); check(it, 360268) }
+    simulate(readText(), 80).let { println(it); check(it, readAnswerAsInt(1)) }
 
     check(bucketize(readTestText(), 80), 5934L)
     check(bucketize(readTestText(), 256), 26984457539L)
-    bucketize(readText(), 256).let { println(it); check(it, 1632146183902L) }
+    bucketize(readText(), 256).let { println(it); check(it, readAnswerAsLong(2)) }
 }
 
 

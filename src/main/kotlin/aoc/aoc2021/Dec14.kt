@@ -7,10 +7,10 @@ import java.lang.RuntimeException
 
 fun main() {
     check(execute1(readTestLines()), 1588)
-    execute1(readLines()).let { println(it); check(it, 3247) }
+    execute1(readLines()).let { println(it); check(it, readAnswerAsInt(1)) }
 
     check(execute2(readTestLines(), 10), 1588L)
-    execute2(readLines(), 40).let { println(it); check(it, 4110568157153L) }
+    execute2(readLines(), 40).let { println(it); check(it, readAnswerAsLong(2)) }
 }
 
 private fun execute1(input: List<String>): Int {

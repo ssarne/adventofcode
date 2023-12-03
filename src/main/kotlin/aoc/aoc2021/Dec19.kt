@@ -10,8 +10,8 @@ fun main() {
         check(it.second, 3621)
     }
     execute(readLines()).let {
-        println(it.first); check(it.first, 362)
-        println(it.second); check(it.second, 12204)
+        println(it.first); check(it.first, readAnswerAsInt(1))
+        println(it.second); check(it.second, readAnswerAsInt(2))
     }
 }
 

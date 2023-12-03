@@ -8,10 +8,10 @@ import kotlin.math.*
 
 fun main() {
     check(execute1(readTestLines(), knownSteps, false), 12521)
-    execute1(readLines()).let { println(it); check(it, 15299) }
+    execute1(readLines()).let { println(it); check(it, readAnswerAsInt(1)) }
 
     check(execute2(readTestLines()), 44169)
-    execute2(readLines()).let { println(it); check(it, 47193) }
+    execute2(readLines()).let { println(it); check(it, readAnswerAsInt(2)) }
 }
 
 val knownSteps = mapOf(

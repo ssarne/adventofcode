@@ -4,10 +4,10 @@ import aoc.ktutils.*
 
 fun main() {
     check(execute1(readTestLines()), 17)
-    execute1(readLines()).let { println(it); check(it, 631) }
+    execute1(readLines()).let { println(it); check(it, readAnswerAsInt(1)) }
 
     check(execute2(readTestLines()).size, 16)
-    execute2(readLines()).let { printSparseSet(it); check(it.size, 92) }
+    execute2(readLines()).let { printSparseSet(it); check(it.size, readAnswerAsInt(2)) }
 }
 
 private data class Fold(val axis: String, val pos: Int)

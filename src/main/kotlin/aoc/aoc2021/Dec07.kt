@@ -6,10 +6,10 @@ import kotlin.math.abs
 
 fun main() {
     check(execute1("16,1,2,0,4,2,7,1,2,14"), 37)
-    execute1(readText()).let { println(it) ; check(it, 345197) }
+    execute1(readText()).let { println(it) ; check(it, readAnswerAsInt(1)) }
 
     check(execute2("16,1,2,0,4,2,7,1,2,14"), 168)
-    execute2(readText()).let { println(it) ; check(it, 96361606) }
+    execute2(readText()).let { println(it) ; check(it, readAnswerAsInt(2)) }
 }
 
 private fun execute1(input: String): Int {

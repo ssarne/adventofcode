@@ -1,18 +1,15 @@
 package aoc.aoc2021
 
-import aoc.ktutils.Point
-import aoc.ktutils.check
-import aoc.ktutils.readLines
-import aoc.ktutils.readTestLines
+import aoc.ktutils.*
 import kotlin.math.abs
 import kotlin.math.max
 
 fun main() {
     check(execute(readTestLines()), 5)
-    execute(readLines()).let { println(it) ; check(it, 5084) }
+    execute(readLines()).let { println(it) ; check(it, readAnswerAsInt(1)) }
 
     check(execute(readTestLines(), true), 12)
-    execute(readLines(), true).let { println(it) ; check(it, 17882) }
+    execute(readLines(), true).let { println(it) ; check(it, readAnswerAsInt(2)) }
 }
 
 private fun execute(input: List<String>, diagonals: Boolean = false ): Int {

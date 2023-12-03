@@ -10,7 +10,7 @@ fun main() {
     check(launch(6, 9, Area(Point(20, -10), Point(30,-5))).second, 45)
     check(execute("target area: x=20..30, y=-10..-5").first, 45)
 
-    execute(readText()).let { println(it); check(it.first, 5671); check(it.second, 4556) }
+    execute(readText()).let { println(it); check(it.first, readAnswerAsInt(1)); check(it.second, readAnswerAsInt(2)) }
 }
 
 private data class Area(val min: Point, val max: Point)

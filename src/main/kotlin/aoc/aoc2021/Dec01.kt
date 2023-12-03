@@ -1,15 +1,16 @@
 package aoc.aoc2021
 
 import aoc.ktutils.check
+import aoc.ktutils.readAnswerAsInt
 import aoc.ktutils.readLines
 import aoc.ktutils.readTestLines
 
 fun main() {
     check(execute1(readTestLines()), 7)
-    execute1(readLines()).let { println(it) ; check(it, 1681) }
+    execute1(readLines()).let { println(it) ; check(it, readAnswerAsInt(1)) }
 
     check(execute2(readTestLines()), 5)
-    execute2(readLines()).let { println(it) ; check(it, 1704) }
+    execute2(readLines()).let { println(it) ; check(it, readAnswerAsInt(2)) }
 }
 
 private fun execute1(lines: List<String>): Int {

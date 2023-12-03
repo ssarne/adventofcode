@@ -10,7 +10,7 @@ import kotlin.collections.HashSet
 fun main() {
     check(execute1(readTestLines(1)), 39)
     check(execute1(readTestLines(2)), 590784)
-    execute1(readLines()).let { println(it); check(it, 581108) }
+    execute1(readLines()).let { println(it); check(it, readAnswerAsInt(1)) }
 
     check(Box.deltas(1, 0, 2, 3), intArrayOf(0, 0, 1, 1))
     check(Box.deltas(0, 1, 2, 3), intArrayOf(0, 1, 1, 1))
@@ -25,7 +25,7 @@ fun main() {
     check(execute2(listOf("on x=0..2,y=0..2,z=0..2", "on x=1..3,y=1..3,z=1..3")), 2 * 3 * 3 * 3 - 2 * 2 * 2)
     check(execute2(readTestLines(1)), 39)
     check(execute2(readTestLines(3)), 2758514936282235L)
-    execute2(readLines()).let { println(it); check(it, 1325473814582641L) }
+    execute2(readLines()).let { println(it); check(it, readAnswerAsLong(2)) }
 }
 
 private fun execute1(input: List<String>): Int {

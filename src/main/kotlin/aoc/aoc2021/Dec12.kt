@@ -8,9 +8,9 @@ fun main() {
     check(execute1(readTestLines(1)), 10)
     check(execute1(readTestLines(2)), 19)
     check(execute1(readTestLines(3)), 226)
-    execute1(readLines()).let { println(it) ; check(it, 4691) }
+    execute1(readLines()).let { println(it) ; check(it, readAnswerAsInt(1)) }
     check(execute2(readTestLines(1)), 36)
-    execute2(readLines()).let { println(it) ; check(it, 140718) }
+    execute2(readLines()).let { println(it) ; check(it, readAnswerAsInt(2)) }
 }
 
 private data class Cave(val id: String, val next: MutableList<Cave>)

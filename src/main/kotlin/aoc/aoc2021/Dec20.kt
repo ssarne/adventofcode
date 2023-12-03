@@ -6,10 +6,10 @@ import java.lang.RuntimeException
 
 fun main() {
     check(execute(readTestLines()), 35)
-    execute(readLines()).let { println(it); check(it, 5486) }
+    execute(readLines()).let { println(it); check(it, readAnswerAsInt(1)) }
 
     check(execute(readTestLines(), iter = 50), 3351)
-    execute(readLines(), iter = 50).let { println(it); check(it, 20210) }
+    execute(readLines(), iter = 50).let { println(it); check(it, readAnswerAsInt(2)) }
 }
 
 private fun execute(input: List<String>, print: Boolean = false, iter: Int = 2): Int {

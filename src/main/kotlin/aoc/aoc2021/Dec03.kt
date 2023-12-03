@@ -1,16 +1,17 @@
 package aoc.aoc2021
 
 import aoc.ktutils.check
+import aoc.ktutils.readAnswerAsInt
 import aoc.ktutils.readLines
 import aoc.ktutils.readTestLines
 import java.lang.RuntimeException
 
 fun main() {
     check(execute1(readTestLines()), 198)
-    execute1(readLines()).let { println(it) ; check(it, 1307354) }
+    execute1(readLines()).let { println(it) ; check(it, readAnswerAsInt(1)) }
 
     check(execute2(readTestLines()), 230)
-    execute2(readLines()).let { println(it); check(it, 482500) }
+    execute2(readLines()).let { println(it); check(it, readAnswerAsInt(2)) }
 }
 
 private fun execute1(input: List<String>): Int {
