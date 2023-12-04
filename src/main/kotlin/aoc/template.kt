@@ -4,10 +4,10 @@ import aoc.ktutils.*
 import kotlin.math.*
 
 fun main() {
-    check(execute1(readTestLines()), -1)
+    check(execute1(readTestLines(1)), -1)
     execute1(readLines()).let { println(it) } // ; check(it, readAnswerAsInt(1)) }
 
-    // check(execute2(readTestLines()), -1)
+    // check(execute2(readTestLines(1)), -1)
     // execute2(readLines()).let { println(it) } // ; check(it, readAnswerAsInt(2)) }
 }
 
