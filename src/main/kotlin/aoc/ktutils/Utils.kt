@@ -103,6 +103,15 @@ fun asIntArray(text: String): IntArray {
         .toIntArray()
 }
 
+fun asLongArray(text: String): LongArray {
+    return text
+        .replace("\n", " ")
+        .split(",", " ", "\t")
+        .filter { t -> t != "" }
+        .map { t -> t.toLong() }
+        .toLongArray()
+}
+
 fun isLowerCase(text: String): Boolean {
     for (c in text) {
         if (c.toInt() < 'a'.toInt() || c.toInt() > 'z'.toInt()) {
