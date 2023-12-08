@@ -18,3 +18,30 @@ fun binarySearch(low: Long, high: Long, calculate: (Long) -> Long, analyze: (Lon
     }
     return res
 }
+
+/**
+ * Least common multiplier
+ * lcm(a,b,c) = lcm(a,lcm(b,c))
+ */
+fun lcm(vararg numbers: Long): Long {
+    var res = lcm(numbers[0], numbers[1])
+    for (i in 2 until numbers.size)
+        res = lcm(res, numbers[i])
+    return res
+}
+
+/**
+ * Least common multiplier
+ */
+fun lcm(number1: Long, number2: Long): Long {
+    return number1 * number2 /  gcd (number1 , number2)
+}
+
+/**
+ * The greatest common divisor (GCD) of two integers (numbers),
+ * the largest number that divides them both without a remainder
+ * Euclidian algorithm
+ */
+fun gcd(a: Long, b: Long): Long {
+    return if (a == 0L) b else gcd(b % a, a)
+}
