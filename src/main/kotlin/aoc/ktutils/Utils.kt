@@ -103,6 +103,7 @@ fun asIntArray(text: String): IntArray {
         .toIntArray()
 }
 
+
 fun asLongArray(text: String): LongArray {
     return text
         .replace("\n", " ")
@@ -111,6 +112,9 @@ fun asLongArray(text: String): LongArray {
         .map { t -> t.toLong() }
         .toLongArray()
 }
+
+fun all(values: IntArray, value: Int) = (values.size == values.count() { it == value })
+fun all(values: LongArray, value: Long) = (values.size == values.count() { it == value })
 
 fun isLowerCase(text: String): Boolean {
     for (c in text) {
