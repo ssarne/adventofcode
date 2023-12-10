@@ -38,6 +38,14 @@ fun <T> centerPoint(grid: Map<Point, T>): Point {
     return center
 }
 
+fun <T> mapSize(grid: Map<Point, T>): Pair<Point, Point> {
+    val maxX = grid.keys.map { it.x }.max()
+    val maxY = grid.keys.map { it.y }.max()
+    val minX = grid.keys.map { it.x }.min()
+    val minY = grid.keys.map { it.y }.min()
+    return Point(minX, minY) to Point(maxX, maxY)
+}
+
 fun printSparseMatrix(dots: Map<Point, Char>, header: Boolean = false, msg: String = "") {
     val minX = dots.keys.stream().mapToInt { it.x }.min().orElse(0)
     val minY = dots.keys.stream().mapToInt { it.y }.min().orElse(0)
