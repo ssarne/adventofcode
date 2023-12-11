@@ -6,7 +6,7 @@ import kotlin.collections.HashSet
 
 fun parseSparseBinaryMatrix(input: List<String>): HashSet<Point> {
     if (input.isEmpty()) throw RuntimeException("Height should be larger than 0. Input list is empty.")
-    var grid = HashSet<Point>()
+    val grid = HashSet<Point>()
     for (y in input.indices) {
         for (x in 0 until input[y].length) {
             val c = input[y][x]
@@ -20,10 +20,10 @@ fun parseSparseBinaryMatrix(input: List<String>): HashSet<Point> {
 
 fun parseCharacterGridToMap(input: List<String>, filter: Char? = null): HashMap<Point, Char> {
     if (input.isEmpty()) throw RuntimeException("Height should be larger than 0. Input list is empty.")
-    var grid = HashMap<Point, Char>()
+    val grid = HashMap<Point, Char>()
     for (y in input.indices) {
         for (x in 0 until input[y].length) {
-            grid.put(Point(x, y), input[y][x])
+            grid[Point(x, y)] = input[y][x]
         }
     }
     return grid
@@ -34,8 +34,7 @@ fun <T> centerPoint(grid: Map<Point, T>): Point {
     val maxY = grid.keys.map { it.y }.max()
     val minX = grid.keys.map { it.x }.min()
     val minY = grid.keys.map { it.y }.min()
-    val center = Point((maxX - minX) / 2, (maxY - minY) / 2)
-    return center
+    return Point((maxX - minX) / 2, (maxY - minY) / 2)
 }
 
 fun <T> mapSize(grid: Map<Point, T>): Pair<Point, Point> {
@@ -43,6 +42,14 @@ fun <T> mapSize(grid: Map<Point, T>): Pair<Point, Point> {
     val maxY = grid.keys.map { it.y }.max()
     val minX = grid.keys.map { it.x }.min()
     val minY = grid.keys.map { it.y }.min()
+    return Point(minX, minY) to Point(maxX, maxY)
+}
+
+fun mapSize(grid: Set<Point>): Pair<Point, Point> {
+    val maxX = grid.maxOf { it.x }
+    val maxY = grid.maxOf { it.y }
+    val minX = grid.minOf { it.x }
+    val minY = grid.minOf { it.y }
     return Point(minX, minY) to Point(maxX, maxY)
 }
 
