@@ -14,7 +14,7 @@ fun main() {
 }
 
 private data class PointL(val x: Long, val y: Long) {
-    fun manhattan(other: PointL) = abs(this.x - other.x) + abs(this.y - other.y)
+    infix fun manhattan(other: PointL) = abs(this.x - other.x) + abs(this.y - other.y)
 }
 
 private fun execute(input: List<String>, addon: Long): Long {
@@ -30,7 +30,7 @@ private fun execute(input: List<String>, addon: Long): Long {
         used.add(p1)
         for (p2 in map2.iterator()) {
             if (used.contains(p2)) continue
-            sum += p1.manhattan(p2)
+            sum += p1 manhattan p2
         }
     }
     return sum

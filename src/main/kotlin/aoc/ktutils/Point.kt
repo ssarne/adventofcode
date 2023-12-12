@@ -15,7 +15,7 @@ data class Point(val x: Int, val y: Int) {
     operator fun times(scale: Int) = Point(this.x * scale, this.y * scale)
 
     /** Calculate the Manhattan distance, delta-x + delta-y, between the two points */
-    fun manhattan(other: Point) = abs(this.x - other.x) + abs(this.y - other.y)
+    infix fun manhattan(other: Point) = abs(this.x - other.x) + abs(this.y - other.y)
 
     /** Enumerate the 4 directly adjacent coordinates to this Point */
     fun adjacent(): List<Point> {
