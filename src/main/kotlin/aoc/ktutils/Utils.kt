@@ -116,6 +116,23 @@ fun asLongArray(text: String): LongArray {
 fun all(values: IntArray, value: Int) = (values.size == values.count() { it == value })
 fun all(values: LongArray, value: Long) = (values.size == values.count() { it == value })
 
+fun count(text: String, c: Char, range: IntRange): Int {
+    var count = 0
+    for (i in range)
+        if (text[i] == c)
+            count++
+    return count
+}
+
+fun count(text: String, matches: String, range: IntRange): Int {
+    var count = 0
+    for (i in range)
+        if (matches.contains(text[i]))
+            count++
+    return count
+}
+
+
 fun isLowerCase(text: String): Boolean {
     for (c in text) {
         if (c.toInt() < 'a'.toInt() || c.toInt() > 'z'.toInt()) {
@@ -166,20 +183,6 @@ fun getMinMaxOccurence(text: String): Pair<Int, Int> {
         if (max < count) max = count
     }
     return Pair(min, max)
-}
-
-/* Match the first/outer parenthesis pair of open and close, e.g. [ and ] */
-fun matchFirstParenthesis(text: String, open: Char = '[', close: Char = ']'): Pair<Int, Int> {
-    var start = -1
-    var lb = 0
-    var rb = 0
-    for ((i, c) in text.withIndex()) {
-        if (c == open) lb++
-        if (lb == 1) start = i
-        if (c == close) rb++
-        if (lb > 0 && lb == rb) return Pair(start, i)
-    }
-    throw RuntimeException("CMH failed to find matching $open $close in '$text'")
 }
 
 private fun getInputFilePath(year: String, day: String, test: Boolean = false, testIndex: Int = 0): String {
