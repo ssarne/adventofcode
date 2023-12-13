@@ -29,6 +29,13 @@ fun parseCharacterGridToMap(input: List<String>, filter: Char? = null): HashMap<
     return grid
 }
 
+fun transposeGrid(map: HashMap<Point, Char>): HashMap<Point, Char> {
+    val transposed = HashMap<Point, Char>()
+    for ((p, v) in map)
+        transposed[Point(p.y, p.x)] = v
+    return transposed
+}
+
 fun <T> centerPoint(grid: Map<Point, T>): Point {
     val maxX = grid.keys.map { it.x }.max()
     val maxY = grid.keys.map { it.y }.max()
