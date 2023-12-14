@@ -21,4 +21,13 @@ class AlgosKtTest {
         assertEquals(1, gcd(31, 3))
         assertEquals(3, gcd(21, 3))
     }
+
+    @Test
+    fun testAddUp() {
+        assertEquals(8, addUp(2, 2, 12))
+        assertEquals(8, addUp(3, 2, 12))
+        assertEquals(6, addUp(4, 2, 12))
+        assertEquals(999999980, addUp(13, 7, 1000000000))
+        assertEquals(999999756, addUp(215, 108, 1000000000))
+    }
 }

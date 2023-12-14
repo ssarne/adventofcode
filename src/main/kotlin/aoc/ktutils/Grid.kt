@@ -36,6 +36,38 @@ fun transposeGrid(map: HashMap<Point, Char>): HashMap<Point, Char> {
     return transposed
 }
 
+fun gridClone(map: HashMap<Point, Char>): HashMap<Point, Char> {
+    val clone = HashMap<Point, Char>()
+    for ((p, v) in map)
+        clone[Point(p.x, p.y)] = v
+    return clone
+}
+
+fun gridEquals(map1: HashMap<Point, Char>, map2: HashMap<Point, Char>): Boolean {
+    if (map1.size != map2.size)
+        return false
+    for ((p, v) in map1)
+        if (map2[p] != v)
+            return false
+    return true
+}
+
+fun rotateCounterClockwise(map: HashMap<Point, Char>): HashMap<Point, Char> {
+    val size = mapSize(map)
+    val rotated = HashMap<Point, Char>()
+    for ((p, v) in map)
+        rotated[Point(p.y, size.second.x - p.x)] = v
+    return rotated
+}
+
+fun rotateClockwise(map: HashMap<Point, Char>): HashMap<Point, Char> {
+    val size = mapSize(map)
+    val rotated = HashMap<Point, Char>()
+    for ((p, v) in map)
+        rotated[Point(size.second.y - p.y, p.x)] = v
+    return rotated
+}
+
 fun <T> centerPoint(grid: Map<Point, T>): Point {
     val maxX = grid.keys.map { it.x }.max()
     val maxY = grid.keys.map { it.y }.max()

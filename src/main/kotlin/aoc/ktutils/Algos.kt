@@ -19,6 +19,16 @@ fun binarySearch(low: Long, high: Long, calculate: (Long) -> Long, analyze: (Lon
     return res
 }
 
+fun addUp(current: Int, cycle: Int, limit: Int): Int {
+    if (current + cycle > limit)
+        return 0
+    var jump = addUp(current, 2 * cycle, limit)
+    while (current + jump + cycle < limit)
+        jump += cycle
+
+    return jump
+}
+
 /**
  * Least common multiplier
  * lcm(a,b,c) = lcm(a,lcm(b,c))
