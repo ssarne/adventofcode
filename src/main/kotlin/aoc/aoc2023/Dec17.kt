@@ -1,33 +1,13 @@
 package aoc.aoc2023
 
 import aoc.ktutils.*
-import java.util.LinkedList
-import kotlin.math.*
 
 fun main() {
     check(execute1(readTestLines(1)), 102)
     execute1(readLines()).let { println(it) ; check(it, readAnswerAsInt(1)) }
 
-    check(execute2(readTestLines(1)), 94)
-    execute2(readLines()).let { println(it) ; check(it, readAnswerAsInt(2)) }
-}
-
-data class DPos(val p: Point, val dir: Char, val dist: Int) {
-
-    public val directions = arrayOf('^', '>', 'v', '<')
-    fun right() = DPos(p, directions[Math.floorMod((directions.indexOf(dir) + 1), 4)], 0)
-    fun left() = DPos(p, directions[Math.floorMod((directions.indexOf(dir) - 1), 4)], 0)
-
-    fun move() = move(1)
-    fun move(distance: Int): DPos {
-        return when (dir) {
-            '^' -> DPos(Point(p.x, p.y - distance), dir, dist + 1)
-            '>' -> DPos(Point(p.x + distance, p.y), dir, dist + 1)
-            'v' -> DPos(Point(p.x, p.y + distance), dir, dist + 1)
-            '<' -> DPos(Point(p.x - distance, p.y), dir, dist + 1)
-            else -> throw RuntimeException("CMH $dir")
-        }
-    }
+    //check(execute2(readTestLines(1)), 94)
+    //execute2(readLines()).let { println(it) ; check(it, readAnswerAsInt(2)) }
 }
 
 private fun execute1(input: List<String>): Int {
@@ -39,47 +19,48 @@ private fun execute2(input: List<String>): Int {
 }
 
 private fun execute(input: List<String>, min: Int, max: Int): Int {
+
     val map = parseCharacterGridToMap(input)
     val size = mapSize(map)
-    val start = DPos(size.first, '>', 0)
-    val end = size.second
-    val visited = HashMap<DPos, BooleanArray>() // IntArray>()
-    val runners = HashMap<DPos, Int>()
-    visited.put(start, BooleanArray(max + 1){true})
-    runners.put(start, 0)
+    val visited = HashMap<Pos, Int>()
+    visited[Pos(size.first, '>')] = 0
+    visited[Pos(size.first, 'v')] = 0
+    val runners = HashMap(visited)
 
     while (true) {
-        var bestPos: DPos? = null
-        var bestHeat = 0
+        var best: Pair<Pos, Int>? = null
+        var prev: Pos? = null
 
-        val iterator = runners.keys.iterator()
-        while (iterator.hasNext()) {
-            val pos = iterator.next()
-            val nexts = if (pos.dist < min) arrayOf(pos.move())
-            else if (pos.dist < max) arrayOf(pos.left().move(), pos.right().move(), pos.move())
-            else arrayOf(pos.left().move(), pos.right().move())
-
-            var candidate = false
-            for (next in nexts) {
-                // if (next.dist > 3) continue
-                if (!map.containsKey(next.p)) continue
-                if (visited.containsKey(next) && visited[next]!![next.dist]) continue
-                candidate = true
-                val nextHeat = runners[pos]!! + asInt(map[next.p]!!)
-                if (bestPos == null || bestHeat > nextHeat) {
-                    bestPos = next
-                    bestHeat = nextHeat
+        for (pos in runners.keys) {
+            // Find positions in reach from this position
+            // Include the range of positions from going straight
+            // Therefore always assume turn when reaching a position
+            if (best != null && runners[pos]!! > best.second) continue
+            val candidates = mutableMapOf<Pos, Int>()
+            for (turn in setOf(pos.left(), pos.right())) {
+                var heat = runners[pos]!!
+                for (i in 1..max) {
+                    val next = turn.move(i)
+                    if (!map.contains(next.p)) break
+                    heat += asInt(map[next.p]!!)
+                    if (visited.contains(next)) continue
+                    if (i < min) continue
+                    candidates[next] = heat
                 }
             }
-            if (!candidate) iterator.remove()
-        }
-        if (bestPos == null) throw RuntimeException("CMH")
 
-        println("best=$bestPos heat=$bestHeat")
-        val visiteds = visited[bestPos] ?: BooleanArray(max + 1){false}
-        for (i in bestPos.dist .. max) visiteds[i] = true
-        visited[bestPos] = visiteds
-        runners[bestPos] = bestHeat
-        if (bestPos.p == end) return bestHeat
+            for (next in candidates)
+                if (best == null || best.second > next.value) {
+                    best = next.key to next.value
+                    prev = pos
+                }
+        }
+        if (best == null) throw RuntimeException("CMH")
+
+        println("[" + visited.size + "] best=$best")
+        visited[best.first] = best.second
+        runners[best.first] = best.second
+        runners.remove(prev)
+        if (best.first.p == size.second) return best.second
     }
 }
