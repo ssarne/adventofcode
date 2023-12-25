@@ -185,6 +185,18 @@ fun getMinMaxOccurence(text: String): Pair<Int, Int> {
     return Pair(min, max)
 }
 
+fun dotty(edges: HashSet<Pair<String, String>>) {
+    val yd = getYearAndDay()
+    val file = File("target/aoc${yd.year}_${yd.day}.dot")
+    println("Printing graph to file: " + file.absolutePath)
+    file.printWriter().use {
+        it.println("graph {")
+        for (edge in edges)
+            it.println("  ${edge.first} -- ${edge.second}[label=\"${edge.first}--${edge.second}\"];")
+        it.println("}")
+    }
+}
+
 private fun getInputFilePath(year: String, day: String, test: Boolean = false, testIndex: Int = 0): String {
     val base = if (test) "src/main/resources" else "input"
     var suffix = if (test) "_test" else ""
