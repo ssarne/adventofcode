@@ -3,7 +3,7 @@ package aoc.ktutils
 import java.lang.RuntimeException
 import kotlin.math.abs
 
-data class Point3D(val x: Int, val y: Int, val z: Int) : Comparable<Point3D> {
+data class Point3D(val x: Long, val y: Long, val z: Long) : Comparable<Point3D> {
 
     operator fun plus(that: Point3D): Point3D {
         return Point3D(this.x + that.x, this.y + that.y, this.z + that.z)
@@ -17,20 +17,20 @@ data class Point3D(val x: Int, val y: Int, val z: Int) : Comparable<Point3D> {
         return this.x == that.x && this.y == that.y && this.z == that.z
     }
 
-    fun manhattan(): Int {
+    fun manhattan(): Long {
         return manhattan(Point3D(0, 0, 0))
     }
 
-    fun manhattan(that: Point3D): Int {
+    fun manhattan(that: Point3D): Long {
         return abs(this.x - that.x) + abs(this.y - that.y) + abs(this.z - that.z)
     }
 
     override fun toString() = "<$x,$y,$z>"
 
     override fun compareTo(that: Point3D): Int {
-        if (this.x != that.x) return this.x - that.x
-        if (this.y != that.y) return this.y - that.y
-        return this.z - that.z
+        if (this.x != that.x) return if (this.x - that.x < 0) -1 else 1
+        if (this.y != that.y) return if (this.y - that.y < 0) -1 else 1
+        return if (this.z == that.z) 0 else if (this.z - that.z < 0) -1 else 1
     }
 
     /** Enumerate the 6 directly adjacent coordinates to this Point */
@@ -47,10 +47,10 @@ data class Point3D(val x: Int, val y: Int, val z: Int) : Comparable<Point3D> {
     /** Enumerate the 26 surrounding coordinates to this Point */
     fun surrounding(): List<Point3D> {
         val list = ArrayList<Point3D>(26)
-        for (xi in -1..1)
-            for (yi in -1..1)
-                for (zi in -1..1)
-                    if (xi != 0 && yi != 0 && zi != 0)
+        for (xi in -1L..1L)
+            for (yi in -1L..1L)
+                for (zi in -1L..1L)
+                    if (xi != 0L && yi != 0L && zi != 0L)
                         list.add(Point3D(xi, yi, zi))
         return list
     }
@@ -100,7 +100,7 @@ data class Point3D(val x: Int, val y: Int, val z: Int) : Comparable<Point3D> {
 
     companion object Factory {
         fun create(text: String): Point3D {
-            var coords = asIntArray(text)
+            var coords = asLongArray(text)
             return Point3D(coords[0], coords[1], coords[2])
         }
 
