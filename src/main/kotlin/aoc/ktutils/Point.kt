@@ -17,6 +17,8 @@ data class Point(val x: Int, val y: Int) {
     /** Calculate the Manhattan distance, delta-x + delta-y, between the two points */
     infix fun manhattan(other: Point) = abs(this.x - other.x) + abs(this.y - other.y)
 
+    override fun toString() = "<$x,$y>"
+
     /** Enumerate the 4 directly adjacent coordinates to this Point */
     fun adjacent(): List<Point> {
         return listOf(
