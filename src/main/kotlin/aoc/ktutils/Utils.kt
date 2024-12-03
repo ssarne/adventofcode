@@ -142,6 +142,8 @@ fun isLowerCase(text: String): Boolean {
     return true
 }
 
+fun toHex(bytes: ByteArray) = bytes.joinToString(separator = "") { byte -> "%02x".format(byte) }
+
 fun hexToBinary0Padded(input: String): String {
     var res = ""
     for (c in input) {
