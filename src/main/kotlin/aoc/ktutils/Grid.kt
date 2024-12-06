@@ -29,6 +29,14 @@ fun parseCharacterGridToMap(input: List<String>, filter: Char? = null): HashMap<
     return grid
 }
 
+fun findFirst(grid: HashMap<Point, Char>, char: Char): Point {
+    for ((p, c) in grid.entries)
+        if (char == c)
+            return p
+    throw RuntimeException("Could not find '$char'")
+}
+
+
 fun transposeGrid(map: HashMap<Point, Char>): HashMap<Point, Char> {
     val transposed = HashMap<Point, Char>()
     for ((p, v) in map)
