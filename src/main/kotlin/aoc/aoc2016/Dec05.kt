@@ -1,21 +1,16 @@
 package aoc.aoc2016
 
 import aoc.ktutils.*
-import java.math.BigInteger
 import java.security.MessageDigest
-import kotlin.math.*
 import kotlin.text.Charsets.UTF_8
 
 fun main() {
-    //check(execute1(readTestLines(1).first()), "18f47a30")
-    //execute1(readLines().first()).let { println(it) } // ; check(it, readAnswerAsInt(1)) }
+    check(execute1(readTestLines(1).first()), "18f47a30")
+    execute1(readLines().first()).let { println(it) ; check(it, readAnswer(1)) }
 
     check(execute2(readTestLines(1).first()), "05ace8e3")
-    execute2(readLines().first()).let { println(it) } // ; check(it, readAnswerAsInt(2)) }
+    execute2(readLines().first()).let { println(it) ; check(it, readAnswer(2)) }
 }
-
-fun ByteArray.toHex() = joinToString(separator = "") { byte -> "%02x".format(byte) }
-
 
 private fun execute1(input: String): String {
 
@@ -24,7 +19,7 @@ private fun execute1(input: String): String {
 
     for (i in 0..1000000000) {
         val seed = input + i.toString()
-        val hash =  md.digest(seed.toByteArray(UTF_8)).toHex()
+        val hash =  toHex(md.digest(seed.toByteArray(UTF_8)))
         if (hash.startsWith("00000")) {
             code += hash[5]
         }
@@ -41,7 +36,7 @@ private fun execute2(input: String): String {
 
     for (i in 0..1000000000) {
         val seed = input + i.toString()
-        val hash =  md.digest(seed.toByteArray(UTF_8)).toHex()
+        val hash =  toHex(md.digest(seed.toByteArray(UTF_8)))
         if (hash.startsWith("00000")) {
             if (!hash[5].isDigit()) continue
             val pos = hash[5].toString().toInt()
