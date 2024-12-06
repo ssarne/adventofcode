@@ -78,12 +78,12 @@ private fun execute(input: List<String>, answers: List<String>? = null, print: B
 
     for (s in scanners) checkForNotNull(s.pos, "Warning ${s.id} (${s.matchiest.count})")
 
-    var manhattan = 0
+    var manhattan = 0L
     for (s1 in scanners)
         for (s2 in scanners)
             s1.pos!!.manhattan(s2.pos!!).let { if (it > manhattan) manhattan = it }
 
-    return beacons.size to manhattan
+    return beacons.size to manhattan.toInt()
 }
 
 private fun parseInput(input: List<String>): List<Scanner> {

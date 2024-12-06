@@ -36,9 +36,9 @@ private fun execute1(input: List<String>): Int {
         val xs = axis[0].replace("x=", "").split("..")
         val ys = axis[1].replace("y=", "").split("..")
         val zs = axis[2].replace("z=", "").split("..")
-        val xsp = max(-50, xs[0].toInt()) to min(50, xs[1].toInt())
-        val ysp = max(-50, ys[0].toInt()) to min(50, ys[1].toInt())
-        val zsp = max(-50, zs[0].toInt()) to min(50, zs[1].toInt())
+        val xsp = max(-50, xs[0].toLong()) to min(50, xs[1].toLong())
+        val ysp = max(-50, ys[0].toLong()) to min(50, ys[1].toLong())
+        val zsp = max(-50, zs[0].toLong()) to min(50, zs[1].toLong())
         for (x in xsp.first..xsp.second) {
             for (y in ysp.first..ysp.second) {
                 for (z in zsp.first..zsp.second) {

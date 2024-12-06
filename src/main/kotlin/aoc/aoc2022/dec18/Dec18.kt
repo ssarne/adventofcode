@@ -57,7 +57,7 @@ private fun parse(input: List<String>): MutableMap<Point3D, Char> {
     val cubes = HashMap<Point3D, Char>()
     for (line in input) {
         val ints = line.split(",")
-        cubes.put(Point3D(ints[0].toInt(), ints[1].toInt(), ints[2].toInt()), 'L')
+        cubes.put(Point3D(ints[0].toLong(), ints[1].toLong(), ints[2].toLong()), 'L')
     }
     return cubes
 }

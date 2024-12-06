@@ -2,6 +2,8 @@ package aoc.ktutils
 
 import kotlin.math.abs
 
+fun square(value: Long) = value * value
+
 fun binarySearch(low: Long, high: Long, calculate: (Long) -> Long, analyze: (Long) -> Boolean): Long {
 
     var i = low

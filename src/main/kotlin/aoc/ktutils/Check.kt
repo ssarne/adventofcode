@@ -30,6 +30,12 @@ fun check(actual: Long, expected: Long) {
     }
 }
 
+fun check(actual: Point3D, expected: Point3D) {
+    if (actual != expected) {
+        System.err.println("Failure: actual=$actual  expected=$expected")
+    }
+}
+
 fun check(actual: IntArray, expected: IntArray) {
     if (actual.size != expected.size) {
         System.err.println("Failure: actual.size=${actual.size}  expected.size=${expected.size}")

@@ -2,25 +2,25 @@ package aoc.ktutils
 
 import kotlin.math.*
 
-data class Polygon(val points: MutableList<Point>) {
+data class Polygon(val points: MutableList<PointLong>) {
 
     companion object {
-        fun create(vararg points: Point): Polygon {
+        fun create(vararg points: PointLong): Polygon {
             val polygon = Polygon(ArrayList())
             for (p in points) polygon.add(p)
             return polygon
         }
     }
 
-    fun add(p: Point) = points.add(p)
+    fun add(p: PointLong) = points.add(p)
 
     // Check how many times a ray for 0,y crosses non-horizontal lines
     // If odd, it is inside
     // Assume it is the complete round, i.e. p[0] == p[-1]
     // Assume all lines are horizontal or vertical
-    fun inside(p: Point): Boolean {
+    fun inside(p: PointLong): Boolean {
         val minx = points.minBy { it.x }
-        val base = Line(Point(minx.x - 1, p.y), p)
+        val base = Line(PointLong(minx.x - 1, p.y), p)
         var n = 0
         for ((p1, p2) in points.zipWithNext()) {
             if (p1.y == p2.y) continue // ignore horizontal lines

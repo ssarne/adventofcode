@@ -80,14 +80,14 @@ fun floodFill(start: Point, map: HashMap<Point, Char>, size: Pair<Point, Point>,
 
 private fun execute2(input: List<String>): Long {
 
-    val polygon = parse(Point(0, 0), input)
+    val polygon = parse(PointLong(0, 0), input)
 
     // Go through all lines
     // Create all points where a line starts/ends
-    val points = ArrayList<Point>()
+    val points = ArrayList<PointLong>()
     for (p1 in polygon.points) {
         for (p2 in polygon.points) {
-            val p = Point(p1.x, p2.y)
+            val p = PointLong(p1.x, p2.y)
             if (points.contains(p)) continue
             else points.add(p)
         }
@@ -99,9 +99,9 @@ private fun execute2(input: List<String>): Long {
     var sum = 0L
     for (i in points.indices) {
         val pi = points[i]
-        var next: Point? = null
-        var below: Point? = null
-        var right: Point? = null
+        var next: PointLong? = null
+        var below: PointLong? = null
+        var right: PointLong? = null
         for (j in i + 1 until points.size) {
             val pj = points[j]
             if (pi.x == pj.x) {
@@ -119,10 +119,10 @@ private fun execute2(input: List<String>): Long {
 
         // Detect if the area is inside the polygon
         // Or if the edges are inside (or corner for q3)
-        val q1 = polygon.inside(Point(pi.x + 1, pi.y + 1))    //   q3 | q4
-        val q2 = polygon.inside(Point(pi.x - 1, pi.y + 1))    //   ---+---
-        val q3 = polygon.inside(Point(pi.x - 1, pi.y - 1))    //   q2 | q1
-        val q4 = polygon.inside(Point(pi.x + 1, pi.y - 1))
+        val q1 = polygon.inside(PointLong(pi.x + 1, pi.y + 1))    //   q3 | q4
+        val q2 = polygon.inside(PointLong(pi.x - 1, pi.y + 1))    //   ---+---
+        val q3 = polygon.inside(PointLong(pi.x - 1, pi.y - 1))    //   q2 | q1
+        val q4 = polygon.inside(PointLong(pi.x + 1, pi.y - 1))
 
         val area = if (q1) {
             1L * (next!!.x - pi.x) * (next.y - pi.y)
@@ -143,7 +143,7 @@ private fun execute2(input: List<String>): Long {
     return sum
 }
 
-private fun parse(start: Point, input: List<String>): Polygon {
+private fun parse(start: PointLong, input: List<String>): Polygon {
     val polygon = Polygon.create(start)
     var p = start
 
@@ -153,10 +153,10 @@ private fun parse(start: Point, input: List<String>): Polygon {
         val len = color.substring(2, 7).toInt(radix = 16)
         val dir = color.substring(7).first()
         when (dir) {
-            '0' -> p = Point(p.x + len, p.y) // >
-            '1' -> p = Point(p.x, p.y + len) // v
-            '2' -> p = Point(p.x - len, p.y) // <
-            '3' -> p = Point(p.x, p.y - len) // ^
+            '0' -> p = PointLong(p.x + len, p.y) // >
+            '1' -> p = PointLong(p.x, p.y + len) // v
+            '2' -> p = PointLong(p.x - len, p.y) // <
+            '3' -> p = PointLong(p.x, p.y - len) // ^
         }
         polygon.add(p)
     }
