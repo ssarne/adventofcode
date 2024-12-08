@@ -38,4 +38,9 @@ data class Point(val x: Int, val y: Int) {
                     list.add(Point(x + xi, y + yi))
         return list
     }
+
+    infix fun inside(square: Pair<Point, Point>): Boolean {
+        return this.x in square.first.x .. square.second.x
+                && this.y in square.first.y .. square.second.y
+    }
 }
