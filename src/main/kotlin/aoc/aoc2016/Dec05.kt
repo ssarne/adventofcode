@@ -19,7 +19,7 @@ private fun execute1(input: String): String {
 
     for (i in 0..1000000000) {
         val seed = input + i.toString()
-        val hash =  toHex(md.digest(seed.toByteArray(UTF_8)))
+        val hash =  md.digest(seed.toByteArray(UTF_8)).toHex()
         if (hash.startsWith("00000")) {
             code += hash[5]
         }
@@ -36,7 +36,7 @@ private fun execute2(input: String): String {
 
     for (i in 0..1000000000) {
         val seed = input + i.toString()
-        val hash =  toHex(md.digest(seed.toByteArray(UTF_8)))
+        val hash =  md.digest(seed.toByteArray(UTF_8)).toHex()
         if (hash.startsWith("00000")) {
             if (!hash[5].isDigit()) continue
             val pos = hash[5].toString().toInt()
