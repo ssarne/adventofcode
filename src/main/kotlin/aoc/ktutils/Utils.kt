@@ -142,7 +142,16 @@ fun isLowerCase(text: String): Boolean {
     return true
 }
 
-fun toHex(bytes: ByteArray) = bytes.joinToString(separator = "") { byte -> "%02x".format(byte) }
+// Use for counting occurrences, add increment number of key
+fun MutableMap<Long, Long>.addOrPut(key: Long, inc: Long) {
+    this[key] = this.getOrDefault(key, 0L) + inc
+}
+
+fun MutableMap<Char, Long>.addOrPut(key: Char, inc: Long) {
+    this[key] = this.getOrDefault(key, 0L) + inc
+}
+
+fun ByteArray.toHex() = joinToString(separator = "") { byte -> "%02x".format(byte) }
 
 fun hexToBinary0Padded(input: String): String {
     var res = ""
