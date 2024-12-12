@@ -1,10 +1,10 @@
 package aoc.aoc2023
 
 import aoc.ktutils.*
-import com.microsoft.z3.Context
-import com.microsoft.z3.Expr
-import com.microsoft.z3.RealSort
-import com.microsoft.z3.Status
+//import com.microsoft.z3.Context
+//import com.microsoft.z3.Expr
+//import com.microsoft.z3.RealSort
+//import com.microsoft.z3.Status
 
 fun main() {
 
@@ -61,6 +61,9 @@ operator fun <T> List<T>.component6(): T = get(5)
 private fun execute2(input: List<String>): String {
 
     val stones = parse(input)
+    val result = ""
+
+    /*
     lateinit var result: Expr<RealSort>
     val ctx = Context()
     val solver = ctx.mkSolver()
@@ -92,6 +95,7 @@ private fun execute2(input: List<String>): String {
     if (solver.check() == Status.SATISFIABLE) {
         result = solver.model.eval(ctx.mkAdd(x, ctx.mkAdd(y, z)), false)
     }
+    */
 
     return result.toString() // x + y + z
 }

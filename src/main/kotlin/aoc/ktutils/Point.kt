@@ -29,6 +29,15 @@ data class Point(val x: Int, val y: Int) {
         )
     }
 
+    fun north() = this + Point(0, -1)
+    fun south() = this + Point(0, 1)
+    fun west() = this + Point(-1, 0)
+    fun east() = this + Point(1, 0)
+    fun nw() = this + Point(-1, -1)
+    fun ne() = this + Point(1, -1)
+    fun sw() = this + Point(-1, 1)
+    fun se() = this + Point(1, 1)
+
     /** Enumerate the 8 surrounding coordinates to this Point */
     fun surrounding(): List<Point> {
         val list = ArrayList<Point>(8)
