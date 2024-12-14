@@ -2,10 +2,11 @@ package aoc.ktutils
 
 import aoc.utils.InputDownloader
 import java.io.File
-import java.lang.RuntimeException
+import java.math.BigDecimal
+import java.math.BigInteger
+import java.math.MathContext
+import java.math.RoundingMode
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 fun readLines(): List<String> {
     val (year, day) = getYearAndDay()
@@ -152,6 +153,9 @@ fun MutableMap<Char, Long>.addOrPut(key: Char, inc: Long) {
 }
 
 fun ByteArray.toHex() = joinToString(separator = "") { byte -> "%02x".format(byte) }
+
+fun Long.toBigD() = this.toBigDecimal().setScale(64)
+fun BigDecimal.toBigI(): BigInteger = this.round(MathContext.DECIMAL128).toBigInteger()
 
 fun hexToBinary0Padded(input: String): String {
     var res = ""
