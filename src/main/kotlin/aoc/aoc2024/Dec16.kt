@@ -1,9 +1,6 @@
 package aoc.aoc2024
 
 import aoc.ktutils.*
-import java.util.LinkedList
-import java.util.SortedMap
-import kotlin.math.*
 
 fun main() {
     check(execute1(readTestLines(1)), 7036)
@@ -15,13 +12,14 @@ fun main() {
 
 private fun execute1(input: List<String>): Long {
     val map = parseCharacterGridToMap(input)
-    val start = Pos(findPos(map, 'S'), '>')
+    val start = Pos(findFirst(map, 'S'), '>')
     return solveMaze(start, map, mutableMapOf())
 }
 
 private fun execute2(input: List<String>): Long {
+
     val map = parseCharacterGridToMap(input)
-    val start = Pos(findPos(map, 'S'), '>')
+    val start = Pos(findFirst(map, 'S'), '>')
 
     val visited = mutableMapOf<Pos, Int>()
     solveMaze(start, map, visited)
@@ -33,52 +31,39 @@ private fun execute2(input: List<String>): Long {
     return trails.size.toLong()
 }
 
-private fun nextPos(queue: MutableMap<Pos, Int>): Pair<Pos, Int> {
+private fun nextPos(front: MutableMap<Pos, Int>): Pair<Pos, Int> {
     var next: Pair<Pos, Int>? = null
-    for (e in queue.entries)
+    for (e in front.entries)
         if (next == null || e.value < next.second)
             next = e.key to e.value
-    queue.remove(next!!.first)
+    front.remove(next!!.first)
     return next
 }
 
-
-private fun findPos(map: HashMap<Point, Char>, c: Char): Point {
-    for (e in map) {
-        if (e.value == c)
-            return e.key
-    }
-    throw RuntimeException("CMH")
-}
-
-
 // djikstra
-private fun solveMaze(
-    start: Pos,
-    map: HashMap<Point, Char>,
-    visited: MutableMap<Pos, Int>
-): Long {
-    val queue = mutableMapOf(start to 0)
-    while (queue.isNotEmpty()) {
+private fun solveMaze(start: Pos, map: HashMap<Point, Char>, visited: MutableMap<Pos, Int>): Long {
+
+    val front = mutableMapOf(start to 0)
+    while (front.isNotEmpty()) {
+
+        val pos = nextPos(front)
         // printSparseMatrix(map)
-        val pos = nextPos(queue)
 
         if (visited.contains(pos.first)) continue
-        visited.put(pos.first, pos.second)
+        visited[pos.first] = pos.second
 
         if (map[pos.first.p] == 'E') return pos.second.toLong()  // success
 
-        visited.put(pos.first, pos.second)
         if (map[pos.first.p] == '.') map[pos.first.p] = pos.first.dir // pretty print
 
         pos.first.move().let {
             if (!visited.contains(it) && map[it.p]!! in ".E")
-                queue.put(it, pos.second + 1)
+                front[it] = pos.second + 1
         }
 
         for (it in arrayOf(pos.first.left(), pos.first.right())) {
             if (!visited.contains(it))
-                queue.put(it, pos.second + 1000)
+                front[it] = pos.second + 1000
         }
     }
 
