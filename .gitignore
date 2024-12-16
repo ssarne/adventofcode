@@ -34,4 +34,7 @@ nb-configuration.xml
 # PyCharm
 venv
 
+# Native libraries
+lib*.dylib
+
 *scratch*
