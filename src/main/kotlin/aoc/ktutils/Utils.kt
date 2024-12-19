@@ -5,7 +5,6 @@ import java.io.File
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.MathContext
-import java.math.RoundingMode
 import java.util.*
 
 fun readLines(): List<String> {

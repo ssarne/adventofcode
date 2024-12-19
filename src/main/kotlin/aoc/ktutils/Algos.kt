@@ -4,6 +4,22 @@ import kotlin.math.abs
 
 fun square(value: Long) = value * value
 
+infix fun Int.pow(power: Int): Int {
+    var v = 1
+    for (i in 0 until power) {
+        v *= this
+    }
+    return v
+}
+
+infix fun Long.pow(power: Long): Long {
+    var v = 1L
+    for (i in 0 until power) {
+        v *= this
+    }
+    return v
+}
+
 fun binarySearch(low: Long, high: Long, calculate: (Long) -> Long, analyze: (Long) -> Boolean): Long {
 
     var i = low

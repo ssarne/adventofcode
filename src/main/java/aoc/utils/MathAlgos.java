@@ -13,6 +13,14 @@ public class MathAlgos {
         testChineseRemainder();
     }
 
+    public static long pow(long x, long y) {
+        long v = 1;
+        for (int i = 0; i < y; i++) {
+            v = v * x;
+        }
+        return v;
+    }
+
     // Calculate x^y % z
     public static long pow(long x, long y, long z) {
         long v = 1;
