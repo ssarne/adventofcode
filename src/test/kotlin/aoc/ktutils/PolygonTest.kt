@@ -7,7 +7,7 @@ class PolygonTest {
 
     @Test
     fun inside() {
-        assertEquals(true, Polygon.create(Point(0, 0), Point(4, 0), Point(4, 4), Point(0, 4), Point(0, 0)).inside(Point(2, 2)))
-        assertEquals(false, Polygon.create(Point(0, 0), Point(4, 0), Point(4, 4), Point(0, 4), Point(0, 0)).inside(Point(5, 2)))
+        assertEquals(true, Polygon.create(PointLong(0, 0), PointLong(4, 0), PointLong(4, 4), PointLong(0, 4), PointLong(0, 0)).inside(PointLong(2, 2)))
+        assertEquals(false, Polygon.create(PointLong(0, 0), PointLong(4, 0), PointLong(4, 4), PointLong(0, 4), PointLong(0, 0)).inside(PointLong(5, 2)))
     }
 }
