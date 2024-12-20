@@ -29,7 +29,7 @@ fun parseCharacterGridToMap(input: List<String>, filter: Char? = null): HashMap<
     return grid
 }
 
-fun findFirst(grid: HashMap<Point, Char>, char: Char): Point {
+fun findFirst(grid: Map<Point, Char>, char: Char): Point {
     for ((p, c) in grid.entries)
         if (char == c)
             return p
