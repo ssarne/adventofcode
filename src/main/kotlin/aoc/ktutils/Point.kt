@@ -52,4 +52,15 @@ data class Point(val x: Int, val y: Int) {
         return this.x in square.first.x .. square.second.x
                 && this.y in square.first.y .. square.second.y
     }
+
+    fun withinManhattanDistance(distance: Int): List<Point> {
+        val list = ArrayList<Point>(8)
+        for (x in this.x - distance..this.x + distance)
+            for (y in this.y - distance..this.y + distance)
+                Point(x, y).let {
+                    if (distance >= this.manhattan(it))
+                        list.add(it)
+                }
+        return list
+    }
 }

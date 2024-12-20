@@ -1,61 +1,51 @@
 package aoc.aoc2024
 
-
 import aoc.ktutils.*
-import kotlin.math.*
 
 fun main() {
-   //execute1(readTestLines(1), 20, 2).let { println("Test: ") ; check(it, 5) }
-   //execute1(readLines(), 100, 2).let { println(it) } // ; check(it, readAnswerAsLong(1)) }
+    execute(readTestLines(1), 20, 2).let { check(it, 5) }
+    execute(readLines(), 100, 2).let { println(it); check(it, readAnswerAsLong(1)) }
 
-    execute(readTestLines(1), 76, 20).let { println("Test: $it") ; check(it, 3L) }
-    execute(readTestLines(1), 70, 41).let { println("Test: $it") ; check(it, 41L) }
-    execute(readLines(), 100, 20).let { println(it) } // ; check(it, readAnswerAsLong(2)) }
+    execute(readTestLines(1), 76, 20).let { check(it, 3L) }
+    execute(readTestLines(1), 70, 41).let { check(it, 41L) }
+    execute(readLines(), 100, 20).let { println(it) ; check(it, readAnswerAsLong(2)) }
 }
 
 private fun execute(input: List<String>, threshold: Int, duration: Int): Long {
 
     val map = parseCharacterGridToMap(input)
     val visited = solve(map)
-
     val cheats = cheats(map, visited, duration)
 
     var count = 0L
     for (c in cheats) {
         if (c.value.first >= threshold) {
-            // println("$c")
             count++
         }
     }
     return count
 }
 
-fun cheats(map: HashMap<Point, Char>, visited: MutableMap<Point, Int>, duration: Int): MutableMap<Pair<Point, Point>, Pair<Int, Int>> {
-    val cheats = mutableMapOf<Pair<Point, Point>, Pair<Int, Int>>()
+fun cheats(
+    map: HashMap<Point, Char>,
+    visited: MutableMap<Point, Int>,
+    duration: Int
+): MutableMap<Pair<Point, Point>, Pair<Int, Int>> {
+    val cheats = mutableMapOf<Pair<Point, Point>, Pair<Int, Int>>() // from->to, save total
     for (pos in visited.keys) {
-        cheat(map, visited, cheats, duration, pos, pos, 0)
+        val candidates = pos.withinManhattanDistance(duration)
+        for (next in candidates) {
+            val steps = next.manhattan(pos)
+            if (steps > duration) continue
+            if (!map.containsKey(next)) continue
+            if (map[next] == '#') continue
+            if (!visited.containsKey(next)) continue
+            val save = visited[next]!! - visited[pos]!! - steps
+            cheats[pos to next] = save to visited[pos]!! + steps
+        }
     }
     return cheats
 }
-
-fun cheat(map: HashMap<Point, Char>,
-          visited: MutableMap<Point, Int>,
-          cheats: MutableMap<Pair<Point, Point>, Pair<Int, Int>>, // from -> to, save -> steps
-          duration: Int, start: Point, pos: Point, steps: Int) {
-
-    if (steps > duration) return
-    if (cheats.containsKey(start to pos) && cheats[start to pos]!!.second <= steps) return
-
-    val save = if (map[pos]!! in ".SEO") visited[pos]!! - visited[start]!! - steps else -1
-    cheats.put(start to pos, save to steps)
-
-    for (next in pos.adjacent()) {
-        if (!map.containsKey(next)) continue
-        // if (map[next] == '#') // TODO can it re-cheat? Yes
-        cheat(map, visited, cheats, duration, start, next, steps + 1)
-    }
-}
-
 
 private fun solve(map: MutableMap<Point, Char>): MutableMap<Point, Int> {
 
