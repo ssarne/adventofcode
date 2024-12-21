@@ -3,108 +3,130 @@ package aoc.aoc2024
 import aoc.ktutils.*
 
 fun main() {
-    test("029A")
-    execute(readTestLines(1), 2).let { println("Test: $it") ; check(it, 126384L) }
-    execute(readLines(), 2).let { println(it) ; check(it, readAnswerAsLong(1)) }
 
-    execute(readTestLines(1), 25).let { println("Test: $it") ; check(it, -1L) }
-    execute(readLines(), 25).let { println(it) } // ; check(it, readAnswerAsLong(2)) }
+    test()
+
+    execute(readTestLines(1), 2 + 1).let { check(it, 126384L) } // ; println("Test: $it")}
+    execute(readLines(), 2 + 1).let { println(it) ; check(it, readAnswerAsLong(1)) }
+
+    execute(readTestLines(1), 25 + 1).let { check(it, 154115708116294L) } // ; println("Test: $it") } //
+    execute(readLines(), 25 + 1).let { println(it) ; check(it, readAnswerAsLong(2)) }
 }
 
-fun press(pad: Array<String>, start: Point, line: String,
-          cache: MutableMap<Triple<Point, Point, String>, Set<String>>): Set<String> {
-    var paths = mutableSetOf("")
-    var pos = start
-    for (c in line) {
-        val next = findKey(pad, c)
-        val nexts = findPaths(pos, next, pad, cache)
-        val all = mutableSetOf<String>()
-        for (p in paths)
-            for (n in nexts)
-                all.add(p + n)
-        pos = next
-        paths = all
-    }
-    return paths
+private fun test() {
+
+    val cache = mutableMapOf<Triple<Point, Point, Int>, Long>()
+
+    val seq1 = pressNumber("029A", 1, cache)
+    //println(seq1)
+    check(seq1.toInt(), "<A^A>^^AvvvA".length)
+
+    val seq2 = pressNumber("029A", 2, cache)
+    //println(seq2)
+    check(seq2.toInt(), "v<<A>>^A<A>AvA<^AA>A<vAAA>^A".length)
+
+    val seq3 = pressNumber("029A", 3, cache)
+    //println(seq3)
+    check(seq3.toInt(), ("<vA<AA>>^AvAA<^A>A<v<A>>^AvA^A<vA>^A<v<A>^A>AAvA^A<v<A>A>^AAAvA<^A>A".length))
 }
 
-fun findPaths(start: Point, end: Point, pad: Array<String>,
-              cache: MutableMap<Triple<Point, Point, String>, Set<String>>): Set<String> {
-    val dx = if (end.x - start.x > 0) 1 else if (end.x - start.x < 0) -1 else 0
-    val dy = if (end.y - start.y > 0) 1 else if (end.y - start.y < 0) -1 else 0
-    val paths = enumeratePaths(start, end, dx, dy, pad, "", cache)
-    return paths
-}
+private fun execute(input: List<String>, robots: Int): Long {
 
-fun enumeratePaths(pos: Point, target: Point, dx: Int, dy: Int, pad: Array<String>, path: String,
-                   cache: MutableMap<Triple<Point, Point, String>, Set<String>>): Set<String> {
-
-    val key = Triple(pos, target, path)
-    cache[key].let {  if (it != null) return it}
-
-    if (pos == target) return mutableSetOf(path + 'A')
-    if (pad[pos.y][pos.x] == '_') return mutableSetOf()
-    val paths = mutableSetOf<String>()
-    if (pos.x != target.x) {
-        val next = path + if (dx == -1) '<' else '>'
-        paths.addAll(enumeratePaths(Point(pos.x + dx, pos.y), target, dx, dy, pad, next, cache))
-    }
-    if (pos.y != target.y) {
-        val next = path + if (dy == -1) '^' else 'v'
-        paths.addAll(enumeratePaths(Point(pos.x, pos.y + dy), target, dx, dy, pad, next, cache))
-    }
-
-    // cannot just pick shortest interim result
-    // val shortest = paths.minBy { it.length }
-    // paths = mutableSetOf(shortest)
-
-    cache[key] = paths
-    return paths
-}
-
-private fun test(input: String) {
-    val numPad = arrayOf("789", "456", "123", "_0A")
-    val keyPad = arrayOf("_^A", "<v>")
-
-    val seq1 = press(numPad, findKey(numPad, 'A'), input, mutableMapOf())
-    //for (l in seq1) println(l)
-    check(seq1.contains("<A^A>^^AvvvA"))
-
-    val cache = mutableMapOf<Triple<Point, Point, String>, Set<String>>()
-    val seq2 = press(keyPad, findKey(keyPad, 'A'), "<A^A>^^AvvvA", cache)
-    //for (l in seq2) println(l)
-    check(seq2.contains("v<<A>>^A<A>AvA<^AA>A<vAAA>^A"))
-
-    val seq3 = press(keyPad, findKey(keyPad, 'A'), "v<<A>>^A<A>AvA<^AA>A<vAAA>^A", cache)
-    //for (l in seq3) println(l)
-    check(seq3.contains("<vA<AA>>^AvAA<^A>A<v<A>>^AvA^A<vA>^A<v<A>^A>AAvA^A<v<A>A>^AAAvA<^A>A"))
-}
-
-
-private fun execute(input: List<String>, levels: Int): Long {
-
-    val numPad = arrayOf("789", "456", "123", "_0A")
-    val keyPad = arrayOf("_^A", "<v>")
-    val cache = mutableMapOf<Triple<Point, Point, String>, Set<String>>()
+    val cache = mutableMapOf<Triple<Point, Point, Int>, Long>() // from -> to, level -> length
     var sum = 0L
 
     for (line in input) {
-        var sequences = press(numPad, findKey(numPad, 'A'), line, mutableMapOf())
-        for (i in 1 .. levels) {
-            val next = mutableSetOf<String>()
-            for (seq in sequences) next.addAll(press(keyPad, findKey(keyPad, 'A'), seq, cache))
-            sequences = next
-        }
-        val shortest = sequences.minBy { it.length }
+        val sequences = pressNumber(line, robots, cache)
         val num = line.replace("A", "").toInt()
-        sum += shortest.length * num
-        println("$line ${shortest.length} * $num: $shortest")
+        sum += sequences * num
     }
 
     return sum
 }
 
-fun findKey(pad: Array<String>, key: Char): Point {
+private fun pressNumber(line: String, robots: Int,
+    cache: MutableMap<Triple<Point, Point, Int>, Long>): Long {
+
+    val numPad = arrayOf("789", "456", "123", "_0A")
+    var pos = findKey(numPad, 'A')
+    val ignore = findKey(numPad, '_')
+
+    var result = 0L
+    for (c in line) {
+        val next = findKey(numPad, c)
+        result += pressNumber(pos, next, robots, ignore, cache)
+        pos = next
+    }
+    return result
+}
+
+private fun pressNumber(start: Point, end: Point, robots: Int, ignore: Point,
+          cache: MutableMap<Triple<Point, Point, Int>, Long>): Long {
+
+    var result: Long? = null
+    val queue = mutableListOf(start to "")
+
+    while (queue.isNotEmpty()) {
+        val (pos, path) = queue.removeAt(0)
+        if (pos == end) {
+            val res = pressDirection(path + "A", robots, cache)
+            if (result == null || res < result) result = res
+            continue
+        }
+        if (pos == ignore) continue
+        if (pos.x < end.x) queue.add(Point(pos.x + 1, pos.y) to path + ">")
+        if (pos.x > end.x) queue.add(Point(pos.x - 1, pos.y) to path + "<")
+        if (pos.y < end.y) queue.add(Point(pos.x, pos.y + 1) to path + "v")
+        if (pos.y > end.y) queue.add(Point(pos.x, pos.y - 1) to path + "^")
+    }
+    return result!!
+}
+
+private fun pressDirection(path: String, robots: Int,
+                           cache: MutableMap<Triple<Point, Point, Int>, Long>): Long {
+
+    if (robots == 1) return path.length.toLong()
+
+    val keyPad = arrayOf("_^A", "<v>")
+    val ignore = findKey(keyPad, '_')
+    var pos = findKey(keyPad, 'A')
+    var result = 0L
+
+    for (c in path) {
+        val next = findKey(keyPad, c)
+        result += pressDirection(pos, next, robots, ignore, cache)
+        pos = next
+    }
+    return result
+}
+
+private fun pressDirection(start: Point, end: Point, robots: Int, ignore: Point,
+                cache: MutableMap<Triple<Point, Point, Int>, Long>): Long {
+
+    val key = Triple(start, end, robots)
+    cache[key].let { if (it != null) return it}
+
+    var result: Long? = null
+    val queue = mutableListOf(start to "")
+    while (queue.isNotEmpty()) {
+        val (pos, path) = queue.removeAt(0)
+        if (pos == end) {
+            val res = pressDirection(path + "A", robots - 1, cache)
+            if (result == null || res < result) result = res
+            continue
+        }
+        if (pos == ignore) continue
+        if (pos.x < end.x) queue.add(Point(pos.x + 1, pos.y) to path + ">")
+        if (pos.x > end.x) queue.add(Point(pos.x - 1, pos.y) to path + "<")
+        if (pos.y < end.y) queue.add(Point(pos.x, pos.y + 1) to path + "v")
+        if (pos.y > end.y) queue.add(Point(pos.x, pos.y - 1) to path + "^")
+    }
+
+    cache[key] = result!!
+    return result
+}
+
+private fun findKey(pad: Array<String>, key: Char): Point {
     for (y in pad.indices)
         for (x in pad[y].indices)
             if (pad[y][x] == key)
