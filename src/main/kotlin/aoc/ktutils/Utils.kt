@@ -94,6 +94,13 @@ fun asLong(c: Char) = Character.getNumericValue(c).toLong()
 fun String.isDigitsOnly() = all(Char::isDigit) && isNotEmpty()
 fun String.isSingleChar() = this.length == 1 && all(Char::isLetter)
 
+fun asIntPair(expr: String, delim: String): Pair<Int, Int> {
+    if (expr.first() == '(' && expr.last() == ')')
+        return asIntPair(expr.substring(1, expr.length - 1), delim)
+    val values = expr.split(delim)
+    return values[0].toInt() to values[1].toInt()
+}
+
 fun asIntArray(text: String): IntArray {
     return text
         .replace("\n", " ")
