@@ -3,67 +3,29 @@ package aoc.aoc2025
 import aoc.ktutils.*
 
 fun main() {
-    execute1(readTestLines(1)).let { check(it, 3L); println("Test: $it") }
-    execute1(readLines()).let { println(it) ; check(it, readAnswerAsLong(1)) }
+    execute(readTestLines(1)).first.let { check(it, 3L); println("Test: $it") }
+    execute(readLines()).first.let { println(it) ; check(it, readAnswerAsLong(1)) }
 
-    execute2(readTestLines(1)).let { check(it, 6L) ; println("Test: $it") }
-    execute2(readLines()).let { println(it) ; check(it, readAnswerAsLong(2)) }
+    execute(readTestLines(1)).second.let { check(it, 6L) ; println("Test: $it") }
+    execute(readLines()).second.let { println(it) ; check(it, readAnswerAsLong(2)) }
 }
 
-private fun execute1(input: List<String>): Long {
+private fun execute(input: List<String>): Pair<Long, Long> {
 
     var dial = 50
-    var zeros = 0L
+    var stops = 0L
+    var passes = 0L
 
     for (line in input) {
-        var rotation = line.substring(1).toInt()
-        while (rotation > 100) rotation -= 100
-
-        if (line.startsWith('L')) {
-            dial -= rotation
-            if (dial == 0) zeros++
-            while (dial < 0) dial += 100
+        val dir = if (line.startsWith('L')) -1 else 1
+        val rotation = line.substring(1).toInt()
+        for (i in 0 until rotation) {
+            dial += dir
+            if (dial == 100) dial = 0
+            if (dial == -1) dial = 99
+            if (dial == 0) passes++
         }
-        if (line.startsWith('R')) {
-            dial += rotation
-            while (dial > 100) dial -= 100
-            if (dial == 100) zeros++
-        }
+        if (dial == 0) stops++
     }
-    return zeros
-}
-
-private fun execute2(input: List<String>): Long {
-
-    var dial = 50
-    var zeros = 0L
-
-    for (line in input) {
-
-        var rotation = line.substring(1).toInt()
-        while (rotation > 100) {
-            zeros++
-            rotation -= 100
-        }
-
-        if (line.startsWith('L')) {
-            val from = dial
-            dial -= rotation
-            if (dial == 0)
-                zeros++
-            if (dial < 0) {
-                dial += 100
-                if (from != 0)
-                    zeros++
-            }
-        }
-        if (line.startsWith('R')) {
-            dial += rotation
-            if (dial >= 100) {
-                dial -= 100
-                zeros++
-            }
-        }
-    }
-    return zeros
+    return stops to passes
 }
