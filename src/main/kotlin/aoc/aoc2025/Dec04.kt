@@ -1,7 +1,6 @@
 package aoc.aoc2025
 
 import aoc.ktutils.*
-import kotlin.math.*
 
 fun main() {
     execute1(readTestLines(1)).let { check(it, 13L); println("Test: $it") }
@@ -26,25 +25,22 @@ private fun execute1(input: List<String>): Long {
 
 private fun execute2(input: List<String>): Long {
     val grid = parseCharacterGridToMap(input)
-    val size = mapSize(grid)
     var count = 0L
 
     do {
-        var changed = false
-        for (x in size.first.x..size.second.x) {
-            for (y in size.first.y..size.second.y) {
-                val p = Point(x, y)
-                if (grid[p] == '@') {
-                    val n = p.surrounding().count { grid[it] == '@' }
-                    if (n < 4) {
-                        grid.remove(p)
-                        count++
-                        changed = true
-                    }
+        val size = grid.size
+        val iterator = grid.iterator()
+        while (iterator.hasNext()) {
+            val p = iterator.next()
+            if (p.value == '@') {
+                val n = p.key.surrounding().count { grid[it] == '@' }
+                if (n < 4) {
+                    iterator.remove()
+                    count++
                 }
             }
         }
-    } while (changed)
+    } while (size != grid.size)
 
     return count
 }
