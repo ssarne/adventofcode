@@ -1,6 +1,6 @@
 import sys
 
-lines = list(map(int, open("../resources/aoc2020/dec01.txt", "r").readlines()))
+lines = list(map(int, open("input/aoc2020/dec01.txt", "r").readlines()))
 
 for i in range(0, len(lines)):
     for j in range(i + 1, len(lines)):
