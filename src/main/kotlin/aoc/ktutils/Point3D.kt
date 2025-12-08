@@ -25,6 +25,13 @@ data class Point3D(val x: Long, val y: Long, val z: Long) : Comparable<Point3D> 
         return abs(this.x - that.x) + abs(this.y - that.y) + abs(this.z - that.z)
     }
 
+    fun euclideanDistance(that: Point3D): Double {
+        val dx = abs(this.x - that.x)
+        val dy = abs(this.y - that.y)
+        val dz = abs(this.z - that.z)
+        return Math.sqrt(1.0 * dx * dx + dy * dy + dz * dz)
+    }
+
     override fun toString() = "<$x,$y,$z>"
 
     override fun compareTo(that: Point3D): Int {
