@@ -63,7 +63,7 @@ private fun execute1(input: List<String>): Int {
     return map.values.count { (it == '#') }
 }
 
-fun floodFill(start: Point, map: HashMap<Point, Char>, size: Pair<Point, Point>, token: Char): Boolean {
+private fun floodFill(start: Point, map: HashMap<Point, Char>, size: Pair<Point, Point>, token: Char): Boolean {
     val queue = LinkedList<Point>()
     queue.add(start)
     while (queue.isNotEmpty()) {
