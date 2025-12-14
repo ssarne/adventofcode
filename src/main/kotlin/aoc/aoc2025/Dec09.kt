@@ -23,7 +23,7 @@ private fun execute1(input: List<String>): Long {
     var max = 0L
     for (p1 in grid.keys) {
         for (p2 in grid.keys) {
-            val size = (1L + Math.abs(p2.x - p1.x)) * (1L + Math.abs(p2.y - p1.y))
+            val size = (1L + abs(p2.x - p1.x)) * (1L + abs(p2.y - p1.y))
             if (size > max) max = size
         }
     }
@@ -112,7 +112,7 @@ private fun compressPoints(original: ArrayList<Point>): Pair<ArrayList<Point>, H
 }
 
 private fun fillMap(grid: HashMap<Point, Char>) {
-    
+
     // Fill from sides to mark the outside with '.'
     val size = mapSize(grid)
     for (x in size.first.x..size.second.x) {
