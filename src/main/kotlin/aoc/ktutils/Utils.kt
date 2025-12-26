@@ -5,6 +5,7 @@ import java.io.File
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.MathContext
+import java.security.MessageDigest
 import java.util.*
 
 fun readLines(): List<String> {
@@ -19,6 +20,8 @@ fun readLines(year: String, day: String): List<String> {
     val fileName = getInputFilePath(year, day)
     return File(fileName).readLines(Charsets.UTF_8)
 }
+
+fun testLines(testIndex: Int = 1) = readTestLines(testIndex)
 
 fun readTestLines(testIndex: Int = 0): List<String> {
     val (year, day) = getYearAndDay()

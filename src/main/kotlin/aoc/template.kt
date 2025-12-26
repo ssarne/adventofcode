@@ -4,11 +4,11 @@ import aoc.ktutils.*
 import kotlin.math.*
 
 fun main() {
-    execute1(readTestLines(1)).let { check(it, -1L) ; println("Test: $it") }
-    execute1(readLines()).let { println(it) } // ; check(it, readAnswerAsLong(1)) }
+    execute1(testLines()).let { println("Test:   $it") ; check(it, -1L) }
+    execute1(readLines()).let { println("Result: $it") } // ; check(it, readAnswerAsLong(1)) }
 
-    // execute2(readTestLines(1)).let { check(it, -1L) ; println("Test: $it") }
-    // execute2(readLines()).let { println(it) } // ; check(it, readAnswerAsLong(2)) }
+    // execute2(testLines()).let { println("Test:   $it") ; check(it, -1L) }
+    // execute2(readLines()).let { println("Result: $it") } // ; check(it, readAnswerAsLong(2)) }
 }
 
 private fun execute1(input: List<String>): Long {
