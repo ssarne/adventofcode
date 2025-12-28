@@ -25,13 +25,16 @@ fun testLines(testIndex: Int = 1) = readTestLines(testIndex)
 
 fun readTestLines(testIndex: Int = 0): List<String> {
     val (year, day) = getYearAndDay()
-    val fileName = getInputFilePath(year, day, true, testIndex)
+    if (!InputDownloader.hasExampleFile(year, day, testIndex.toString()))
+        InputDownloader.getExampleFiles(year, day)
+
+    val fileName = getExampleFilePath(year, day, testIndex)
     return File(fileName).readLines(Charsets.UTF_8)
 }
 
 fun hasTestFile(testIndex: Int = 0): Boolean {
     val (year, day) = getYearAndDay()
-    val fileName = getInputFilePath(year, day, true, testIndex)
+    val fileName = getExampleFilePath(year, day, testIndex)
     return File(fileName).exists()
 }
 
@@ -88,7 +91,7 @@ fun readAnswerAsLong(part: Int = 0) = readAnswer(part).toLong()
 
 fun readTestText(testIndex: Int = 0): String {
     val (year, day) = getYearAndDay()
-    val fileName = getInputFilePath(year, day, true, testIndex)
+    val fileName = getExampleFilePath(year, day, testIndex)
     return File(fileName).readText(Charsets.UTF_8)
 }
 
@@ -225,12 +228,14 @@ fun dotty(edges: HashSet<Pair<String, String>>) {
     }
 }
 
-private fun getInputFilePath(year: String, day: String, test: Boolean = false, testIndex: Int = 0): String {
-    val base = if (test) "src/main/resources" else "input"
-    var suffix = if (test) "_test" else ""
-    if (testIndex > 0) suffix += "$testIndex"
-    return "$base/aoc$year/$day$suffix.txt"
+private fun getInputFilePath(year: String, day: String): String {
+    return "input/aoc$year/$day.txt"
 }
+
+private fun getExampleFilePath(year: String, day: String, testIndex: Int = 0): String {
+    return "src/main/resources/aoc$year/${day}_test$testIndex.txt"
+}
+
 
 private data class YearAndDay(var year: String, var day: String)
 
