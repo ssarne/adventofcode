@@ -3,9 +3,9 @@ package aoc.aoc2016
 import aoc.ktutils.*
 
 fun main() {
-    execute(readTestLines(1), Point(7, 4), 1000).let { check(it, 11); println("Test: $it") }
-    execute(readLines(), Point(31, 39), 1000).let { println(it) ; check(it, readAnswerAsInt(1)) }
-    execute(readLines(), null, 50).let { println(it) ; check(it, readAnswerAsInt(2)) }
+    execute(testLines(), Point(7, 4), 1000).let { check(it, 11); println("Test: $it") }
+    execute(readLines(), Point(31, 39), 1000).let { println(it) ; check(it, answerI(1)) }
+    execute(readLines(), null, 50).let { println(it) ; check(it, answerI(2)) }
 }
 
 private fun execute(input: List<String>, target: Point?, steps: Int): Int {

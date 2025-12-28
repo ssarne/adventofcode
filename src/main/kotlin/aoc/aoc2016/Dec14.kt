@@ -5,10 +5,10 @@ import java.security.MessageDigest
 
 fun main() {
     execute1(testLines()).let { println("Test:   $it"); check(it, 22728L) }
-    execute1(readLines()).let { println("Result: $it") ; check(it, readAnswerAsLong(1)) }
+    execute1(readLines()).let { println("Result: $it") ; check(it, answer(1)) }
 
     execute2(testLines()).let { println("Test:   $it") ; check(it, 22551L) }
-    execute2(readLines()).let { println("Result: $it") ; check(it, readAnswerAsLong(2)) }
+    execute2(readLines()).let { println("Result: $it") ; check(it, answer(2)) }
 }
 
 private fun execute1(input: List<String>): Long {

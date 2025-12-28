@@ -3,13 +3,14 @@ package aoc.aoc2016
 import aoc.ktutils.*
 
 fun main() {
-    execute(readTestLines(1)).let {
-        check(it.first, 6) ; println("Test: ${it.first}")
+    execute(testLines()).let {
+        check(it.first, 6)
+        println("Test:   ${it.first}")
     }
 
     val (count, screen) = execute(readLines())
-    check(count, readAnswerAsInt(1))
-    println(count)
+    check(count, answerI(1))
+    println("Result: $count")
     printSparseMatrix(screen)
 }
 

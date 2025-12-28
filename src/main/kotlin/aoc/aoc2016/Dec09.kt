@@ -3,15 +3,15 @@ package aoc.aoc2016
 import aoc.ktutils.*
 
 fun main() {
-    execute1(readTestLines(1)).let { check(it, 57); println("Test: $it") }
-    execute1(readLines()).let { println(it) ; check(it, readAnswerAsInt(1)) }
+    execute1(testLines()).let { println("Test:   $it") ; check(it, 57) }
+    execute1(readLines()).let { println("Result: $it") ; check(it, answerI(1)) }
 
     check (decompress2("(3x3)XYZ"), "XYZXYZXYZ".length.toLong())
     check (decompress2("X(8x2)(3x3)ABCY"), "XABCABCABCABCABCABCY".length.toLong())
     check (decompress2("(27x12)(20x12)(13x14)(7x10)(1x12)A"), 241920L)
     check (decompress2("(25x3)(3x3)ABC(2x3)XY(5x2)PQRSTX(18x9)(3x2)TWO(5x7)SEVEN"), 445L)
 
-    execute2(readLines()).let { println(it) ; check(it, readAnswerAsLong(2)) }
+    execute2(readLines()).let { println("Result: $it") ; check(it, answer(2)) }
 }
 
 private fun execute1(input: List<String>): Int {

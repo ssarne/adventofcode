@@ -1,14 +1,13 @@
 package aoc.aoc2016
 
 import aoc.ktutils.*
-import kotlin.math.*
 
 fun main() {
-    check(execute1(readTestLines(1)), 3)
-    execute1(readLines()).let { println(it) ; check(it, readAnswerAsInt(1)) }
+    execute1(testLines()).let { println("Test:   $it") ; check(it, 3) }
+    execute1(readLines()).let { println("Result: $it") ; check(it, answerI(1)) }
 
-    check(execute2(readTestLines(2)), 3)
-    execute2(readLines()).let { println(it) ; check(it, readAnswerAsInt(2)) }
+    execute2(testLines(2)).let { println("Test:   $it") ; check(it, 3) }
+    execute2(readLines()).let { println("Result: $it") ; check(it, answerI(2)) }
 }
 
 private fun execute1(input: List<String>): Int {

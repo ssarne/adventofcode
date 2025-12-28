@@ -5,11 +5,12 @@ import java.security.MessageDigest
 import kotlin.text.Charsets.UTF_8
 
 fun main() {
-    check(execute1(readTestLines(1).first()), "18f47a30")
-    execute1(readLines().first()).let { println(it) ; check(it, readAnswer(1)) }
 
-    check(execute2(readTestLines(1).first()), "05ace8e3")
-    execute2(readLines().first()).let { println(it) ; check(it, readAnswer(2)) }
+    execute1(testLines().first()).let { println("Test:   $it") ; check(it, "18f47a30") }
+    execute1(readLines().first()).let { println("Result: $it") ; check(it, answerS(1)) }
+
+    execute2(testLines().first()).let { println("Test:   $it") ; check(it, "05ace8e3") }
+    execute2(readLines().first()).let { println("Result: $it") ; check(it, answerS(2)) }
 }
 
 private fun execute1(input: String): String {

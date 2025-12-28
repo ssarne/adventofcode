@@ -3,11 +3,11 @@ package aoc.aoc2016
 import aoc.ktutils.*
 
 fun main() {
-    check(execute1(readTestLines(1)), "easter")
-    execute1(readLines()).let { println(it) ; check(it, readAnswer(1)) }
+    execute1(testLines()).let { println("Test:   $it") ; check(it, "easter") }
+    execute1(readLines()).let { println("Result: $it") ; check(it, answerS(1)) }
 
-    check(execute2(readTestLines(1)), "advent")
-    execute2(readLines()).let { println(it) ; check(it, readAnswer(2)) }
+    execute2(testLines()).let { println("Test:   $it") ; check(it, "advent") }
+    execute2(readLines()).let { println("Result: $it") ; check(it, answerS(2)) }
 }
 
 private fun execute1(input: List<String>): String {

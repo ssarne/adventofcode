@@ -79,6 +79,10 @@ fun readAnswer(part: Int = 0): String {
     return text
 }
 
+fun answer(part: Int = 0) = readAnswer(part).toLong()
+fun answerI(part: Int = 0) = readAnswer(part).toInt()
+fun answerS(part: Int = 0) = readAnswer(part)
+
 fun readAnswerAsInt(part: Int = 0) = readAnswer(part).toInt()
 fun readAnswerAsLong(part: Int = 0) = readAnswer(part).toLong()
 

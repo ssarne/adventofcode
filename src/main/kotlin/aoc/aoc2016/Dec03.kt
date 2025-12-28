@@ -1,13 +1,11 @@
 package aoc.aoc2016
 
-
 import aoc.ktutils.*
 
 fun main() {
-    check(execute1(readTestLines(1)), 1)
-    execute1(readLines()).let { println(it) } // ; check(it, readAnswerAsInt(1)) }
-
-    execute2(readLines()).let { println(it) } // ; check(it, readAnswerAsInt(2)) }
+    execute1(testLines()).let { println("Test:   $it") ; check(it, 1) }
+    execute1(readLines()).let { println("Result: $it") ; check(it, answerI(1)) }
+    execute2(readLines()).let { println("Result: $it") ; check(it, answerI(2)) }
 }
 
 private fun execute1(input: List<String>): Int {

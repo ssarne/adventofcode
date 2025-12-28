@@ -4,15 +4,15 @@ import aoc.ktutils.*
 import java.util.LinkedList
 
 fun main() {
-    execute(readTestLines(1)).let {
+    execute(testLines()).let {
         // check(it.first, 0L)
         check(it.second, 30L)
-        println("Test: ${it}")
+        println("Test:   ${it}")
     }
     execute(readLines()).let {
-        println(it.first)
+        println("Result: ${it.first}")
         check(it.first, readAnswerAsLong(1))
-        println(it.second)
+        println("Result: ${it.second}")
         check(it.second, readAnswerAsLong(2))
     }
 }
