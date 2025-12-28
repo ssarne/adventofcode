@@ -15,12 +15,20 @@ public class InputDownloader {
     return "input/aoc" + year + "/" + day.toLowerCase() + ".txt";
   }
 
+  static String getOutputPath(String year, String day) {
+    return "input/aoc" + year + "/" + day.toLowerCase() + ".out";
+  }
+
   static String getExamplePath(String year, String day, String index) {
     return "src/main/resources/aoc" + year + "/" + day.toLowerCase() + "_test" + index + ".txt";
   }
 
   public static boolean hasInputFile(String year, String day) throws Exception {
     return new File(getInputPath(year, day)).exists();
+  }
+
+  public static boolean hasOutputFile(String year, String day) throws Exception {
+    return new File(getOutputPath(year, day)).exists();
   }
 
   public static boolean hasExampleFile(String year, String day, String index) throws Exception {
@@ -61,6 +69,15 @@ public class InputDownloader {
     FileWriter fw = new FileWriter(getInputPath(year, day));
     fw.write(body);
     fw.close();
+  }
+
+  public static void createOutputFile(String year, String day) throws Exception {
+    File out = new File(getOutputPath(year, day));
+    if (out.exists())
+      return;
+    boolean ok = out.createNewFile();
+    if (!ok)
+      throw new IOException("Failed to create output file '" + out);
   }
 
   public static String getAdventOfCodeURL(URI uri) throws Exception {
