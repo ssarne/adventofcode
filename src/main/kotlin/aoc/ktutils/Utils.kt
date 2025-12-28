@@ -17,6 +17,9 @@ fun readLines(year: String, day: String): List<String> {
     if (!InputDownloader.hasInputFile(year, day))
         InputDownloader.getInputFile(year, day)
 
+    if (!InputDownloader.hasOutputFile(year, day))
+        InputDownloader.createOutputFile(year, day)
+
     val fileName = getInputFilePath(year, day)
     return File(fileName).readLines(Charsets.UTF_8)
 }
