@@ -6,6 +6,12 @@ fun checkForNotNull(actual: Any?, message: String = "") {
     }
 }
 
+fun check(expected: Boolean, message: String = "") {
+    if (!expected) {
+        System.err.println("Failure! $message")
+    }
+}
+
 fun check(actual: Boolean, expected: Boolean, message: String = "") {
     if (actual != expected) {
         System.err.println("Failure: actual=$actual  expected=$expected  $message")

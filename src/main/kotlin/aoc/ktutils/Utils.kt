@@ -14,25 +14,29 @@ fun readLines(): List<String> {
 }
 
 fun readLines(year: String, day: String): List<String> {
-    if (!InputDownloader.hasInputFile(year, day))
+    val fileName = getInputFilePath(year, day)
+    val file = File(fileName)
+
+    if (!InputDownloader.hasInputFile(year, day) || (file.exists() && file.length() == 0L))
         InputDownloader.getInputFile(year, day)
 
     if (!InputDownloader.hasOutputFile(year, day))
         InputDownloader.createOutputFile(year, day)
 
-    val fileName = getInputFilePath(year, day)
-    return File(fileName).readLines(Charsets.UTF_8)
+    return file.readLines(Charsets.UTF_8)
 }
 
 fun testLines(testIndex: Int = 1) = readTestLines(testIndex)
 
 fun readTestLines(testIndex: Int = 0): List<String> {
     val (year, day) = getYearAndDay()
-    if (!InputDownloader.hasExampleFile(year, day, testIndex.toString()))
+    val fileName = getExampleFilePath(year, day, testIndex)
+    val file = File(fileName)
+
+    if (!InputDownloader.hasExampleFile(year, day, testIndex.toString()) || (file.exists() && file.length() == 0L))
         InputDownloader.getExampleFiles(year, day)
 
-    val fileName = getExampleFilePath(year, day, testIndex)
-    return File(fileName).readLines(Charsets.UTF_8)
+    return file.readLines(Charsets.UTF_8)
 }
 
 fun hasTestFile(testIndex: Int = 0): Boolean {
@@ -62,11 +66,13 @@ fun readText(): String {
 }
 
  fun readText(year: String, day: String): String {
-
     val fileName = getInputFilePath(year, day)
-    if (!InputDownloader.hasInputFile(year, day))
+    val file = File(fileName)
+
+    if (!InputDownloader.hasInputFile(year, day) || (file.exists() && file.length() == 0L))
         InputDownloader.getInputFile(year, day)
-    var text = File(fileName).readText(Charsets.UTF_8)
+
+    var text = file.readText(Charsets.UTF_8)
     if (text.endsWith("\n") || text.endsWith("\r")) text = text.substring(0, text.length - 1)
     return text
 }
